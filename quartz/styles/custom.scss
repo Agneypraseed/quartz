@@ -1,3 +1,35 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// Clean, minimal custom styles
+
+// Smooth transitions
+* {
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+// Better blockquotes
+blockquote {
+  border-left: 2px solid var(--secondary);
+  padding-left: 1rem;
+  opacity: 0.85;
+  font-style: italic;
+}
+
+// Subtle link underlines
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+// Code blocks
+pre {
+  border-radius: 6px !important;
+}
+
+// Inline code
+code:not(pre code) {
+  background: var(--highlight);
+  padding: 0.15em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
