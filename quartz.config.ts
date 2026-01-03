@@ -15,7 +15,7 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: null, // Remove or configure: "plausible", "google", "umami"
     locale: "en-US",
-    baseUrl: "quartz.agneysince2000.workers.dev",
+    baseUrl: "quartz-6zw.pages.dev",
     ignorePatterns: ["private", "templates", ".obsidian", ".trash"],
     defaultDateType: "modified",
     theme: {
