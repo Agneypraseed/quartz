@@ -15,7 +15,7 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: null, // Remove or configure: "plausible", "google", "umami"
     locale: "en-US",
-    baseUrl: "localhost", // TODO: Change to your domain when deploying
+    baseUrl: "quartz.agneysince2000.workers.dev",
     ignorePatterns: ["private", "templates", ".obsidian", ".trash"],
     defaultDateType: "modified",
     theme: {
