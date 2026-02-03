@@ -29,7 +29,10 @@ export const defaultContentPageLayout: PageLayout = {
     }),
     Component.ConditionalRender({
       component: Component.ContentMeta(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: (page) => {
+        const slug = page.fileData.slug ?? ""
+        return slug !== "index" && !slug.startsWith("notes/papers")
+      },
     }),
     Component.TagList(),
   ],
