@@ -23,7 +23,7 @@ The paper introduces the **Transformer** architecture — a model based entirely
 
 An encoder receives a list of vectors as input. It processes this list by passing these vectors into a ‘self-attention’ layer, then into a feed-forward neural network, then sends out the output upwards to the next encoder.
 
-**Self attention** 
+## **Self attention** 
 As the model processes each word (each position in the input sequence), self attention allows it to look at other positions in the input sequence for clues that can help lead to a better encoding for this word.
 
 **Calculate self-attention using vectors**
@@ -89,7 +89,7 @@ $$A \in \mathbb{R}^{n_q \times n_k}$$
 
 $$O = AV \in \mathbb{R}^{n_q \times d_v}$$
 
-**Simple Example: Self-Attention for "Hello World" (Pure Python)**
+**Example: Self-Attention for "Hello World"**
 
 ```python
 import math
@@ -105,15 +105,12 @@ Wq = [[0.1, 0.2, 0.3], [0.4, 0.5, 0.6], [0.7, 0.8, 0.9], [0.1, 0.2, 0.3]]
 Wk = [[0.2, 0.3, 0.4], [0.5, 0.6, 0.7], [0.8, 0.9, 0.1], [0.2, 0.3, 0.4]]
 Wv = [[0.3, 0.4, 0.5], [0.6, 0.7, 0.8], [0.9, 0.1, 0.2], [0.3, 0.4, 0.5]]
 
-# Helper: Matrix multiply
 def matmul(A, B):
     return [[sum(a * b for a, b in zip(row, col)) for col in zip(*B)] for row in A]
 
-# Helper: Transpose
 def transpose(M):
     return [list(row) for row in zip(*M)]
 
-# Helper: Softmax (row-wise)
 def softmax(row):
     exp_row = [math.exp(x) for x in row]
     total = sum(exp_row)
@@ -146,9 +143,6 @@ print("Attention weights:", attention_weights)
 output = matmul(attention_weights, V)  # [2x2] @ [2x3] = [2x3]
 print("\nFinal output Z:", output)
 
-# Output shows: each word now has context from both words!
-# Z[0] = weighted combination of V[0] and V[1] for "Hello"
-# Z[1] = weighted combination of V[0] and V[1] for "World"
 ```
 
 **Output:**
@@ -161,10 +155,24 @@ Scores (Q @ K^T): [[1.4, 1.58], [1.04, 1.18]]
 Scaled scores: [[0.808, 0.912], [0.600, 0.681]]
 Attention weights: [[0.474, 0.526], [0.480, 0.520]]
 
-Final output Z: [[1.042, 0.785, 0.985], [1.044, 0.788, 0.988]]
-```
+"Hello"'s new representation is 47% itself + 53% "World"
 
-> Notice how both "Hello" and "World" attend to each other with ~50/50 weights, creating output vectors that blend information from both words!
+Final output Z: [[1.042, 0.785, 0.985], [1.044, 0.788, 0.988]]
+
+Z[0] = [1.042,  0.785,  0.985]
+         ↓        ↓       ↓
+       dim1     dim2    dim3
+       
+Examples of what dimensions MIGHT encode:
+- Noun-ness vs Verb-ness
+- Positive vs Negative sentiment  
+- Concrete vs Abstract
+```
+## **Multi-headed attention**
+
+Expands the model’s ability to focus on different positions.
+
+We have multiple sets of Query/Key/Value weight matrices (the Transformer uses eight attention heads, so we end up with eight sets for each encoder/decoder). Each of these sets is randomly initialized. Then, after training, each set is used to project the input embeddings (or vectors from lower encoders/decoders) into a different representation subspace.
 
 
 
