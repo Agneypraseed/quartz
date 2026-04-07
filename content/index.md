@@ -18,3 +18,4 @@ I'm a developer who loves building things and learning new technologies. This is
 
 - **[Blogs](/blogs)** — Personal writings and reflections
 - **[Notes](/notes)** — Technical notes and learnings
+- **[Curriculum](/curriculum)** — Structured learning roadmap
