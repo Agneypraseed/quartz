@@ -26,7 +26,7 @@ An encoder receives a list of vectors as input. It processes this list by passin
 ## **Self attention** 
 As the model processes each word (each position in the input sequence), self attention allows it to look at other positions in the input sequence for clues that can help lead to a better encoding for this word.
 
-**Calculate self-attention using vectors**
+**Calculating self-attention using vectors**
 
 ***Step 1*** : For each word, we create a Query vector, a Key vector, and a Value vector. These vectors are created by multiplying the embedding by three matrices (Wq, Wk, Wv) that we trained during the training process.
 
@@ -36,6 +36,7 @@ As the model processes each word (each position in the input sequence), self att
 These new vectors are smaller in dimension than the embedding vector. Their dimensionality is 64, while the embedding and encoder input/output vectors have dimensionality of 512.
 
 ***Step 2*** : To calculate a score. The score determines how much focus to place on other parts of the input sentence as we encode a word at a certain position. 
+
 The score is calculated by taking the dot product of the query vector with the key vector of the respective word we’re scoring. So if we’re processing the self-attention for the word in position #1, the first score would be the dot product of q1 and k1. The second score would be the dot product of q1 and k2.
 
 ***Step 3*** : Divide the scores by the square root of the dimension of the key vectors used (√dₖ). This leads to having more stable gradients.
