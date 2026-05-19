@@ -73,7 +73,7 @@ Monitoring Strategies:
     - **Data Protection:** Ensures that no erroneous, corrupted, or incomplete data is accidentally transferred into the live Data Warehouse.
 
 Extract, Transform, Load :
-	Extraction : It simply securely transfers raw data from the origin (Source Systems) to the destination (Staging Area).
+	Extraction: It simply securely transfers raw data from the origin (Source Systems) to the destination (Staging Area).
 		The extraction component isn't intelligent on its own; it takes its orders from the Data Warehouse Manager and relies on the **Monitoring Strategy**
 			- _Periodic:_ Scheduled batch runs (e.g., nightly).
 			- _On query:_ Manual, on-demand extraction requests.
@@ -81,13 +81,29 @@ Extract, Transform, Load :
 			- _Immediate:_ Real-time extraction the moment data changes in the source.
 		Technical Implementation :
 		Because the source systems are highly heterogeneous (different brands, different structures), you don't want to write custom extraction code for every single database. Instead, the component uses standard, universal protocols like **ODBC** (Open Database Connectivity) or JDBC.
+		Type of Data :
+			**Snapshots (The Whole Picture):** The source just hands over its entire current database. If you have 10,000 products, it gives you a list of all 10,000, even if only 2 changed prices.
+			**Logs:** The source system provides its internal transaction log file. This shows _every single action_ that happened.
+			**Net Logs :** The source system calculates the net difference (the delta) and just hands that over. (e.g., "The price started at $4 today and ended at $7. Here is the net update.").
 	Transformation: Modifying and cleaning raw data in the staging area before it enters the warehouse.
 		Standardizing data types, dates, measurement units, and text encodings across all integrated data.
 		Actively fixing or deleting incorrect values, missing values (NULLs), exact redundancies, and obsolete information.
-		**Data Scrubbing:** * Uses _domain-specific knowledge_ (business rules) to intelligently detect impurities.    
-	    - Used for complex redundancy detection and enforcing logical constraints (e.g., "Age must be > 0").
-	- **Data Auditing:**
-	    - Uses _data mining methods_ on the dataset as a whole to uncover hidden patterns.
-	    - Focuses on the detection of statistical deviations and anomalies (flagging outliers that might indicate bad data).
+		**Data Scrubbing:**  Uses _domain-specific knowledge_ (business rules) to intelligently detect impurities. (e.g., "Age must be > 0").
+		- **Data Auditing:** Uses _data mining methods_ on the dataset as a whole to uncover hidden patterns. Focuses on the detection of statistical deviations and anomalies (flagging outliers that might indicate bad data).
+	Loading:  
+		Transfer the newly cleaned and processed data out of the temporary staging area and into the Data Warehouse.
+		Bulk Loading : The loading component uses specialized, high-speed tools (like Oracle's `SQL*Loader`) to inject massive blocks of data into the warehouse simultaneously.
+		
 
+Moving massive amounts of data can lock up databases so users can't query them. The ETL process must be incredibly efficient to keep these "down times" as short as possible.
+Main problem with ETL is semantics ("fuzzy" or unknown meaning)
+
+The Base Database acts as a purely **integrated database**. It holds all the freshly cleaned data from the staging area in its most detailed, granular form. It feeds the smaller, downstream Data Warehouses/Marts with this clean data, often summarizing (aggregating) it specifically for whatever that downstream system needs during the transfer. Building a massive ODS _and_ separate Data Warehouses is incredibly expensive and time-consuming. Many modern companies skip the dedicated Base Database entirely.
+
+_Multidimensional Data Models:_ Instead of storing data in highly normalized, fragmented tables (which requires slow "joins" to read), it stores data in "multidimensional" structures (often visualized as OLAP cubes)
+
+Data Mart
 A Data Mart is a focused subset of a Data Warehouse designed to serve a specific department, team, or business line (e.g., a Sales Data Mart, a Finance Data Mart, or an HR Data Mart).
+
+
+
