@@ -106,4 +106,31 @@ Data Mart
 A Data Mart is a focused subset of a Data Warehouse designed to serve a specific department, team, or business line (e.g., a Sales Data Mart, a Finance Data Mart, or an HR Data Mart).
 
 
+Multidimensional Data Model
 
+A way of structuring data that mirrors how business managers think about their data, as a set of metrics (facts) analyzed across different perspectives (dimensions).
+
+- **Qualifying Information:** Provides the **descriptive context** or the "perspectives" of the business. It answers qualitative questions such as _who, what, where, when, and why_. Forms the **edges and axes** of the data cube. It defines the coordinates of the multi-dimensional space. Example : `Product_Category = 'Electronics'`, `Region = 'Hesse'`. 
+- **Quantifying Information:** Provides the **numeric metrics** or the subjects of evaluation. It answers quantitative questions such as _how much, how many, or how long_. Populates the individual **cells** inside the data cube. Example : `Revenue = 45000.00`, `Units_Sold = 150`
+
+One way to tell the difference is to ask: **"Does it make sense to add these numbers together?"**
+- **Quantifying Data (Unit Sales):** If you sold 50 policies in Region A and 100 policies in Region B, you can add them together ($50 + 100 = 150$). That math makes total sense. Therefore, Unit Sales is **quantifying**.
+- **Qualifying Data (Year):** If you take the year 2018 and add it to the year 2019 ($2018 + 2019 = 4037$), that number is completely meaningless nonsense. Because you cannot mathematically aggregate years, the year is a **qualifying category attribute**.
+
+Basic concepts of the multidimensional data model:
+- Dimensions : The structural **edges or coordinate axes** of the multidimensional data space. To ensure clean "slicing and dicing," dimensions must be strictly **orthogonal** (completely independent of one another).
+
+**Orthogonality** is defined as the absolute functional and logical independence of all dimensions. A schema satisfies the rule of orthogonality if there are **no functional dependencies between attributes of different dimensions**
+
+Once the data cube is built, we need operations to navigate through the data space. These are standard **OLAP (Online Analytical Processing) operations**. They allow a user to dynamically change their view of the data without rewriting complex backend SQL queries.
+- Pivot (Rotate) : **Rotates the data axes** to view the data from a different geometric perspective. 
+- **Roll-Up (Aggregation):** This moves **up** the hierarchy to a coarser, less detailed level. It combines (aggregates) data cells together.
+    - _Example:_ Changing your report view from tracking sales by individual `Cities` to tracking total sales by `Countries`.
+- **Drill-Down (De-aggregation):** This moves **down** the hierarchy to a finer, more granular level. It breaks a big summary number apart into its individual sub-components.
+    - _Example:_ Clicking on the year `2026` to expand it and reveal individual sales metrics for `Q1`, `Q2`, `Q3`, and `Q4`.
+- **Slice:** This takes a **single coordinate** on one dimension and cuts out a flat, 2-dimensional sub-table. The result is always a flat 2D plane.
+    - _Example:_ Filtering the entire cube to look _only_ at data where $\text{Time} = \text{'2026'}$. You are left with a flat "slice" of all products across all regions for just that year.
+- **Dice:** This selects a **sub-cube** by filtering multiple dimensions simultaneously using specific ranges or sets. The result maintains its multi-dimensional coordinate depth, carving out a mini-cube.
+    - _Example:_ Filtering the cube to look at $(\text{Time} \in \{\text{'2025'}, \text{'2026'}\}) \text{ AND } (\text{Location} = \text{'Germany'}) \text{ AND } (\text{Product} = \text{'Smartphones'})$. You have extracted a smaller mini-cube out of the giant main cube.
+- Drill-Across (Cross-Cube Navigation) : This operation allows you to **link multiple independent data cubes** together, provided they share at least one common dimension at the exact same granularity.
+	- _Example_ : If you have a `Sales Cube` and a separate `Inventory Cube`, and both share an identical `Product` dimension, you can drill-across from your sales report to immediately check current warehouse stock levels for those exact same items.
