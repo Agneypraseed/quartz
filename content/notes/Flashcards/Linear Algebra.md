@@ -77,11 +77,32 @@ Intuition
 ![[Pasted image 20260514223256.png]]
 
 ---
-A Half-Space is Convex
+### Half-spaces
+
+A **half-space** is one side of a hyperplane in an n-dimensional space.
+
+Formally, a (closed) half-space is:
+
+$H = {x \in \mathbb{R}^n \mid a^\top x \le b}$
+
+where:
+
+- $a \in \mathbb{R}^n$, $a \ne 0$
+- $b \in \mathbb{R}$
+
+The hyperplane boundary is:
+
+$a^\top x = b$
+
+There is also the open half-space:
+
+${x \mid a^\top x < b}$
+
+Half-spaces are always **convex sets**.
 
 A half-space is defined as:
 
-$$H^+ = {\mathbf{x} \in \mathbb{R}^n \mid \mathbf{w} \cdot \mathbf{x} \geq b}$$
+$$H^+ = {\mathbf{x} \in \mathbb{R}^n \mid \mathbf{w} \cdot \mathbf{x} \geq b}$$ ($H^+$ = Positive class region)
 
 (The argument works identically for $H^- = {\mathbf{x} \mid \mathbf{w} \cdot \mathbf{x} \leq b}$.)
 
@@ -109,6 +130,8 @@ $$f(\lambda \mathbf{x} + (1-\lambda)\mathbf{y}) = \lambda f(\mathbf{x}) + (1-\la
 A half-space is just the **sublevel (or superlevel) set of a linear function** and sublevel sets of linear (and more generally, convex) functions are always convex.
 If two points satisfy a linear inequality, every convex combination also satisfies it
 
+Any **convex polyhedron** = intersection of finitely many half-spaces
+
 ---
 
 A hyperplane $\mathbf{w} \cdot \mathbf{x} = b$ can be written as:
@@ -120,3 +143,11 @@ Since both half-spaces are convex, and the **intersection of convex sets is alwa
 > **General rule:** The intersection of any collection of convex sets is convex.
 
 This is a powerful fact — it means any region defined by a finite number of linear inequalities (a **polyhedron**) is convex, since it is an intersection of half-spaces.
+
+---
+Convex Hull
+The convex hull is the smallest convex shape that encloses all points.
+		![[Pasted image 20260523180103.png]]
+
+A convex polyhedron is mathematically defined as the intersection of a finite number of half-spaces.
+

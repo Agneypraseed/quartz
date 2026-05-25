@@ -243,7 +243,7 @@ The Weight Vector Lies in the Positive Half-Space
 		
 			$w^T w > 0$
 
-So the weight vector lies inside the positive half-space defined by the hyperplane.
+So the weight vector (w) lies inside the positive half-space defined by the hyperplane.
 The vector $w$:
 - points toward the positive region
 - acts as the normal vector to the hyperplane
@@ -336,11 +336,407 @@ Each training example defines a convex half-space constraint on $w$, and learnin
 > Perceptron learning is iterative navigation through intersections of convex half-spaces in parameter space, **not** data space.
 
 ---
+Why the Perceptron Update Direction is $x$?
+
+Consider the linear objective:
+
+$f(w) = w^T x$
+
+where:
+- $x$ is fixed
+- $w$ is the variable being optimized
+
+We want to determine:
+
+> In which direction should we move $w$ to increase $f(w)$ as quickly as possible?
+
+The answer is given by the gradient.
+
+Taking the gradient with respect to $w$:
+
+$\nabla_w (w^T x) = x$
+
+So:
+> the direction of steepest increase is exactly the vector $x$
+
+$\Delta w \propto x$
+
+If the update is constrained to unit length:
+
+$\|\Delta w\| = 1$
+
+then the optimal direction becomes:
+
+$\Delta w = \frac{x}{\|x\|}$
+
+which is the normalized version of $x$.
+
+The objective change after a small step $\Delta w$ is:
+
+$(w + \Delta w)^T x - w^T x = \Delta w^T x$
+
+So maximizing improvement means maximizing:
+
+$\Delta w^T x$
+
+Cauchy–Schwarz Inequality
+
+We use:
+
+$|\Delta w^T x| \le \|\Delta w\| \|x\|$
+
+If $\|\Delta w\| = 1$, then:
+
+$\Delta w^T x \le \|x\|$
+
+The maximum possible increase is therefore:
+
+$\|x\|$
+
+Equality in Cauchy–Schwarz occurs only when the vectors are collinear:
+
+$\Delta w = \lambda x$
+
+Under the unit norm constraint:
+
+$\Delta w = \frac{x}{\|x\|}$
+
+The perceptron update:
+
+$w \leftarrow w + y_t x_t$
+
+uses:
+- $x_t$ as the optimal correction direction
+- $y_t$ to determine whether to move toward or away from the point
+
+Thus:
+- positive examples pull $w$ toward themselves
+- negative examples push $w$ away
+
+> The perceptron update follows the direction that maximally increases the classification score for the current example.
+
+Lagrange Multipliers: Optimal Update Direction
+
+We want to maximize the directional improvement of the objective:
+
+$\max_{\Delta w} \; \Delta w^T x \quad \text{s.t. } \Delta w^T \Delta w = 1$
+
+- Objective: maximize $\Delta w^T x$
+- Constraint: unit-length update  
+  $\|\Delta w\|^2 = \Delta w^T \Delta w = 1$
+
+$L(\Delta w, \lambda) = \Delta w^T x - \lambda(\Delta w^T \Delta w - 1)$
+
+The Lagrangian says:
+
+> “Maximize the objective, BUT punish solutions that break the constraint.”
+
+Differentiate with respect to $\Delta w$:
+
+$\nabla_{\Delta w} L = x - 2\lambda \Delta w = 0$
+
+$x = 2\lambda \Delta w$
+
+$\Delta w = \frac{1}{2\lambda} x$
+
+Apply unit norm constraint:
+
+$\|\Delta w\| = 1$
+
+Substitute $\Delta w$:
+
+$\left\|\frac{1}{2\lambda} x \right\| = 1$
+
+So:
+
+$\frac{1}{2\lambda} \|x\| = 1$
+
+$\frac{\|x\|}{2\lambda} = 1$
+
+$2\lambda = \|x\|$
+
+$\lambda = \frac{\|x\|}{2}$
+
+Substitute back into $\Delta w$:
+
+$\Delta w = \frac{1}{2\lambda} x = \frac{1}{\|x\|} x$
+
+---
+
 If the data is linearly separable:
 - PLA is guaranteed to converge
 - It will find a valid $w$ in a finite number of steps
 This result is known as the **Perceptron Convergence Theorem**.
 
-> Even though the hypothesis space is infinite, PLA finds a correct solution using only simple local updates based on misclassified points.
+### Perceptron Convergence Theorem : 
+
+We are given a dataset $(x_i, y_i)$ where:
+- $x_i \in \mathbb{R}^d$
+- $y_i \in \{-1, +1\}$
+
+We assume **linear separability**, meaning:
+
+> There exists a vector $w^*$ such that:
+
+$y_i (w^{*T} x_i) > 0 \quad \forall i$
+
+Define:
+
+- $R = \max_i \|x_i\|$
+- $\gamma = \min_i y_i (w^{*T} x_i)$ (after normalizing $w^*$ so $\|w^*\| = 1$)
+
+So:
+- $R$ = maximum data norm (The largest length (magnitude) among all training points)
+- $\gamma$ = geometric margin (minimum confidence)
+
+At each mistake on $(x_t, y_t)$:
+
+$w_{t+1} = w_t + y_t x_t$
+
+Initialize:
+
+$w_0 = 0$
+
+We prove two inequalities:
+(A) Progress toward optimal direction
+(B) Growth of norm is controlled
+Combining them gives the mistake bound.
+
+Step 1 - Consider **dot product** with $w^*$ (alignment with true solution):
+
+$w_{t+1}^T w^* = (w_t + y_t x_t)^T w^*$
+
+$w_t^T w^* + y_t x_t^T w^*$
+
+So each mistake increases projection by:
+
+$y_t (w^{*T} x_t)$
+
+By separability:
+
+$y_t (w^{*T} x_t) \ge \gamma$
+
+So:
+
+$w_{t+1}^T w^* \ge w_t^T w^* + \gamma$
+
+So every mistake pushes $w_{t}$​ **closer in direction to $w^*$.
+
+After $M$ mistakes:
+
+$w_M^T w^* \ge M \gamma$
+
+Step 2 - Bound growth of $\|w\|$
+
+Compute norm growth:
+
+$\|w_{t+1}\|^2 = \|w_t + y_t x_t\|^2$ = $\|w_t\|^2 + 2 y_t w_t^T x_t + \|x_t\|^2$
+
+Updates happen only on mistakes, for a mistake:
+
+$y_t w_t^T x_t \le 0$
+
+So:
+
+$\|w_{t+1}\|^2 \le \|w_t\|^2 + \|x_t\|^2$
+
+Using $\|x_t\| \le R$:
+
+$\|w_{t+1}\|^2 \le \|w_t\|^2 + R^2$
+
+After $M$ mistakes:
+
+$\|w_M\|^2 \le M R^2$
+
+From Cauchy–Schwarz:
+
+$w_M^T w^* \le \|w_M\| \|w^*\|$
+
+Assume $\|w^*\| = 1$:
+
+$w_M^T w^* \le \|w_M\|$
+
+Using bounds:
+
+$M \gamma \le \|w_M\| \le \sqrt{M} R$
+
+So:
+
+$M \gamma \le \sqrt{M} R$
+
+$\sqrt{M} \gamma \le R$
+
+$M \le \frac{R^2}{\gamma^2}$
 
 
+> The number of perceptron mistakes is bounded by:
+> $M \le \frac{R^2}{\gamma^2}$
+
+Each update:
+- increases alignment with $w^*$ by at least $\gamma$
+- increases weight norm only by at most $R^2$
+
+So:
+> alignment grows faster than destructive “noise” in magnitude
+
+This forces convergence.
+
+- Larger margin $\gamma$ → faster convergence
+- Larger data norm $R$ → slower convergence
+- Well-separated data → very few updates
+
+If the data is linearly separable with margin $\gamma$, the perceptron makes at most $\frac{R^2}{\gamma^2}$ mistakes before converging.
+
+> Even though the hypothesis space is infinite, PLA finds a correct solution using only simple local updates based on misclassified points. So convergence is guaranteed in finite steps.
+
+The perceptron converges because its updates increase alignment with the true separator linearly while controlling norm growth sublinearly, forcing a finite bound on mistakes.
+
+
+
+---
+Learning from Data vs Design from Specifications
+
+A classic example illustrating the difference between **learning from data** and **design from specifications** is coin recognition in vending machines.
+
+The goal is to classify:
+- pennies
+- nickels
+- dimes
+- quarters
+
+using:
+- coin size
+- coin mass
+
+So each coin is represented as a 2D input vector:
+
+$x = (\text{size}, \text{mass})$
+
+In the learning approach:
+
+- we collect example coins from each denomination
+- each example becomes a labeled training point
+- input → size and mass
+- output → coin denomination
+
+Coins of the same type form clusters in feature space.
+
+The learning algorithm:
+- observes the training data
+- searches for a hypothesis $g$
+- learns decision boundaries separating the coin classes
+
+A new coin is classified by:
+1. measuring size and mass
+2. feeding the measurement into the learned classifier
+
+In feature space:
+- each denomination forms a cluster
+- the classifier partitions the space into regions
+
+The boundaries are inferred directly from data.
+
+In the design approach:
+- we use prior knowledge instead of training data
+- obtain official specifications from the U.S. Mint
+- model:
+  - expected coin size
+  - expected mass
+  - measurement noise
+  - wear-and-tear variations
+  - relative frequency of each coin
+
+Using this information, we construct a joint probability distribution
+over:
+- size
+- mass
+- denomination
+
+Once the probability model is known, we analytically derive the optimal classifier.
+
+For a given measurement $(x)$:
+
+choose the denomination with the highest probability:
+
+$\arg\max_y P(y \mid x)$
+
+This minimizes classification error probability.
+
+In the design approach:
+- the problem is fully specified
+- we derive the solution mathematically
+- _Example_ : Classifying numbers into primes and non-primes, Determining the time it would take a falling object to hit the ground
+
+In the learning approach:
+- the target function is unknown
+- data is needed to approximate it empirically
+- _Example_ : Detecting potential fraud in credit card charges, Determining the age at which a particular medical test should be performed
+---
+
+### Types of Learning
+
+Learning from data aims to infer an underlying process from observations. Because real-world settings vary widely, different **learning paradigms** have been developed.
+
+Supervised Learning
+In supervised learning, each training example includes both:
+- input $x$
+- correct output $y$
+
+So the dataset has the form:
+
+$(x_i, y_i)$
+
+The learning algorithm uses these labeled examples to approximate the unknown function:
+
+$f: \mathcal{X} \rightarrow \mathcal{Y}$
+
+Example: Handwritten Digit Recognition
+
+Each training sample consists of:
+- input: image of a digit
+- output: label in $\{0,1,2,3,4,5,6,7,8,9\}$
+
+So the dataset is:
+
+$(\text{image}, \text{digit})$
+
+The model learns to map images → digit labels.
+
+
+**Active Learning**
+In active learning:
+- the algorithm selects inputs $x$
+- a supervisor provides the corresponding output $y$
+So instead of passively receiving data, the model **chooses what to learn from**.
+
+The learner can ask strategic questions:
+
+> “Which example would be most informative?”
+
+This is similar to a game of 20 questions.
+
+- reduces number of labeled examples needed
+- focuses learning on informative regions of the input space
+
+**Online Learning**
+
+In online learning:
+- data arrives sequentially
+- the algorithm updates after each example
+
+Instead of seeing a full dataset, the learner processes a stream:
+
+$(x_1, y_1), (x_2, y_2), \dots$
+
+The model must:
+- learn continuously
+- update in real time
+
+Use Cases
+
+- streaming recommendation systems
+- real-time user feedback (e.g., clicks, ratings)
+- systems with memory or compute constraints
+- no full dataset is required
+
+---
