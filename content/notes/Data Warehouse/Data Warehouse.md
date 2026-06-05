@@ -105,7 +105,6 @@ _Multidimensional Data Models:_ Instead of storing data in highly normalized, fr
 Data Mart
 A Data Mart is a focused subset of a Data Warehouse designed to serve a specific department, team, or business line (e.g., a Sales Data Mart, a Finance Data Mart, or an HR Data Mart).
 
-
 Multidimensional Data Model
 
 A way of structuring data that mirrors how business managers think about their data, as a set of metrics (facts) analyzed across different perspectives (dimensions).
@@ -134,3 +133,19 @@ Once the data cube is built, we need operations to navigate through the data spa
     - _Example:_ Filtering the cube to look at $(\text{Time} \in \{\text{'2025'}, \text{'2026'}\}) \text{ AND } (\text{Location} = \text{'Germany'}) \text{ AND } (\text{Product} = \text{'Smartphones'})$. You have extracted a smaller mini-cube out of the giant main cube.
 - Drill-Across (Cross-Cube Navigation) : This operation allows you to **link multiple independent data cubes** together, provided they share at least one common dimension at the exact same granularity.
 	- _Example_ : If you have a `Sales Cube` and a separate `Inventory Cube`, and both share an identical `Product` dimension, you can drill-across from your sales report to immediately check current warehouse stock levels for those exact same items.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

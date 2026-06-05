@@ -111,3 +111,15 @@ A neural network progressively partitions space into regions and learns increasi
 
 ![[Pasted image 20260524165247.png]]
 
+---
+Most standard feedforward neural networks are **acyclic** directed graphs:
+
+- Information flows in one direction only:  
+    input → hidden layers → output
+- There are no feedback loops.
+- Examples:
+    - Multilayer Perceptrons (MLPs)
+    - Convolutional Neural Networks (CNNs)
+    - Transformers (during a single forward pass)
+
+These are typically represented as a **Directed Acyclic Graph (DAG)**.
