@@ -179,7 +179,7 @@ At any candidate local minimum $\bar{x}$, the constraint set $J$ is partitioned 
 - **Inactive Constraints:** Constraints where $g_j(\bar{x}) > 0$. The candidate point lies strictly in the interior of the feasible region with respect to these boundaries.
 
 - **Regularity Condition (LICQ):** We assume the Linear Independence Constraint Qualification holds; specifically, the gradients of all active constraints, $\{ Dg_j(\bar{x}) \mid j \in J_0(\bar{x}) \}$, are linearly independent.
-	- The **Linear Independence Constraint Qualification (LICQ)** is a regularity condition in nonlinear optimization. At a feasible point x∗ for a problem with equality constraints h(x)=0 and inequality constraints g(x)≤0, **LICQ holds if the set of gradients of all equality constraints and of all active inequality constraints is linearly independent**.
+	- The **Linear Independence Constraint Qualification (LICQ)** is a regularity condition in nonlinear optimization. At a feasible point x∗ for a problem with equality constraints h(x)=0 and inequality constraints $g_j(x) \ge 0$, **LICQ holds if the set of gradients of all equality constraints and of all active inequality constraints is linearly independent**.
 	- When LICQ holds at a local minimizer, KKT multipliers exist and are unique.
 
 The **Stationarity Condition** : At a local minimum $\bar{x}$, the gradient of the objective function must be equal to a linear combination of the gradients of the **active** constraints:
@@ -206,3 +206,13 @@ $$Df(\bar{x}) = \sum_{j \in J} \mu_j \cdot Dg_j(\bar{x})$$
 An active inequality constraint is simply a temporary equality constraint that only works in one direction.
 
 If your algorithm's objective function gradient is trying to drag you into the wall, the wall pushes back (μ>0). But if your algorithm decides to turn around and walk back into the grass, the wall instantly stops affecting you, the constraint becomes inactive, and its multiplier drops to zero (μ=0).
+
+---
+Convexity
+if an optimization problem is convex, it becomes significantly easier to solve because you are mathematically guaranteed that any local minimum you find is also the absolute global minimum.
+
+To prove an optimization problem is convex, you must prove two things:
+
+1. The feasible region is a **Convex Set**.
+2. The objective function is a **Convex Function**.
+

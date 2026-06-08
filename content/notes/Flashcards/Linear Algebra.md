@@ -121,15 +121,58 @@ Formally, $C$ is convex if:
 
 $$\forall, \mathbf{x}, \mathbf{y} \in C, \quad \forall, \lambda \in [0, 1]: \quad \lambda \mathbf{x} + (1 - \lambda)\mathbf{y} \in C$$
 
-The expression $\lambda \mathbf{x} + (1 - \lambda)\mathbf{y}$ is called a **convex combination** of $\mathbf{x}$ and $\mathbf{y}$. As $\lambda$ varies from $0$ to $1$, it traces the straight line segment from $\mathbf{y}$ to $\mathbf{x}$.
+The expression $\lambda \mathbf{x} + (1 - \lambda)\mathbf{y}$ is called a **convex combination** of $\mathbf{x}$ and $\mathbf{y}$. As $\lambda$ varies from $0$ to $1$, it traces the straight line segment from $\mathbf{y}$ to $\mathbf{x}$. The formula $\lambda x + (1-\lambda)y$  is just the algebraic way to write "a straight line segment between $x$ and $y$
 
 Intuition
 
 > A set is convex if you can "see" every point from every other point without leaving the set — no dents, holes, or concavities.
 
+The function $f$ is convex if and only if the line segment connecting any two points on its graph lies above or on the graph itself. 
+A function is convex if it is shaped like a right-side-up bowl : if you pick two points on the curve and draw a straight line (a secant line) between them, the actual curve of the function must sag **below** (or equal to) that straight line.
+
+Jensen's Inequality base :  
+Let $f: M \to \mathbb{R}$ where the domain $M$ is a convex set, For any $x, y \in M$ and any $\lambda \in [0, 1]$:
+
+$$f(\lambda x + (1-\lambda)y) \le \lambda f(x) + (1-\lambda)f(y)$$
+
+![[Pasted image 20260607195546.png]]
+
+Non convex : 
+![[Pasted image 20260607184341.png]]
+
+
 ![[Pasted image 20260514223256.png]]
 
+
+
+
 ---
+>Linear functions are both convex and concave
+
+**Linearity** ⇒ Both Convex and Concave  
+  
+Consider the affine function:  
+  
+$f(x) = c^T x + b$  
+  
+A function is convex if for all $x, y$ and $\theta \in [0,1]$:  
+  
+$f(\theta x + (1-\theta)y) \le \theta f(x) + (1-\theta)f(y)$  
+ 
+LHS : $f(\theta x + (1-\theta)y)$   $= c^T(\theta x + (1-\theta)y) + b$   $=  \theta c^T x + (1-\theta)c^T y + b$  
+    
+RHS : $\theta f(x) + (1-\theta)f(y)$   $= \theta (c^T x + b) + (1-\theta)(c^T y + b)$ $= \theta c^T x + (1-\theta)c^T y + \theta b + (1-\theta)b$  $= \theta c^T x + (1-\theta)c^T y + b$  
+  
+$f(\theta x + (1-\theta)y) = \theta f(x) + (1-\theta)f(y)$  
+  
+The function is:  
+  
+- convex  
+- concave
+
+linear/affine functions commute with convex combinations, so they induce zero curvature and generate convex (and concave) structure simultaneously.
+
+----
 ### Half-spaces
 
 A **half-space** is one side of a hyperplane in an n-dimensional space.
@@ -139,7 +182,6 @@ Formally, a (closed) half-space is:
 $H = {x \in \mathbb{R}^n \mid a^\top x \le b}$
 
 where:
-
 - $a \in \mathbb{R}^n$, $a \ne 0$
 - $b \in \mathbb{R}$
 
@@ -147,11 +189,15 @@ The hyperplane boundary is:
 
 $a^\top x = b$
 
+- it has a **flat boundary (hyperplane)**
+- it does not curve inward or outward
+- it splits space into exactly two parts
+
 There is also the open half-space:
 
 ${x \mid a^\top x < b}$
 
-Half-spaces are always **convex sets**.
+> Half-spaces are always **convex sets**.
 
 A half-space is defined as:
 
@@ -193,21 +239,42 @@ $${\mathbf{x} \mid \mathbf{w} \cdot \mathbf{x} \geq b} \cap {\mathbf{x} \mid \ma
 
 Since both half-spaces are convex, and the **intersection of convex sets is always convex**, a hyperplane is also convex.
 
-> **General rule:** The intersection of any collection of convex sets is convex.
+> The intersection of any collection of convex sets is convex.
 
-This is a powerful fact — it means any region defined by a finite number of linear inequalities (a **polyhedron**) is convex, since it is an intersection of half-spaces.
+ Any region defined by a finite number of linear inequalities (a **polyhedron**) is convex, since it is an intersection of half-spaces.
+
+> Any convex set can be written as the intersection of (possibly infinitely many) half-spaces.
+
+A fundamental structural result in convex geometry states:
+
+$C = \bigcap_{\alpha \in A} \{ x : a_\alpha^T x \le b_\alpha \}$
+
+Each constraint: $a_\alpha^T x \le b_\alpha$ defines a **half-space**, i.e. one side of a hyperplane.
+
+(a) Polyhedron (finite case)
+
+If $A$ is finite:
+
+$C = \{ x : Ax \le b \}$
+
+This is a polyhedron. A convex polyhedron is mathematically defined as the intersection of a finite number of half-spaces.
+
+(b) Euclidean ball (infinite case)
+
+A ball: $\|x\|_2 \le r$  intersection of all tangent half-spaces.
+
+> Convex sets are exactly those regions that can be described entirely by linear inequalities.
+
 
 ---
 Convex Hull
 The convex hull is the smallest convex shape that encloses all points.
 		![[Pasted image 20260523180103.png]]
 
-A convex polyhedron is mathematically defined as the intersection of a finite number of half-spaces.
-
 ---
 
-Here is a detailed breakdown of the concepts covered in each page of your neural network and learning theory notes.
 
+----
 ### **Page 1: Historical Timeline and Core Topics**
 
 The first page outlines the historical progression of neural networks and learning theory, alongside the main topics covered in the notes.
