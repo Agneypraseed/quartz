@@ -209,10 +209,145 @@ If your algorithm's objective function gradient is trying to drag you into the w
 
 ---
 Convexity
-if an optimization problem is convex, it becomes significantly easier to solve because you are mathematically guaranteed that any local minimum you find is also the absolute global minimum.
+If an optimization problem is convex, it is mathematically guaranteed that any local minimum is also the absolute global minimum.
 
 To prove an optimization problem is convex, you must prove two things:
 
 1. The feasible region is a **Convex Set**.
 2. The objective function is a **Convex Function**.
 
+**Theorem:** Let $M \in \mathbb{R}^n$ be a convex set, and $f: M \to \mathbb{R}$ be a convex function. Then, every local minimum of $f$ on $M$ is strictly also a global minimum.
+
+Formal Proof (By Contradiction)
+
+Suppose $x \in M$ is a local minimum of $f$. By definition, there exists a local neighborhood (a ball $U$) around $x$ such that for all points inside that neighborhood, $x$ is the lowest point:
+$$\forall y \in U \cap M, \quad f(y) \ge f(x)$$
+Suppose for the sake of contradiction that $x$ is _not_ the global minimum. This means there must exist some other point $z \in M$ that is strictly lower:
+$$f(z) < f(x)$$
+Because $M$ is a convex set, the line connecting $x$ and $z$ lies entirely within $M$. Let us pick a point $y$ on this line that is close enough to $x$ that it falls inside our local neighborhood $U$:
+
+![[Pasted image 20260609222247.png]]
+
+$$y = \lambda x + (1-\lambda)z \in U \quad \text{for some } \lambda \in (0, 1) \text{ near } 1$$
+
+Because $f$ is a convex function, we apply Jensen's inequality to our point $y$:
+
+$$f(y) = f(\lambda x + (1-\lambda)z) \le \lambda f(x) + (1-\lambda)f(z)$$
+
+Because our assumption in Step 2 stated that $f(z) < f(x)$, we can replace $f(z)$ with $f(x)$ to make the right side of the equation strictly larger:
+
+$$f(y) < \lambda f(x) + (1-\lambda)f(x)$$
+$$f(y) < (\lambda + 1 - \lambda) f(x)$$
+$$f(y) < f(x)$$
+We have just proven that $f(y) < f(x)$ for a point $y$ inside the neighborhood $U$. However, this fundamentally contradicts our starting definition that $x$ is the local minimum of $U$. Because this contradiction exists, our assumption that a lower point $z$ exists must be false. Thus, the local minimum $x$ must be the global minimum.
+
+**The First-Order Characterization:** A differentiable function is convex if and only if  
+its graph lies strictly on or above all of its tangent hyperplanes.
+
+`f(x) ≥ f(x₀) + f'(x₀)(x - x₀)`  
+
+![[Pasted image 20260610104155.png]]
+
+For non-convex functions, $Df(x) = \mathbf{0}$ is merely a _necessary_ condition for a local minimum. For convex functions, it is both **necessary and sufficient** for a global minimum.
+
+This proves that making a local linear approximation of a convex function always safely underestimates the actual cost.
+
+> Linear constraints ($Ax \le b$) form convex feasible regions (polyhedrons), and linear objective functions ($\min c^T x$) are convex, the entire Linear Programming problem is convex.
+
+The **Fundamental Theorem of Linear Programming**. 
+
+>If a linear programming problem has an optimal solution and its feasible region is non-empty and bounded (or more generally, if an optimum exists), then:
+> **At least one optimal solution occurs at a vertex (extreme point) of the feasible polytope.**
+
+Because both your goal (the tilted floor) and your boundaries (the straight fences) are strictly linear, the absolute lowest or highest point is mathematically guaranteed to be at an extreme point (a corner)
+
+![[Pasted image 20260610193633.png]]
+
+- The purple arrow represents the direction that "increases" the cost. Since we want to _minimize_ cost, we want to go in the exact opposite direction.
+- The dashed red line represents all the points in the universe that share the exact same cost right now. It sits perfectly perpendicular to the cost vector.
+- The linear function we are trying to minimize ($c^T x$) is perfectly flat and straight, like a tilted floor. Because it doesn't have any curves, bowls, or dips, a ball rolling on this floor will never stop in the middle of the yard. It will always keep rolling downhill until it hits a wall
+- The fences ($Ax \le b$) are also perfectly straight lines. There are no curved walls to gently cradle the ball.
+- 
+
+---
+
+The Quadratic Function ($x^T D x$) : The function is convex **if and only if** the matrix $D$ is **Positive Semi-Definite (PSD)**. 
+Trying to minimize a general quadratic function $f(x) = x^T D x$ over a positive boundary ($x \ge 0$) is **NP-hard** if $D$ is not restricted to being Positive Semi-Definite.
+
+The Least Mean Square (LMS) Algorithm :
+
+The algorithm relies on the **Adaptive Linear Element (ADALINE)** architecture:
+- **Input Layer:** $n$ neurons receiving input vector $X \in \mathbb{R}^n$.
+- **Output Layer:** $1$ single continuous neuron.
+- **Weights:** Vector $w \in \mathbb{R}^n$. No bias term is used.
+- **Activation Function:** Linear identity function $\varphi(t) = t$.
+- **Forward Pass (Prediction):** $y = w^T X$
+
+The LMS algorithm processes streaming data in discrete timesteps ($k \ge 0$):
+
+- **Inputs:** Randomly sampled vectors $X^{(k)} \in \mathbb{R}^n$.
+- **Targets:** The desired true scalar value $d^{(k)} \in \mathbb{R}$.
+- The underlying probability distribution governing how $X$ and $d$ are generated is strictly **unknown**.
+ 
+ The Objective Function : 
+ At each timestep $k$, the current weight vector $w^{(k)}$ is used to approximate the target
+- **The Instantaneous Error ($\varepsilon$):**$$\varepsilon(X^{(k)}) = d^{(k)} - (w^{(k)})^T X^{(k)}$$
+- $X^{(k)}$ and $d^{(k)}$ are drawn from an unknown probability distribution, the squared error $\varepsilon^2(X^{(k)})$ is a random variable.
+- **The Optimization Goal:** The algorithm seeks to adjust the weights to minimize the **Expected Squared Error**:    $$\min_{w} \quad \mathbb{E}\left[\varepsilon^2(X^{(k)})\right]$$
+$$\mathbb{E}\left[\varepsilon^2(x^{(k)})\right] = J(w)$$
+
+
+ LMS is a quadratic optimization problem : 
+
+$$\varepsilon^2 = \left( d - w^T X \right)^2$$
+$$\varepsilon^2 = d^2 - 2d(X^T w) + (w^T X)(X^T w)$$
+$$\varepsilon^2 = w^T \left(X X^T\right) w - 2\left(d X^T\right) w + d^2$$
+The weights $w$ are constants that we control at any given step, the expectation only acts on the random data variables ($X$ and $d$):
+
+$$\mathbb{E}[\varepsilon^2] = w^T \underbrace{\mathbb{E}\left[X X^T\right]}_{\mathbf{R}} w - 2 \underbrace{\mathbb{E}\left[d X^T\right]}_{\mathbf{p}} w + \underbrace{\mathbb{E}[d^2]}_{c}$$
+We have a multi-dimensional quadratic polynomial equation:
+
+$$\mathbb{E}[\varepsilon^2] = w^T \mathbf{R} w - 2\mathbf{p}^T w + c$$
+
+- **The Quadratic Matrix ($\mathbf{R}$):** $\mathbf{R} = \mathbb{E}[X X^T]$ (**Correlation Matrix** of the input signals, $D$ in $x^T D x$).
+- **The Linear Vector ($\mathbf{p}$):** $\mathbf{p} = \mathbb{E}[d X]$ (**Cross-Correlation Vector**) between the input signals and the true target. It determines where the center of the bowl shifts in space.
+- **The Constant ($c$):** $\mathbb{E}[d^2]$ is simply the total power of the target signal.
+
+_A quadratic problem is only efficiently solvable (convex) if the matrix is Positive Semi-Definite (PSD)._
+
+For any arbitrary vector $h$:
+
+$$h^T \mathbf{R} h = h^T \mathbb{E}[XX^T] h = \mathbb{E}[(h^T X)(X^T h)] = \mathbb{E}[(h^T X)^2] \ge 0$$
+
+The matrix $\mathbf{R}$ is guaranteed to be Positive Semi-Definite. 
+LMS forms a perfect, error-free convex bowl with a single global minimum. The steepest descent algorithm will never get trapped.
+
+Stationarity Assumption : For the expectation operator $\mathbb{E}[\cdot]$ to be valid over time, we must assume the data stream is **Wide-Sense Stationary**. The statistical properties (mean and variance) of the random input vectors $x^{(k)}$ and the targets $d^{(k)}$ do not shift or change as time $k$ progresses.
+
+$$J(w) = \mathbb{E}\left[(d^{(k)})^2\right] + w^T \mathbb{E}\left[x^{(k)} (x^{(k)})^T\right] w - 2w^T \mathbb{E}\left[d^{(k)} x^{(k)}\right]$$
+$$J(w) = \mathbb{E}\left[(d^{(k)})^2\right] + w^T R_x w - 2w^T P_x$$
+$$D_w J(w^*) = 2 R_x w^* - 2 P_x = 0$$
+$$R_x w^* = P_x$$
+Assuming the correlation matrix $R_x$ is invertible (meaning the inputs are not perfectly redundant)
+$$w^* = R_x^{-1} P_x$$
+
+
+---
+Example
+Least Mean Square (LMS) algorithm is most famous: **Signal Processing and Active Noise Cancellation**
+A pair of noise-canceling headphones has a version of the LMS algorithm running.
+
+**The Streaming Input ($X^{(k)}$)** : At timestep $k=1$).
+
+The ADALINE chip inside the headphones takes that raw noise $X^{(k)}$ and multiplies it by its current weight ($w$). This calculation generates a new sound wave (the "anti-noise") and immediately plays it through the speaker into your ear. The anti-noise is the prediction: **$w^T X^{(k)}$**.
+
+The "true target" for noise cancellation is  **$d^{(k)} = 0$** (Silence)
+
+Error: **$\varepsilon = d^{(k)} - y_{pred}$** (Target Silence - Actual Leftover Hum).
+
+The LMS algorithm takes that tiny error, tweaks its weights $w$ just a fraction of an amount, and gets ready for Millisecond 2 ($k=2$).
+
+The headphones do not have the complex aerodynamic physics equations of a Boeing 737 jet engine programmed into them. The probability distribution of the engine's roar is completely **unknown**. The headphones also don't know the exact physical shape of your unique ear canal.
+By processing the stream of data one discrete timestep at a time. The LMS algorithm adapts and within a few hundred milliseconds, it figures out the pattern, the error drops to zero, and the airplane goes silent.
+
+![[Pasted image 20260613005212.png]]
