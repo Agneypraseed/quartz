@@ -41,6 +41,51 @@ Motor Imagery Control (Active BCI)
 - Classification done with LDA
 
 
+---
+BCI Classification : lecture 8
+
+-> LDA, Normal, CLT, Overfitting
+
+- extract independent features, visualize features, find which models 
+- In well-defined feature extraction pipelines, we assume that the extracted features and their corresponding feature vectors are normally distributed. This assumption relies heavily on the **Central Limit Theorem**, which states that when you average or combine many independent random variables (like raw EEG amplitudes over an epoch), their sum tends toward a normal distribution.
+
+>LDA
+
+reduce feature space, check variance on features, to assess a feature look at how it is distibuted (normal), 
+
+
+Covariance drift
+
+
+- Choosing btw the k fold  : pseudo online and sequential k fold for more accuracy
+- The diff increase as there are more degree of freedom to fit the data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

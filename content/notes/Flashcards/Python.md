@@ -1,4 +1,31 @@
 
+The `print` command also has built-in functionalities that support combining different types of values. The simplest way is to add a comma between the values. All the values will be printed out regardless of their type.
+
+```python
+result = 100 * 5
+print("String and the int result is now printed", result)
+```
+
+f-strings : The simplest way of formatting text.
+```python
+name = "Agney"
+city = "Berlin"
+print(f"Hi my name is {name}, and i live in {city}.")
+```
+
+- if a single one of the operands in an expression is a floating point number, the result will also be a floating point number, regardless of the other operands. Division `/` is an exception to this rule. Its result is a floating point number, even if the operands are integers. 
+
+| Operator |                                  |          |       |
+| -------- | -------------------------------- | -------- | ----- |
+| `/`      | Division (floating point result) | `9 / 2`  | `4.5` |
+| `//`     | Division (integer result)        | `9 // 2` | `4`   |
+
+
+
+
+
+
+---
 Python Virtual Machine (PVM) : 
 When you write code in a high-level programming language (like C++, Python), a compiler must translate that human-readable text into the raw binary instructions that a processor understands.
 The compiler translates your code into an **Intermediate Representation (IR)**.

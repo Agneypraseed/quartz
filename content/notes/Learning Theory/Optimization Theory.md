@@ -266,13 +266,15 @@ Because both your goal (the tilted floor) and your boundaries (the straight fenc
 - The purple arrow represents the direction that "increases" the cost. Since we want to _minimize_ cost, we want to go in the exact opposite direction.
 - The dashed red line represents all the points in the universe that share the exact same cost right now. It sits perfectly perpendicular to the cost vector.
 - The linear function we are trying to minimize ($c^T x$) is perfectly flat and straight, like a tilted floor. Because it doesn't have any curves, bowls, or dips, a ball rolling on this floor will never stop in the middle of the yard. It will always keep rolling downhill until it hits a wall
-- The fences ($Ax \le b$) are also perfectly straight lines. There are no curved walls to gently cradle the ball.
-- 
+- The fences ($Ax \le b$) are also perfectly straight lines. There are no curved walls to gently cradle the ball. 
 
 ---
 
-The Quadratic Function ($x^T D x$) : The function is convex **if and only if** the matrix $D$ is **Positive Semi-Definite (PSD)**. 
+The Quadratic Function ($x^T D x$) : The function is convex **if and only if** the matrix $D$ is **Positive Semi-Definite (PSD)**. The shape of the landscape is dictated entirely by the matrix $D$.
+
 Trying to minimize a general quadratic function $f(x) = x^T D x$ over a positive boundary ($x \ge 0$) is **NP-hard** if $D$ is not restricted to being Positive Semi-Definite.
+
+---
 
 The Least Mean Square (LMS) Algorithm :
 
@@ -329,7 +331,61 @@ $$J(w) = \mathbb{E}\left[(d^{(k)})^2\right] + w^T R_x w - 2w^T P_x$$
 $$D_w J(w^*) = 2 R_x w^* - 2 P_x = 0$$
 $$R_x w^* = P_x$$
 Assuming the correlation matrix $R_x$ is invertible (meaning the inputs are not perfectly redundant)
+
+Wiener-Hopf Solution:
 $$w^* = R_x^{-1} P_x$$
+Computing the inverse of a massive matrix ($R_x^{-1}$) takes an incredible amount of computer memory and processing time. To bypass the matrix inversion bottleneck, we apply the Steepest Descent algorithm. Instead of calculating the inverse, the algorithm iteratively updates the weights by stepping in the opposite direction of the gradient.
+
+The Iterative Solution (Gradient Descent) :
+- **The Gradient:** $D_w J(w) = 2 R_x w - 2 P_x$
+- **The Update Rule:**
+$$w^{(i+1)} = w^{(i)} - \eta \cdot \left( 2 R_x w^{(i)} - 2 P_x \right)$$
+	**$\eta > 0$** is the **learning parameter**
+
+Because the objective function is strictly convex (as $R_x$ is Positive Semi-Definite), this gradient descent formulation is mathematically guaranteed to converge to the true Wiener-Hopf solution ($w^*$), provided that the learning parameter $\eta$ is chosen correctly (neither too large nor too small).
+
+Problem : As we don't know the probability distribution, we literally cannot calculate $R_x$ or $P_x$ (in either the Wiener-Hopf inverse matrix or the Gradient Descent loop). 
+
+1. Estimation Approach (Batch Gradient Descent) : 
+	Collect a massive batch of data points (size $S$). You take all those samples and average them together to create "fake" versions of $R_x$ and $P_x$. While the Law of Large Numbers guarantees these converge to the true $R_x$ and $P_x$ as $S \to \infty$, It requires storing millions of data points in memory and waiting incredibly long times before you can take a single step downhill. 
+
+	- **Estimated Autocorrelation:** $R^{(S)} = \frac{1}{S} \sum_{i=1}^S x^{(i)}(x^{(i)})^T$
+
+	- **Estimated Cross-Correlation:** $P^{(S)} = \frac{1}{S} \sum_{i=1}^S d^{(i)} x^{(i)}$
+
+
+
+2. The Widrow-Hoff Approach (Stochastic Gradient Descent) : 
+	Use the **one single data point** we have right now ($x^{(k)}$ and $d^{(k)}$). 
+	We drop the Expectation operator $\mathbb{E}[\cdot]$ entirely and calculate the instantaneous squared error for the single incoming data point:    $$\varepsilon^2(x^{(k)}) = \left( d^{(k)} - w^{(k)} \cdot x^{(k)} \right)^2$$
+	- **The Gradient:** $\nabla_w (\varepsilon^2) = -2 \cdot \varepsilon(x^{(k)}) \cdot x^{(k)}$
+				
+						$\varepsilon\!\left(x^{(k)}\right) = d^{(k)} - w^T x^{(k)}$
+						
+						$\varepsilon^2\!\left(x^{(k)}\right) = \left(d^{(k)} - w^T x^{(k)}\right)^2$
+						
+						$\nabla_w \varepsilon^2\!\left(x^{(k)}\right) = 2\left(d^{(k)} - w^T x^{(k)}\right)\nabla_w\!\left(d^{(k)} - w^T x^{(k)}\right)$
+						
+						$\nabla_w\!\left(d^{(k)} - w^T x^{(k)}\right) = -x^{(k)}$
+						
+						$\nabla_w \varepsilon^2\!\left(x^{(k)}\right) = 2\left(d^{(k)} - w^T x^{(k)}\right)\left(-x^{(k)}\right)$
+						
+						$\boxed{\nabla_w \varepsilon^2\!\left(x^{(k)}\right) = -2\,\varepsilon\!\left(x^{(k)}\right)x^{(k)}}$
+
+- **The Update Equation:** Substituting this into the standard steepest descent formula ($w - \eta \nabla J$) :   $$w^{(k+1)} = w^{(k)} - \eta \cdot [ \text{Gradient} ]$$$$w^{(k+1)} = w^{(k)} + 2 \cdot \eta \cdot \varepsilon(x^{(k)}) \cdot x^{(k)}$$
+The algorithm operates strictly _on-line_. It integrates new data points $x^{(k)}$ one at a time and adapts the weights instantly without needing prior knowledge of the environment's probability distribution. ("Goldfish" Algorithm (Read, Update, Delete))
+
+**Brownian Motion:** The trajectory of the weight vector $w^{(k)}$ forms a stochastic process. The sequence of updates resembles Brownian motion (a random walk) as it navigates the error surface.
+**Convergence:** Due to this stochastic noise, the weights do not perfectly freeze at the absolute minimum $w^*$. Instead, the algorithm converges _in the mean_, meaning the expected value of the weights approaches the optimal Wiener-Hopf solution: $\mathbb{E}[w^{(k)}] \to w^*$.
+
+For the LMS algorithm to remain stable and converge (in the mean) to the optimal solution, the fixed learning parameter $\eta$ must satisfy a strict boundary condition:
+
+$$0 < \eta < \frac{1}{\lambda_{max}}$$
+
+- **$\lambda_{max}$** is the largest eigenvalue of the true autocorrelation matrix $R_x$ (representing the steepest curve of the quadratic bowl).
+
+Because the underlying distribution is unknown, $R_x$ (and thus $\lambda_{max}$) is generally unknown. Therefore, $\eta$ must be tuned empirically in practice to ensure it doesn't exceed this hidden boundary and cause the algorithm to diverge.
+While the theoretical derivation of the objective function $J(w)$ assumed a stationary environment, the iterative, memory-less nature of the LMS update rule allows it to effectively track optimal weights in **non-stationary environments** (where the underlying data distribution slowly shifts over time).
 
 
 ---
