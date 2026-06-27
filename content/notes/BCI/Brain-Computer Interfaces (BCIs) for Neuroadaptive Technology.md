@@ -3,14 +3,30 @@ BCI : An interface designed to control a technical device by translating **brain
 
 - A new interface for HCI (Human computer interaction)
 
-Modes of interaction in BCI 
-Active & Reactive BCI : Direct Control
-				   _example_ :Using P300 to control keyboard
-Passive BCI : Implicit Control
+**Neuroadaptivity** is about shifting Human-Computer Interaction (HCI) from a passive relationship to a responsive one. Instead of waiting for you to click a button or type a command (explicit input), a neuroadaptive system uses **passive Brain-Computer Interfaces (pBCIs)** to read your cognitive and emotional state in real-time. 
 
-user modeling with BCI
+**Neuroadaptive AI**
+By monitoring your workload, attention, or engagement levels, the system can adjust its behavior to match your needs on the fly. When you scale this up to include long-term user modeling (understanding how you personally perceive and value the world) you move into **Neuroadaptive AI**.This represents a leap in the "alignment problem," as the AI isn't just guessing what humans want in the abstract; it is dynamically aligning itself with your specific, subjective reality to become a co-adaptive and ethically grounded partner.
 
-Neuroadaptivity : 
+
+BCIs operate on a continuous, closed-loop feedback system:
+1. **Recording**: Brain activity is actively recorded during the HCI process. 
+2. **Classification**: Features extracted from the brain recording are analyzed and classified to identify the user's current mental state. 
+3. **Inference & Command**: Based on inferences made from changes in that mental state, a specific command is sent to the machine. 
+4. **Perception & Feedback**: The user perceives the system's response (e.g., a change on the screen). This perception potentially initiates a new mental state change, starting the loop over again.
+
+Brain-Computer Interfaces can be divided into three categories based on how brain activity is modulated and utilized in Human-Machine Systems (HMS).
+
+| Type of BCI | Mechanism of Action | Primary Use Case | Example |
+| :--- | :--- | :--- | :--- |
+| **Active** | Brain activity is **directly consciously controlled** by the user, independently of external events. | Direct control | Hex-O-Spell |
+| **Reactive** | Brain activity arises in reaction to external stimulation, which is **indirectly modulated** by user focus. | Direct control | P300-Speller |
+| **Passive** | Uses arbitrary brain activity **without the purpose of voluntary control** to gather implicit information. | Supporting systems, user-state detection | Detecting Mental Workload |
+- **Active BCI (Generation):** You have to consciously _create_ a specific brainwave pattern. It takes deliberate effort, like strongly imagining clenching your fist, doing mental math, or visualizing a rotating object.
+- **Reactive BCI (Attention):** You don't have to invent a thought; you just have to _pay attention_. Your brain naturally and automatically emits a specific electrical spike (like the P300 wave) when the specific thing you are staring at flashes. You are just aiming your focus, and the brain does the reacting automatically.
+- Passive BCIs are fundamentally different because they do not require voluntary intent from the user. 
+- They are the foundation of **Neuroadaptive systems**, designed to enrich Human-Computer Interaction (HCI) by seamlessly detecting user states in the background.
+
 
 
 Generating a BCI 
