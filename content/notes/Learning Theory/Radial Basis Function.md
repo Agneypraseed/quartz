@@ -80,7 +80,82 @@ Case 3: $T > m$ (Over-determined / Approximation)
 - We must find the weights that minimize the Sum of Squared Errors. We solve this using the **Moore-Penrose Pseudo-Inverse** ($M^+$):
   $$w = (M^T M)^{-1} M^T \cdot Y$$  
 
+The scalar summation form of the error function is:
 
+$$E(w) = \frac{1}{2} \sum_{t=1}^T \Big( (Mw)_t - y(t) \Big)^2$$
+
+Using the dot product property of vectors ($v^T v = \sum v_i^2$) with error vector be $(y - Mw)$:
+
+$$E(w) = \frac{1}{2} (y - Mw)^T (y - Mw)$$
+
+$$E(w) = \frac{1}{2} \left( y^T y - 2y^T Mw + w^T M^T Mw \right)$$
+
+- $y \in \mathbb{R}^{T \times 1}$: Column vector of true target values.
+- $M \in \mathbb{R}^{T \times m}$: The RBF activation matrix.
+- $w \in \mathbb{R}^{m \times 1}$: Column vector of the unknown weights.
+
+**The Necessary Optimality Condition:**
+
+$$\frac{\partial E}{\partial w}(w^*) = -M^T y + M^T M w^* = 0$$
+
+$$M^T M w^* = M^T y$$
+
+**Solving for** $w^*$**:** If the resulting square $m \times m$ matrix $(M^T M)$ is invertible
+
+$$w^* = \underbrace{(M^T M)^{-1} M^T}_{\text{Pseudo-Inverse of } M} y$$
+
+$(M^T M)^{-1} M^T$, is known as the **Moore-Penrose Pseudo-Inverse** (often denoted as $M^+$). It allows us to mathematically find the "line of best fit" for a rectangular matrix.
+
+- **Singular Value Decomposition:** In general, if the matrix $M^T M$ is singular one can follow similar approaches to define a pseudo-inverse using the Singular Value Decomposition (SVD) of the matrix.
+- **Regularization:** Another common way to regularize the problem (fix the singularity/instability) is to add a small mathematical penalty $\lambda$ to the diagonal of the matrix before inverting it:
+$$w^* = (M^T M + \lambda I_d)^{-1} M^T y \quad \text{for } \lambda > 0$$
+    _(Where_ $I_d$ _is the Identity Matrix. In machine learning, this trick is commonly known as Ridge Regression!)_
+
+
+---
+The RBF Learning Algorithm
+
+Choose the Centers ($c_i$)
+- The center points of the hidden neurons must be fixed before weight calculation begins.
+- **Method:** This is usually done using various heuristics. A common, simple approach is to randomly select a subset of the actual test points $x(t)$ to serve as the centers. More advanced methods involve clustering algorithms like K-Means. 
+	- **Orthogonal Least Squares (OLS) Reduction:** (Chen, Billings, Cowan 1989/1991). 
+	 A forward-selection algorithm that builds the RBF hidden layer iteratively. It selects data points to serve as centers one by one, choosing the point that provides the maximum reduction in the residual error at each step.
+	    **Gram-Schmidt Orthogonalization:** The OLS algorithm orthogonalizes the chosen feature vectors at each step. This guarantees that each newly added center captures unique variance in the data that previous centers failed to explain.
+	    Like **Principal Component Analysis** OLS acts as a dimensionality reduction technique, identifying the most critical "components" (centers) that represent the underlying structure of the data.
+
+Choose the Spread/Width ($\sigma_i$)
+- Once the centers are placed, you must define the variance for each Gaussian receptive field.
+- **Method:** This determines how strongly nearby points activate the neuron. Often, a single global $\sigma$ is chosen based on the average distance between the chosen centers.
+- **The $d_{max}$ Heuristic:**
+
+$$\sigma_i = \sigma = \frac{d_{max}}{\sqrt{m}}$$
+
+	- $d_{max}$: The maximal Euclidean distance between any two chosen centers in the network.
+	- $m$: The total number of chosen centers.
+
+
+Solve for the Weights ($w^*$)
+- With the hidden layer locked, the network must find the optimal linear weights connecting the hidden layer to the output.
+- The optimal weights can be found using the Pseudo-Inverse equation (): $w^* = (M^T M)^{-1} M^T y$.
+- Computing a matrix inverse is computationally prohibitive (scaling at $O(N^3)$ complexity).
+- To avoid computing the inverse, we start with a randomized initial weight vector $w^{(0)}$ and use an iterative numerical optimization algorithm (such as Steepest Descent / Least Mean Squares) to approximate $w^*$.
+
+
+Orthogonal Least Squares (OLS) algorithm
+The goal of OLS is to compute an "energy function" (a measure of variance or information) for the network. By evaluating this function, we can determine exactly how much a specific test point contributes to reducing the overall error if it is selected to be a center.
+
+**The Pruning Strategy:**
+1. Start by defining the activation matrix $M$ as if _every single test point_ is a center (yielding a $T \times T$ square matrix).
+2. Evaluate the energy contribution of each column.
+3. Systematically remove the columns (centers) that contribute the least energy, reducing the dimension from $T$ down to $m$.
+
+For any given choice of weight vector $w$, the network outputs a prediction vector $\hat{y} = Mw$. The difference between the true target values ($y$) and the network's prediction is the error vector ($e$).
+$$y = M \cdot w + e$$
+- **The Subspace:** The columns of the design matrix $M$ span a specific subspace in $\mathbb{R}^T$. This subspace represents all possible outputs the current RBF network can mathematically generate.
+- **The Projection (**$\hat{y}$**):** The optimal network prediction $\hat{y}$ is exactly the **orthogonal projection** of the true target vector $y$ onto the column space of $M$.
+- **The Error (**$e$**):** Because it is an orthogonal projection, the optimal error vector $e$ is perfectly perpendicular (orthogonal) to the column space of $M$.
+
+Because $\hat{y}$ is a projection, we can use the Pythagorean theorem (or Gram-Schmidt orthogonalization) to cleanly separate the "energy" (variance) of $\hat{y}$ into individual chunks provided by each individual column of $M$. We then simply select the centers whose columns provide the largest chunks of energy.
 
 
 
