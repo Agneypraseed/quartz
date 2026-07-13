@@ -20,8 +20,49 @@ print(f"Hi my name is {name}, and i live in {city}.")
 | `/`      | Division (floating point result) | `9 / 2`  | `4.5` |
 | `//`     | Division (integer result)        | `9 // 2` | `4`   |
 
+---
+A **singleton object** is an object that has **exactly one instance in the entire Python runtime**.
 
+Python has several built-in singleton objects:
 
+| Object           | Meaning                                      |
+| ---------------- | -------------------------------------------- |
+| `None`           | absence of value                             |
+| `True`           | boolean true                                 |
+| `False`          | boolean false                                |
+| `Ellipsis`       | placeholder / slicing helper                 |
+| `NotImplemented` | special return value in operator overloading |
+
+Ellipsis : When used in array indexing, `...` is expanded to as many full slices (`:`) as needed to account for the remaining dimensions.
+
+```python
+
+img = np.array([
+    [[10, 20, 30], [40, 50, 60]],
+    [[70, 80, 90], [100, 110, 120]]
+])
+
+red = img[..., 0] // Same as img[:, :, 0]
+
+//Output
+[[ 10  40]
+ [ 70 100]]
+
+```
+
+---
+Slicing
+The slice operator copies the elements, takes needs O(n) time
+
+The following lines are equivalent:
+
+```
+result = numbers.copy()
+```
+
+```
+result = numbers[:]
+```
 
 
 

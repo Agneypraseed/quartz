@@ -157,5 +157,87 @@ $$y = M \cdot w + e$$
 
 Because $\hat{y}$ is a projection, we can use the Pythagorean theorem (or Gram-Schmidt orthogonalization) to cleanly separate the "energy" (variance) of $\hat{y}$ into individual chunks provided by each individual column of $M$. We then simply select the centers whose columns provide the largest chunks of energy.
 
+To analytically solve the RBF network without explicitly computing the inverse of the computationally heavy matrix $(M^T M)$, we use the Gram-Schmidt orthogonalization algorithm to perform a QR Decomposition.
+
+We decompose the activation matrix $M \in \mathbb{R}^{T \times m}$ into two separate matrices:
+
+$$M = Q \cdot R$$
+
+- **$Q \in \mathbb{R}^{T \times m}$**: An orthogonal matrix where every column is pairwise orthogonal to the others.
+    
+- **$R \in \mathbb{R}^{m \times m}$**: An upper triangular matrix with entries of $1$ on the main diagonal.
+
+$$Q^T Q = \begin{pmatrix} h_1 & 0 & 0 \\ 0 & h_2 & 0 \\ 0 & 0 & h_m \end{pmatrix}$$
+
+_(Where $h_i = q_i^T q_i \neq 0$, representing the squared norm/energy of each orthogonal vector)._
+
+
+$$y = (Q \cdot R) \cdot w + e$$
+a new intermediate weight vector **$g = R \cdot w$**
+
+$$y = Q \cdot g + e$$
+To find the optimal vector $g$ that minimizes the squared error, we apply the standard pseudo-inverse derivation
+
+$$g^{opt} = (Q^T Q)^{-1} Q^T y$$
+
+$Q^T Q$ is purely diagonal, its inverse $(Q^T Q)^{-1}$ is take the reciprocal of the diagonal entries $\text{diag}(h_1 \dots h_m)^{-1}$.
+
+$$(Q^T Q)^{-1} = \begin{pmatrix} \frac{1}{h_1} & 0 & 0 \\ 0 & \frac{1}{h_2} & 0 \\ 0 & 0 & \frac{1}{h_m} \end{pmatrix}$$
+
+Because the columns of $Q$ ($q_1 \dots q_m$) are pairwise orthogonal, the optimal intermediate weight vector $g^{opt}$ can be calculated element by element.
+
+$$Q^T y = \begin{pmatrix} q_1^T \cdot y \\ q_2^T \cdot y \\ \vdots \\ q_m^T \cdot y \end{pmatrix}$$
+$$Q^T Q = \begin{pmatrix} q_1^T q_1 & 0 & \dots & 0 \\ 0 & q_2^T q_2 & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & q_m^T q_m \end{pmatrix}$$
+
+$$(Q^T Q)^{-1} = \begin{pmatrix} \frac{1}{q_1^T q_1} & 0 & \dots & 0 \\ 0 & \frac{1}{q_2^T q_2} & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & \frac{1}{q_m^T q_m} \end{pmatrix}$$
+
+$$g^{\text{opt}} = \begin{pmatrix} \frac{1}{q_1^T q_1} & 0 & 0 \\ 0 & \ddots & 0 \\ 0 & 0 & \frac{1}{q_m^T q_m} \end{pmatrix} \cdot \begin{pmatrix} q_1^T y \\ \vdots \\ q_m^T y \end{pmatrix}$$
+
+
+The $i$-th component is computed as:
+$$g_i^{\text{opt}} = \left( \frac{1}{q_i^T \cdot q_i} \right) \cdot (q_i^T \cdot y)$$
+
+$$g_i^{opt} = \frac{q_i^T \cdot y}{q_i^T \cdot q_i}$$
+
+For the squared error to be truly minimized, the optimal prediction vector ($Q \cdot g^{opt}$) must be perfectly orthogonal to the residual error vector ($e$).
+
+- Mathematically: $(Q \cdot g^{opt}) \perp e$
+    
+- Consequence: Their dot product is zero. $(Q \cdot g^{opt})^T \cdot e = 0$.
+
+We evaluate the total variance (energy) of the target vector by taking its inner product with itself: $y^T y$.
+
+$$y^T y = (Q \cdot g^{opt} + e)^T (Q \cdot g^{opt} + e)$$
+
+$$y^T y = (Q \cdot g^{opt})^T (Q \cdot g^{opt}) + \underbrace{(Q \cdot g^{opt})^T e}_{=0} + \underbrace{e^T (Q \cdot g^{opt})}_{=0} + e^T e$$
+
+$$y^T y = (g^{opt})^T Q^T Q g^{opt} + e^T e$$
+
+Since $Q^T Q$ is a diagonal matrix containing elements $h_i$, the final scalar Energy Equation  is:
+
+$$y^T y = \sum_{i=1}^m h_i (g_i^{opt})^2 + e^T e$$
+
+The total explained variance of the network is the sum of the individual contributions: $\sum_{i=1}^m h_i (g_i^{opt})^2$.
+
+To find the specific variance contribution of a single candidate center $i$, we substitute the known matrix definitions into the term:
+
+$$h_i \cdot (g_i^{opt})^2 = (q_i^T \cdot q_i) \cdot \left( \frac{q_i^T \cdot y}{q_i^T \cdot q_i} \right)^2$$
+
+Simplifying this expression yields the exact energy contribution formula:
+
+$$\text{Contribution}_i = \frac{(q_i^T \cdot y)^2}{q_i^T \cdot q_i}$$
+
+The Orthogonal Least Squares (OLS) algorithm uses this derived metric as its core heuristic for forward selection:
+
+- **Selection:** At each step, evaluate the contribution formula for all remaining candidate test points. Select the test point that yields the absolute highest value.
+    
+- **Stopping Criteria:** The algorithm iteratively adds centers until one of two conditions is met:
+    
+    1. A pre-determined maximum number of centers ($m$) is reached.
+        
+    2. The cumulative explained variance provides a "reasonable approximation" of the total system variance ($||y||^2$).
+
+
+Because the formula relies on the vectors ($q_i$) being orthogonal, adding a new center fundamentally changes the system. When a test point is selected as a center, the Gram-Schmidt algorithm must be applied to orthogonalize all remaining candidate vectors against the newly chosen center. This ensures that the contribution formula only ever measures _new, unexplained_ variance in subsequent steps.
 
 
