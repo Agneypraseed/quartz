@@ -1,10 +1,21 @@
 
 _Lists_ : A list of length 𝑛 is an ordered collection of 𝑛 elements. Two lists are equal if and only if they have the same length and the same elements in the same order. 
 
-Vector Spaces : A vector space is a set 𝑉 along with an addition on 𝑉 and a scalar multiplication on 𝑉 such that the following properties hold. Elements of a vector space are called vectors or points.
+A vector space $V$ over the field $\mathbb{R}$ is a set of vectors together with two operations:
+- **Vector addition** : $$+: V \times V \to V$$   Add two vectors to get another vector.
+- **Scalar multiplication** $$\cdot : \mathbb{R} \times V \to V$$    Multiply a vector by a real number (scalar).
 
+Elements of a vector space are called vectors or points.
 
+Depending on the vector space, a vector could be:
 
+- **A column of numbers:** $$\begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$$
+- **A matrix:** $$\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$$
+- **A polynomial:**
+    $$1 + 2x + 3x^2$$
+    
+- **A function:**$$f(x) = \sin x$$
+---
 
 
 The projection of point $x$ onto direction $w$.
@@ -281,3 +292,272 @@ The convex hull is the smallest convex shape that encloses all points.
 
 ---
 
+
+
+Norm
+A norm is a function $\Vert{}\cdot\Vert{} : V \to [0, \infty)$ such that the following hold for all $\lambda \in \mathbb{R}$ and $u, v \in V$:
+
+- **(i) Positivity:** $\Vert{}v\Vert{} = 0$ if and only if $v = 0$.
+- **(ii) Homogeneity:** $\Vert{}\lambda u\Vert{} = \vert{}\lambda\vert{} \Vert{}u\Vert{}$.
+- **(iii) Triangle inequality:** $\Vert{}u + v\Vert{} \le \Vert{}u\Vert{} + \Vert{}v\Vert{}$.
+
+We call the tuple $(V, \Vert{}\cdot\Vert{})$ a **normed space**.
+
+$$\text{Norm} = \text{length of a vector}$$
+
+## Common norms
+### $\ell_p$ Norms
+
+For $p \in [1, \infty)$, we denote:
+
+$$\Vert{}v\Vert{}_p = \left( \sum_{i=1}^{d} \vert{}v_i\vert{}^p \right)^{1/p}$$
+
+For $p = \infty$, we denote:
+
+$$\Vert{}v\Vert{}_\infty = \max_{i=1,\dots,d} \vert{}v_i\vert{}$$
+
+### The $\ell_1$ Norm ($p = 1$)
+- **Manhattan Distance** or Taxicab Norm.
+	- A way of measuring distance where you can only move along grid lines. In a city with a grid layout (like Manhattan), you can't cut diagonally through buildings. You have to go along the streets, some blocks east/west, some blocks north/south.
+- $\Vert{}v\Vert{}_1 = \vert{}v_1\vert{} + \vert{}v_2\vert{} + \dots + \vert{}v_d\vert{}$ (the sum of absolute values).
+-  **Sparsity / Feature Selection (Lasso Regularization):** In machine learning, using an $\ell_1$ penalty forces unimportant model weights to become exactly zero. This effectively selects the most important features.        
+- **Robustness to Outliers:** $\ell_1$ loss (Mean Absolute Error) is less sensitive to extreme outliers than $\ell_2$ loss.
+
+### The $\ell_2$ Norm ($p = 2$)
+- **Euclidean Distance**.
+- $\Vert{}v\Vert{}_2 = \sqrt{v_1^2 + v_2^2 + \dots + v_d^2}$.
+- Used for:
+	- **Weight Decay (Ridge Regularization / L2):** In machine learning, it penalizes large weights to prevent overfitting, keeping the model stable and smooth.    
+	- **Optimization (Mean Squared Error):** Most machine learning optimization algorithms prefer $\ell_2$ because its derivative is mathematically clean and continuous everywhere.    
+
+### The $\ell_\infty$ Norm ($p = \infty$)
+- **Chebyshev Distance** or Maximum Norm.
+- $\Vert{}v\Vert{}_\infty = \max(\vert{}v_1\vert{}, \vert{}v_2\vert{}, \dots, \vert{}v_d\vert{})$.
+- Used for :
+	- **Adversarial Machine Learning:** Often used to define a "budget" for an attacker trying to fool a model (e.g., "you can change any pixel in this image, but no single pixel can change by more than $\epsilon$").
+    - **Worst-case Analysis:** It helps evaluate systems where you only care about the single largest error or deviation.
+
+Example : 
+Let $V = \mathbb{R}^2$, and:
+
+$$v = \begin{pmatrix} 3 \\ 4 \end{pmatrix} \in V$$
+- **$\ell_1$ norm (Manhattan distance):**$$\Vert{}v\Vert{}_1 = \vert{}3\vert{} + \vert{}4\vert{} = 7$$
+
+- **$\ell_2$ norm (Ordinary Euclidean length):**$$\Vert{}v\Vert{}_2 = \sqrt{3^2 + 4^2} = 5$$   
+- **$\ell_\infty$ norm (Maximum/Chebyshev norm):**    
+$$\Vert{}v\Vert{}_\infty = \max(\vert{}3\vert{}, \vert{}4\vert{}) = 4$$
+
+
+> The exact same vector has different "lengths" depending entirely on the norm you choose to measure it with.
+
+Example : 
+A **unit circle** is defined as the set of all points that are exactly a distance of $1$ away from the origin $(0,0)$. 
+
+$$\{v \in \mathbb{R}^2 \mid \Vert{}v\Vert{} = 1\}$$
+
+Because the norm $\Vert{}\cdot\Vert{}$ is how we measure "distance," changing the norm fundamentally changes what points are considered "1 unit away" from the center. 
+- Under the **$\ell_2$ norm**, a unit circle is a perfect **standard circle**.
+- Under the **$\ell_1$ norm**, a unit circle looks like a tilted **diamond**.
+- Under the **$\ell_\infty$ norm**, a unit circle is a **square**.
+	![[Pasted image 20260717002519.png]]
+
+
+### Matrix Norms
+Consider the space of $n \times m$ matrices, that is, $\mathbb{R}^{n \times m}$. Every matrix $A \in \mathbb{R}^{n \times m}$ can be identified with a linear function via
+
+$$(Av)_i = \sum_{j=1}^{m} A_{i,j}v_j, \quad i = 1, \dots, n.$$
+
+The following norms are frequently used on $\mathbb{R}^{n \times m}$:
+
+- **Frobenius norm:** Measures the overall size of a matrix.
+    $$\Vert{}A\Vert{}_F = \sqrt{\sum_{i,j} \vert{}A_{i,j}\vert{}^2}$$
+$$A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$$
+
+$$\Vert{}A\Vert{}_F = \sqrt{1^2 + 2^2 + 3^2 + 4^2} = \sqrt{30}$$
+
+A matrix is a function that transforms vectors:
+$$A: \mathbb{R}^m \rightarrow \mathbb{R}^n$$
+It takes an input vector $v$ and produces:
+$$Av$$
+- **Induced norms:** For every pair of norms $\Vert{}\cdot\Vert{}_a$ on $\mathbb{R}^m$ and $\Vert{}\cdot\Vert{}_b$ on $\mathbb{R}^n$, we can define the induced norm:
+    
+    $$\Vert{}A\Vert{}_{a,b} \coloneqq \sup_{\Vert{}v\Vert{}_a \le 1} \Vert{}Av\Vert{}_b = \sup_{v \neq 0} \frac{\Vert{}Av\Vert{}_b}{\Vert{}v\Vert{}_a}$$
+
+
+	An induced norm measures the maximum possible "stretching factor" that the matrix $A$ can apply to any vector $v$.
+
+$$\Vert{}Av\Vert{}_b \le \Vert{}A\Vert{}_{a,b} \Vert{}v\Vert{}_a$$
+
+
+- Common Matrix Norms
+    - **Maximum absolute column sum ($1$-norm):**  Take the **largest absolute column sum**.       
+$$\Vert{}A\Vert{}_1 = \max_{j} \sum_{i} \vert{}A_{i,j}\vert{}$$
+    - **Maximum absolute row sum ($\infty$-norm):** Take the **largest absolute row sum**.
+        $$\Vert{}A\Vert{}_\infty = \max_{i} \sum_{j} \vert{}A_{i,j}\vert{}$$
+$$A = \begin{pmatrix} 1 & -3 \\ 2 & 4 \end{pmatrix}$$	
+	**Column 1 sum:** $\vert{}1\vert{} + \vert{}2\vert{} = 3$
+	**Column 2 sum:** $\vert{}-3\vert{} + \vert{}4\vert{} = 7$
+$$\Vert{}A\Vert{}_1 = \max(3, 7) = 7$$
+
+	**Row 1 sum:** $\vert{}1\vert{} + \vert{}-3\vert{} = 4$
+	**Row 2 sum:** $\vert{}2\vert{} + \vert{}4\vert{} = 6$    $$\Vert{}A\Vert{}_\infty = \max(4, 6) = 6$$
+
+	- **Spectral norm ($2$-norm |  Maximum Euclidean stretching): The maximum amount by which the matrix stretches a vector in the Euclidean norm.** It is computed using the square root of the largest eigenvalue of $A^\top A$.
+        $$\Vert{}A\Vert{}_2 = \sqrt{\lambda_{\max}(A^\top A)}$$
+        
+        where $\lambda_{\max}$ denotes the largest eigenvalue.
+
+Example: A Simple Stretching Matrix
+
+$$A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}$$
+
+Vector 1: Pointing along the $x$-axis
+
+									 $v = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+- **Original length:**    $$\Vert{}v\Vert{}_2 = \sqrt{1^2 + 0^2} = 1$$
+
+- **Multiply by $A$:**    
+    $$Av = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 2 \\ 0 \end{pmatrix}$$
+
+- **New length:**
+    $$\Vert{}Av\Vert{}_2 = \sqrt{2^2 + 0^2} = 2$$
+    
+- **Stretching factor:**
+$$\frac{\Vert{}Av\Vert{}_2}{\Vert{}v\Vert{}_2} = \frac{2}{1} = 2$$
+Vector 2: Pointing along the $y$-axis
+
+									 $v = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+	
+- **Original length:**
+    
+    $$\Vert{}v\Vert{}_2 = 1$$
+    
+- **Multiply by $A$:**
+    
+    $$Av = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$$
+    
+- **New length:**
+    
+    $$\Vert{}Av\Vert{}_2 = 1$$
+    
+- **Stretching factor:**
+    
+    $$\frac{\Vert{}Av\Vert{}_2}{\Vert{}v\Vert{}_2} = \frac{1}{1} = 1$$
+    
+
+Vector 3: Pointing diagonally
+
+									 $v = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+	
+- **Original length:**
+    
+    $$\Vert{}v\Vert{}_2 = \sqrt{1^2 + 1^2} = \sqrt{2} \approx 1.41$$
+    
+- **Multiply by $A$:**
+    
+    $$Av = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$$
+    
+- **New length:**
+    
+    $$\Vert{}Av\Vert{}_2 = \sqrt{2^2 + 1^2} = \sqrt{5} \approx 2.24$$
+    
+- **Stretching factor:**
+    
+    $$\frac{\Vert{}Av\Vert{}_2}{\Vert{}v\Vert{}_2} = \frac{\sqrt{5}}{\sqrt{2}} = \sqrt{2.5} \approx 1.58$$
+
+The maximum stretching factor is **2**.
+
+$$\Vert{}A\Vert{}_2 = 2$$
+
+
+Instead of testing infinitely many vectors to find which one stretches the most, linear algebra guarantees that the maximum stretch factor is always:
+
+$$\Vert{}A\Vert{}_2 = \sqrt{\lambda_{\max}(A^\top A)}$$
+
+$$A^\top A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 4 & 0 \\ 0 & 1 \end{pmatrix}$$
+
+The eigenvalues ($\lambda$) of this diagonal matrix are simply its diagonal entries: $4$ and $1$.
+
+The largest eigenvalue is $\lambda_{\max} = 4$. Placed back into our formula:
+
+$$\Vert{}A\Vert{}_2 = \sqrt{4} = 2$$
+---
+The notation $\Vert{}A\Vert{}_{a,b}$ tells you:
+> We are measuring how much $A$ stretches vectors, where the input vector's original length is measured with **norm $a$**, and the resulting output vector's length is measured with **norm $b$**.
+
+For example, suppose $A$ is a $3 \times 100$ matrix.
+- The input vector $v$ has **100 dimensions**. We might choose to measure its length using the $\ell_1$ norm (Manhattan distance). So we use $\Vert{}\cdot\Vert{}_a = \Vert{}\cdot\Vert{}_1$.
+- The output vector $Av$ has only **3 dimensions**. We might choose to measure its length using the standard $\ell_2$ norm (Euclidean distance). So we use $\Vert{}\cdot\Vert{}_b = \Vert{}\cdot\Vert{}_2$.
+
+Because $\Vert{}A\Vert{}_{a,b}$ is the maximum stretching factor, for every non-zero vector we have:
+$$\frac{\Vert{}Av\Vert{}_b}{\Vert{}v\Vert{}_a} \le \Vert{}A\Vert{}_{a,b}$$
+$$\Vert{}Av\Vert{}_b \le \Vert{}A\Vert{}_{a,b} \Vert{}v\Vert{}_a$$
+
+Example : $$A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}$$
+with Euclidean norm ($a = b = 2$)
+$$\Vert{}A\Vert{}_2 = 2$$
+$$v = \begin{pmatrix} 1 \\ 3 \end{pmatrix}$$
+
+- **Input length:**    $$\Vert{}v\Vert{}_2 = \sqrt{1^2 + 3^2} = \sqrt{10} \approx 3.16$$
+- **Output vector:**$$Av = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ 3 \end{pmatrix} = \begin{pmatrix} 2 \\ 3 \end{pmatrix}$$
+- **Output length:**$$\Vert{}Av\Vert{}_2 = \sqrt{2^2 + 3^2} = \sqrt{13} \approx 3.61$$
+$$\Vert{}Av\Vert{}_2 \le \Vert{}A\Vert{}_2 \Vert{}v\Vert{}_2$$
+$$\sqrt{13} \le 2\sqrt{10}$$
+$$3.61 \le 2(3.16)$$
+if $a = b$ $\Vert{}A\Vert{}_{a,a}$ is shortened simply to: $\Vert{}A\Vert{}_a$
+
+---
+Bounding Errors & The Condition Number
+
+$$Av = b$$
+
+However, our measurements for $b$ are rarely perfect. Suppose there is some noise or measurement error $\delta b$, which causes an error $\delta v$ in our calculated solution $v$. The actual system we solve is:
+
+$$A(v + \delta v) = b + \delta b$$
+
+How much does the error in our input ($\delta b$) blow up in our output ($\delta v$)? We can use **induced matrix norms** to find out.
+
+1. Because $A(v + \delta v) = b + \delta b$ and $Av = b$, the error:
+    $$A \delta v = \delta b \implies \delta v = A^{-1} \delta b$$
+2. Taking the norm on both sides and using the property of induced norms ($\Vert{}Mx\Vert{} \le \Vert{}M\Vert{} \Vert{}x\Vert{}$):
+    $$\Vert{}\delta v\Vert{} \le \Vert{}A^{-1}\Vert{} \Vert{}\delta b\Vert{}$$
+3. Similarly, taking the norm of our original system $Av = b$ gives: $$\Vert{}b\Vert{} \le \Vert{}A\Vert{} \Vert{}v\Vert{} \implies \frac{1}{\Vert{}v\Vert{}} \le \frac{\Vert{}A\Vert{}}{\Vert{}b\Vert{}}$$
+4. Now, we multiply these two inequalities together to look at the **relative error** (the size of the error compared to the size of the actual vector):
+$$\frac{\Vert{}\delta v\Vert{}}{\Vert{}v\Vert{}} \le \left( \Vert{}A\Vert{} \Vert{}A^{-1}\Vert{} \right) \frac{\Vert{}\delta b\Vert{}}{\Vert{}b\Vert{}}$$
+_The Condition Number $\kappa(A)$_
+The term $\Vert{}A\Vert{} \Vert{}A^{-1}\Vert{}$ is the **condition number** of a matrix, denoted by $\kappa(A)$:
+$$\kappa(A) \coloneqq \Vert{}A\Vert{} \Vert{}A^{-1}\Vert{}$$
+- **If $\kappa(A)$ is small (close to 1):** The matrix is "well-conditioned." A small error in your data $b$ will result in a small error in your solution $v$.
+- **If $\kappa(A)$ is large (e.g., $10^6$):** The matrix is "ill-conditioned." Even a tiny fluctuation in your input data can completely ruin your output solution.
+---
+### **Norms for functions**
+$L^p(\Omega)$ is a vector space where the "vectors" themselves are actually functions:
+
+$$L^p(\Omega) = \{f : \Omega \to \mathbb{R} \mid \Vert{}f\Vert{}_p < \infty\}$$
+
+All functions whose $p$-norm is finite (function doesn't blow up to infinity when you integrate it).
+For $1 \le p < \infty$, the $L^p$ norm of a function is defined as:
+
+$$\Vert{}f\Vert{}_p = \left( \int_\Omega \vert{}f(x)\vert{}^p \text{d}x \right)^{1/p}$$
+Example: Computing the $L^2$ Norm
+Let's find the "length" of the linear function $f(x) = x$ over the domain $\Omega = [0,1]$ under the $L^2$ norm:
+
+$$\Vert{}f\Vert{}_2 = \left( \int_0^1 \vert{}x\vert{}^2 \text{d}x \right)^{1/2}$$
+$$\int_0^1 x^2 \text{d}x = \left[ \frac{x^3}{3} \right]_0^1 = \frac{1^3}{3} - \frac{0^3}{3} = \frac{1}{3}$$
+$$\Vert{}f\Vert{}_2 = \left(\frac{1}{3}\right)^{1/2} = \frac{1}{\sqrt{3}}$$
+
+The Infinity Norm ($L^\infty$)
+When $p = \infty$, the norm is defined using the supremum ($\sup$):
+
+$$\Vert{}f\Vert{}_\infty = \sup_{x \in \Omega} \vert{}f(x)\vert{}$$
+The $L^\infty$ norm is simply the **highest absolute peak** the function reaches anywhere on its domain $\Omega$. (For well-behaved continuous functions, the supremum is just the maximum value).
+
+Example:
+$f(x) = x^2$ over the domain $\Omega = [-2, 2]$.
+Looking across the entire interval, the absolute value $\vert{}f(x)\vert{}$ reaches its highest point at the boundaries $x = -2$ and $x = 2$:
+$$\vert{}f(-2)\vert{} = \vert{}-2\vert{}^2 = 4$$
+$$\vert{}f(2)\vert{} = \vert{}2\vert{}^2 = 4$$
+$4$ is the absolute maximum value the function achieves on this interval
+$$\Vert{}f\Vert{}_\infty = 4$$
+---

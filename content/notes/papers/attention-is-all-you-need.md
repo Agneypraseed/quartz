@@ -246,23 +246,12 @@ output = encoder(x)
 print(output.shape)  # torch.Size([1, 10, 512])
 ```
 
-## Key Concepts
 
-### 1. Self-Attention
+### Positional Encoding
+ To account for the order of the words in the input sequence, the transformer adds a vector to each input embedding. These vectors follow a specific pattern that the model learns, which helps it determine the position of each word, or the distance between different words in the sequence.
+ 
 
-*Add your notes here...*
 
-### 2. Multi-Head Attention
-
-*Add your notes here...*
-
-### 3. Positional Encoding
-
-*Add your notes here...*
-
-### 4. Encoder-Decoder Architecture
-
-*Add your notes here...*
 
 ---
 
@@ -289,22 +278,6 @@ $$
 $$
 
 ---
-
-## My Notes
-
-*Start adding your notes and insights here as you read through the paper...*
-
----
-
-## Questions
-
-- [ ] *Questions you have while reading*
-
----
-
-## Key Takeaways
-
-1. *Your main learnings will go here*
 
 ---
 
