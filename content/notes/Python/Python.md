@@ -157,7 +157,170 @@ Python automatically manages:
 - object sizes
 - dynamic arrays 
 - type information
+---
+CPython itself is portable
 
+**CPython** is written mainly in C. Its source code can be compiled for many operating systems and CPU architectures.
+
+So different platforms have their own native CPython executable:
+
+```
+Windows x86-64 → python.exe compiled for Windows/x86-64
+Linux x86-64   → python compiled for Linux/x86-64
+macOS ARM      → python compiled for macOS/ARM
+```
+
+Your Python source can then remain the same:
+
+```
+print("Hello")
+```
+
+The platform-specific CPython implementation handles the differences underneath.
+
+A C++ executable compiled for Windows/x86-64 generally cannot run directly on macOS/ARMBut the same Python source can often run on both:
+
+```
+program.py
+   ├── Windows CPython
+   ├── Linux CPython
+   └── macOS CPython
+```
+
+---
+Python is _dynamically typed_, not statically typed like languages that are normally compiled.  Python’s execution speed may not always be as fast as that of fully compiled and lower-level languages such as C and C++.
+
+Python compile (i.e., translate) source code statements to an intermediate format known as _bytecode_ and then interpret the bytecode. Bytecode provides portability, as it is a platform-independent format. However, because Python is not commonly compiled all the way down to binary _machine code_ (e.g., instructions for an Intel or ARM chip in your PC or phone), some programs will run more slowly in Python than in a fully compiled language like C.
+
+Python does more work during execution
+
+Consider:
+
+```
+result = a + b
+```
+
+In Python, when this line runs, CPython may need to determine: 
+So Python cannot always translate `a + b` into one fixed CPU addition instruction.
+
+```
+a = 10
+b = 20
+result = a + b       # integer addition
+
+a = "Hello "
+b = "world"
+result = a + b       # string concatenation
+```
+
+The same `+` syntax can perform different operations depending on the objects present at runtime.
+
+C knows the types during compilation
+
+In C:
+
+```
+int a = 10;
+int b = 20;
+int result = a + b;
+```
+
+The compiler already knows:
+
+```
+a → int
+b → int
+result → int
+```
+
+It can generate a small sequence of native CPU instructions directly.
+
+Conceptually:
+
+```
+load a
+add b
+store result
+```
+
+At runtime, it normally does not need to ask: “Is this an integer, string, list, or custom object?”
+
+That decision was made during compilation.
+
+Python is often fast enough because expensive operations such as file I/O, networking, GUI rendering, numerical computation, and built-in collection operations are frequently implemented in compiled native code. However, Python code does not automatically run at C speed; tight loops and object-heavy logic written directly in Python still incur Python runtime overhead. 
+
+Python already includes modules for interacting with the operating system and common data formats, so you often do not need third-party packages. Python’s standard library comes with Portable Operating System Interface (_POSIX)_ bindings and support for all the usual OS tools, including environment variables, files, sockets, pipes, processes, threads, regular-expression pattern matching, command-line arguments, standard-stream interfaces, shell-command launchers, filename expansion, ZIP file utilities, and XML, JSON, and CSV parsers.
+
+Python exposes many operating-system capabilities through modules such as:
+
+```
+import os
+import pathlib
+import subprocess
+```
+
+On Windows, Python provides similar functionality using Windows APIs where possible, so much of the same code remains portable.
+
+---
+Python can replace C++ or Fortran at the **application level**, even though native compiled code may still perform the numerical core.
+
+Python often does not replace all of that compiled code internally. Instead, Python provides a convenient interface to it.
+
+For example:
+
+```
+Python/NumPy API
+      ↓
+BLAS/LAPACK routines
+      ↓
+Compiled C or Fortran
+```
+
+BLAS and LAPACK are established libraries for operations such as:
+
+- matrix multiplication;
+- solving linear systems;
+- eigenvalues;
+- matrix decompositions.
+
+So when you write:
+
+```
+result = a @ b
+```
+
+the underlying work may be performed by a highly optimized native mathematical library.
+
+---
+Python supports **multiple programming styles**:
+- Procedural programming
+- Object-oriented programming
+- Functional programming : Python supports functional ideas, but it is not a purely functional language.
+
+In Python, almost everything is an object:
+
+```
+x = 10
+name = "Alice"
+numbers = [1, 2, 3]
+```
+
+These are objects of different classes:
+
+```
+print(type(x))        # <class 'int'>
+print(type(name))     # <class 'str'>
+print(type(numbers))  # <class 'list'>
+```
+
+Even functions are objects:
+
+```
+def greet():
+    print("Hello")
+
+print(type(greet))    # <class 'function'>
+```
 
 
 
