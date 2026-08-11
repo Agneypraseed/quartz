@@ -140,6 +140,58 @@ Motor Imagery Control (Active BCI)
 - C3, C4 used from EEG
 - Classification done with LDA
 
+---
+Lecture 2 : Foundations of HCI
+
+Human-Machine System
+A Human–Machine System is defined as cooperation between the human user and technological element toward a task. Their capabilities complement each other. HMS is broader because machine can include mechanical systems, A machine need not necessarily be a digital computer.
+
+ A computer can execute accurate and powerful actions if properly instructed. Holistic understanding and handling unforeseen events belong to the user.
+
+Closed-Loop Human-Computer Interaction
+- Closed-loop HCI is **not one-directional**.
+- Human output can become computer input.
+- Computer output can become human input.
+- Both agents **process received input** before responding.
+- Context can affect the response of either agent.
+
+Modelling a specific interaction:
+- A model's level of abstraction depends on the **scale and number of entities and properties included**.
+- A **unit** is a physical or logical entity that possesses properties and is treated as a complete entity at the chosen abstraction level.
+	- A **human** is defined as a unit that is a human being. if the person only reacts to a visual signal with a hand action, the model may use binary properties for whether the signal was perceived and whether the hand moved.
+- The **state of a unit** is the unit's current configuration, represented by the specific values of all its property variables.
+	- In case of unit human if they are able to press a button or not.
+- **Information is relative to a unit.** Data becomes information for a unit when that unit knows some **logical connection** between that data and other data/properties. Correlation or dependency can constitute such a logical connection.
+- An **interface** is a **shared boundary** across which two or more units exchange data according to a ruleset.
+	- For communication **A → B** to work:
+```
+A needs physical + logical means to TRANSMIT
+B needs physical + logical means to RECEIVE
+```
+
+So an interface is not merely a physical cable/screen, it includes the necessary **rules/processes** for exchange.
+
+OUTPUT = data flowing FROM the unit through an interface
+INPUT = data RECEIVED BY the unit through an interface
+
+**Implicit input** occurs when the receiver acquires information that:
+- the source **did not intend** the receiver to acquire, **or**
+-  the source **was not aware** the receiver acquired.
+Everything else is explicit.
+
+Control of A over B is defined in terms of a resulting state change in B. Explicit output from A causes a state change in B determined by that output. Implicit output from A causes a state change in B beneficial to A.
+
+ Communication involves transmission or reciprocal exchange of information through interfaces. Interaction requires reciprocal exchange of information. Interaction additionally results in control.
+
+The standard scheme contains, among other things:
+- a **human**,
+- a **machine**,
+- an **interface**,
+- and **input/output modalities**.
+
+
+
+
 
 ---
 BCI Classification : lecture 8
