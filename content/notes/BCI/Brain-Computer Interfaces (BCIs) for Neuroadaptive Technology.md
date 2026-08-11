@@ -189,8 +189,242 @@ The standard scheme contains, among other things:
 - an **interface**,
 - and **input/output modalities**.
 
+----
+
+Direct Control : **Active & Reactive BCI**.
+In both cases, BCI information is used as an intentional command pathway
+Active BCI uses consciously generated brain activity 
+Reactive BCI uses responses to external stimuli to select/control something.
+
+Implicit Control : Passive BCI
+Now the machine extracts information that is not simply an explicit command. 
+
+User Modelling : Even with a  **Non-Command** thought the machine derives a **Mental State Index** from brain-related data, combines it with **Context Measures**, and feeds these into a **User Model**.
+
+How a neuroadaptive system actively obtains information about the user, updates its user model, adapts, and decides whether more information is needed.
+
+![[Pasted image 20260811105729.png]]
+
+A **probe stimulus** is selected based on the existing user model. This stimulus is chosen because it can reveal something useful about the user.
+The stimulus affects the user and provokes an **automatic response**. This is crucial: the system is not necessarily asking the user to explicitly report their state.
+The user’s brain activity/biosignal is monitored. The same biosignal can mean different things in different situations, so the measured data is interpreted **within the given context** to infer **Relevant Aspects of User State**.
+The interpreted user-state information updates the internal **User Model**.The system uses the updated user model to **adapt** itself to the user.
+After adaptation, the system can evaluate whether the adaptation was sufficient. If not, it can request more information and choose another probe. That is why this is a **closed loop**.
+
+Machine-Learning Based BCIs
+The user generates different command-related brain patterns. The **BCI learns to detect the differences** between those patterns. The machine cannot learn a mapping without examples. The command examples therefore become **training data**.
+
+These examples are typically collected in a **calibration session before actual BCI application**, approximately **30 minutes**.
+After calibration, the calibrated BCI can then be used in HCI with **well-predictable performance**.
+Most BCIs need to be calibrated again for a new HCI session.
+
+Stages of a Machine-Learning BCI : first make the user able to produce usable signals, then train the machine on labeled data, then deploy it online.
+
+- User Training: 5–15 minutes
+	The user learns how to generate the **appropriate control signals**. This is not the months-long user-trained BCI, it is a short preparatory stage inside a machine-learning BCI workflow.
+- Machine Training: 10–45 minutes
+	The machine learns to detect the relevant signals from **labeled data**. This is the calibration / classifier-learning stage.
+- Application: long term 
+	After training, the machine interprets the **EEG data online** during actual use.
+
+Measuring Brain Activity
+Sensors track **physical properties of the brain that correlate with its working processes**.
+Different modalities observe different physical phenomena
+Some properties of the brain that is measured are
+- properties of **blood flow**,
+- **biochemical** processes,
+- **electrical** processes.
+
+Common acquisition approaches
+- **(f)MRI**
+- **(f)NIRS**
+- **MEG**
+- **EEG**
+
+Methods such as **ECoG** and **single-cell recordings** require surgery.
+
+To compare measurement methods 
+1. **Invasiveness:** whether application damages the body, especially if damage is irreversible.
+2. **Spatial resolution:** how precisely the method can localize brain activity; perfect single-neuron acquisition is not currently possible.
+3. **Temporal resolution:** how quickly the method can capture changes in brain activity over time.
+4. **Portability:** how technically/physically practical the recording system is to carry or deploy in HCI.
+5. **Acquisition cost:** the cost of the measurement system.
+
+A method may measure useful brain information but still be impractical for real-world HCI if it is invasive, non-portable or extremely expensive.
+
+Classical neuroscience often starts with a controlled condition and asks: _what brain activity does this condition produce?_ A BCI needs to operate in the opposite direction: from measured brain activity, it has to infer the relevant command or user-state information.
+
+Real HCI contains many processes at the same time. Attention, perception, movement, emotion, context and artifacts may overlap. Unlike a highly controlled lab experiment, the BCI has less ability to isolate one clean process.
+An online BCI usually needs an answer **now**. It cannot wait for dozens of repetitions and average them before deciding what the user meant. This is why **single-trial interpretation** becomes important.
+BCIs often must account for person-specific brain patterns rather than relying only on a population-average response.
+
+Refined Calibration Pipeline : The more complete procedure for turning brain signals into a validated classification scheme and then deploying it.
+
+Stage 1 : User Training
+The purpose is for the user to become familiar with the task that will later be used during machine training.
+The exact task depends on BCI type:
+- For **active/reactive BCI**: the user may practice generating BCI-detectable signals.
+- For **passive BCI**: the user may perform a predefined HCI task that is usually independent of BCI input, so naturally occurring passive signals can be generated.
+
+Stage 2 : Machine Training
+The user is guided to generate **prototypes of brain activity** that correspond to what the BCI needs to recognize.
+Artifact control is crucial. During machine training, **all artifacts should be controlled**. Otherwise the classifier might learn irrelevant patterns instead of the intended brain signal.
+
+A **classification scheme** consisting of:
+Feature extraction : Transform raw brain data into informative variables.
+Classifier : Use features to distinguish classes / infer state.
+The scheme may either distinguish **intended commands** or infer an **aspect of cognitive state**.
+
+Stage 3 : Confluence Stage
+Now the classification scheme is connected to a **simple BCI application**.
+This stage checks what happens when the classifier and application actually meet. Depending on performance:
+- classifier parameters may be adjusted, or
+- in active BCIs, the user may learn how to interact with the system.
+This is the stage where the trained classification system and the actual interaction begin to come together.
+
+Stage 4 : Validation Stage
+This is the **first test of the intended BCI application**.
+Its output is a **performance estimate** for the classification scheme. If performance is insufficient, some of the previous three stages may be repeated.
+
+Stage 5 : Application Stage
+The **defined and validated classification scheme** is finally used to generate input to the technical system from the user's brain activity.
+Online adaptation : During application, methods capable of **online adaptation** may continuously adjust classifier parameters in response to relevant changes in the user's state.
+
+Passive BCI
+A passive BCI can operate **alongside another Human–Computer Interaction without interfering with it**. This is easier than for many active/reactive BCIs because passive BCI does not require an extra conscious control task.
+The passive BCI may depend on the **presence** of an ongoing HCI, the **absence** of an ongoing HCI, or may be **invariant** to it.
+An application can use **arbitrarily many passive BCI schemes in parallel without conflicts**. Active/reactive BCIs are harder to combine because conscious interaction capacity is limited.
+The limiting factor is identifying the relevant processes under **reversed functionality**: we observe brain activity and must infer the underlying process/state.
+Passive BCI use itself requires no conscious effort besides preparation. Therefore the main operational cost comes from **mispredictions**.If the BCI produces probabilistic estimates, the application can combine those probabilities with the cost of errors and make a **cost-optimal decision**.
+
+Open-Loop vs Closed-Loop Adaptation
+
+Open-Loop Adaptation
+**Non-command brain activity → Machine → Mental State Index → Fixed Adaptation**.
+
+The mental-state estimate triggers a predefined adaptation. The diagram does not explicitly feed the result of that adaptation back into a newly measured user state.
+
+Workload feedback example : The BCI monitors cognitive load. If the user is **overloaded for too long**, the user receives a **notification**.
+
+Closed-Loop Adaptation
+Now the adaptation affects the human, which can change the human's state, and that new state can be measured again:
+
+**User state → BCI estimate → adaptation → user changes → new estimate → further adaptation**.
+
+Workload optimization example : The user's current cognitive load is measured and interpreted. The system then **chooses tasks according to the current cognitive load**, aiming to keep it **optimal**.
+Possible benefits : **prevent burnout, increase productivity, increase joy at work**. 
+
+Automated Adaptation : Earlier, the system mainly reacted to the **current** estimated state. Here it can use accumulated knowledge represented in the **user model** together with context to make more sophisticated adaptations.
+
+![[Pasted image 20260811151208.png]]
+
+**Active BCI**
+Motor Imagery is an example of an **Active BCI** as the user intentionally imagines a movement to generate a controllable brain pattern. The brain activity is therefore directly consciously produced for application control.
+
+Motor Imagery BCI: Design Chain + EEG
+
+The **motor cortex** 
+![[Pasted image 20260811152120.png]]
+
+**The primary motor cortex (M1)**, located on the **precentral gyrus** of the frontal lobe. Its main job is to control **voluntary movement** of the opposite side of the body.
+- left M1 → mainly controls the right side
+- right M1 → mainly controls the left side
+Movement and imagined movement create measurable changes in sensorimotor cortical activity that can be recoreded.
+
+EEG measurement
+EEG records **brain electrical activity** as spatially distributed **voltage differences relative to a reference electrode**. EEG has **high temporal resolution**. 
+
+![[Pasted image 20260811153103.png|606]]
 
 
+Systems with up to **256 electrodes**; the illustrated setup uses **128**. Electrodes are placed in a standardized cap and connected to the scalp with **gel**.
+
+**Core neurophysiology**
+Motor imagery works because imagining movement changes rhythmic activity over the corresponding sensorimotor cortex. The important phenomenon is **Event-Related Desynchronization (ERD)**
+
+Motor activity produces a **contralateral desynchronization** in the motor cortex. Imagining movements also leads to **event-related desynchronization in the α and β bands** of the corresponding sensorimotor cortex.
+
+- **α-band: 7–13 Hz**
+- **β-band: 14–30 Hz**
+
+The relevant cortical change is strongest on the **opposite hemisphere** from the imagined hand.
+- Move your **right hand** → strongest ERD/desynchronization occurs in the **left motor cortex**
+- Move your **left hand** → strongest ERD occurs in the **right motor cortex**
+
+ERD refers to a **decrease in synchronized rhythmic activity / band power** relative to the resting or reference state. The classifier can exploit the spatial difference between hemispheres.
+
+Imagine hand → contralateral sensorimotor ERD → α/β power changes → features from C3/C4 etc. → classifier distinguishes left vs right.
+
+![[Pasted image 20260811155341.png]]
+
+| Electrode | Approx. location                          | ERD here suggests                      |
+| --------- | ----------------------------------------- | -------------------------------------- |
+| **C3**    | Left sensorimotor cortex                  | **Right-hand movement**                |
+| **Cz**    | Midline sensorimotor cortex               | Often **leg movement**                 |
+| **C4**    | Right sensorimotor cortex                 | **Left-hand mvement**                  |
+| **CP3**   | Left centro-parietal / sensorimotor area  | Often supports **right-hand movement** |
+| **CP4**   | Right centro-parietal / sensorimotor area | Often supports **left-hand movement**  |
+
+**Right hand moves**  
+→ left motor cortex activates  
+→ **C3 α/β power decreases (ERD)**
+
+**Left hand moves**  
+→ right motor cortex activates  
+→ **C4 α/β power decreases (ERD)**
+
+Single-trial EEG
+
+![[Pasted image 20260811160007.png]]
+
+Two random trials from an experiment with **imagined left-hand and right-hand movements**.
+
+The raw voltage trace contains many overlapping frequencies and sources. The relevant motor-imagery information is therefore not obvious by simply looking at the unprocessed waveform.
+
+We already know that motor imagery changes rhythmic activity in the **alpha range 7–13 Hz** and beta range. So signal processing can focus specifically on the frequency range believed to contain useful information.
+
+Band-pass filtering
+
+After we apply a **7–13 Hz band-pass filter**.
+
+![[Pasted image 20260811160055.png]]
+
+This means frequencies outside 7–13 Hz are suppressed while activity in that band is retained.
+
+The result looks more oscillatory because we are now focusing on the alpha-band component relevant to ERD. The classifier does not need every aspect of the raw EEG. It needs the part that carries information useful for distinguishing left from right motor imagery.
+
+After filtering, we still have a time series. Machine learning works better if we compress that time series into a small number of informative features.
+
+Band power is estimated using the **logarithmic variance** of the filtered voltage signal:
+
+**feature = log(var(V))**
+
+For a band-limited oscillatory signal, variance reflects how large the oscillations are, so it acts as an estimate of power in that frequency band.
+
+![[Pasted image 20260811160620.png]]
+
+For each trial, the pipeline can calculate one band-power feature from **C3** and another from **C4**.
+
+So one trial becomes a compact feature vector such as:
+
+**x = [Bandpower(C3), Bandpower(C4)]**
+
+Left and right motor imagery cause different contralateral ERD patterns. Therefore the pair of C3/C4 band-power values can differ systematically between left and right trials.
+
+Feature space : Each trial is represented using two features:
+**x-axis = Bandpower(C3)**  
+**y-axis = Bandpower(C4)**
+
+During calibration, the system has labeled examples: it knows which trials belong to **left** and which belong to **right**. These labeled points are used to learn how the two classes differ.
+
+Linear Discriminant Analysis (LDA)
+LDA creates a **separating hyperplane**. In a two-dimensional feature space. New trials are classified according to which side of that decision boundary they fall on.
+
+![[Pasted image 20260811170901.png]]
+
+**Motor imagery → EEG → band-pass filter → band-power features → LDA → left/right output → application control**.
+
+---
 
 
 ---
