@@ -179,3 +179,59 @@ Use **variable stimulus onset asynchrony (SOA)**: vary the interval between sti
 ---
 A feature is a deliberately selected/derived aspect of EEG motivated by the experimental question and prior knowledge.
 
+![[Pasted image 20260812085907.png]]
+
+---
+Filters **select, combine and modify information in a given domain without changing its structure**.
+
+Examples of filters
+
+| Type          | Example                                                                            |
+| ------------- | ---------------------------------------------------------------------------------- |
+| **Frequency** | Low-pass, high-pass, band-pass, single-frequency selection                         |
+| **Spatial**   | **Laplace filter**: subtract the average of surrounding channels from each channel |
+| **Temporal**  | **Smoothing filter**: replace each data point by the average of surrounding points |
+
+![[Pasted image 20260812090920.png|667]]
+
+![[Pasted image 20260812092544.png|668]]
+
+---
+Domain transformations are **typically conservative**: they can be transformed back without inherent information loss. Algorithmic transformations are **not necessarily conservative**
+
+CSP is a more powerful spectral-spatial feature extraction than simply taking band power from fixed electrodes. It learns **spatial weights** that make two classes differ as much as possible.
+
+Standard CSP learns spatial weights after a frequency band has been chosen. **SpecCSP extends CSP by also learning frequency weights.**
+
+A spatial filter gives a **weight to each electrode** according to how useful that electrode is for discriminating the classes.
+
+Spatial patterns can be obtained by taking the **covariance matrix** of the data into account.
+
+---
+### LDA
+It computes statistics from the training data:
+- class means μ1​,μ2​
+- covariance matrix Σ
+
+Then obtains the direction directly:
+
+$w= Sigma^{-1} (μ1​−μ2​)$​
+
+---
+Even spatial patterns can be mixtures of several sources. 
+
+**Independent Component Analysis (ICA)** as a way to disentangle mixed EEG data. ICA separates the EEG recording into **statistically independent components** using a **linear transformation**.
+
+- independent brain processes lead to statistically independent data,
+- each source projects to the surface with a dipolar structure.
+
+ICA estimates an **unmixing matrix**.
+Multiplying this matrix by electrode-space activations transforms the mixture recorded on scalp electrodes into activations of the identified independent components.
+
+---
+Neuroadaptivity
+
+**The machine assesses changes in the user state and adapts its own state to support the ongoing interaction.**
+
+A passive BCI is used not merely to classify a state, but to **teach an adaptive system about the user's preferences**.
+
