@@ -6,7 +6,7 @@ CPython is the standard and most widely used implementation of Python. Other Pyt
 CPython contains both the bytecode compiler and the bytecode interpreter.
 
 ---
-An **interpreter** executes a program using another program called an interpreter or runtime, rather than first producing a standalone native executable.
+An **interpreter** executes a program using another program called an interpreter or runtime, rather than first producing a standalone native executable.  In effect, the interpreter is a layer of logic between your code and the computer hardware on your machine
 
 ```
 python program.py
@@ -50,6 +50,8 @@ Python starts executing statements at the top level of the file, from top to bot
 A lower-level, platform-independent set of instructions generated from Python source code.
 Bytecode is **not machine code**. The CPU cannot execute it directly.
 
+Compilation is simply a translation step, and bytecode is a lower-level, platform-independent representation of your source code.
+
 **Bytecode is also usually stored as binary numbers**, but it is not the native instruction language of the physical CPU.
 It is the instruction language of a **virtual machine**.
 
@@ -70,6 +72,25 @@ Execution
 
 In Java bytecode is stored in `.class` files.
 
+If the Python program has write access on your machine, it will save the bytecode of your programs in files that end with a _.pyc_ extension (_.pyc_ means _.py_ source, compiled). 
+
+Python saves its bytecode files in a subdirectory named ___pycache___ located in the directory where your source files reside, and in files whose names identify the Python version that created them (e.g., _script0.cpython-312.pyc_ for 3.12). The ___pycache___ subdirectory avoids clutter, and the naming convention for bytecode files prevents different Python versions installed on the same computer from overwriting each other’s saved bytecode.
+
+Bytecode is an _import_ optimization. Bytecode is saved in _.pyc_ files only for files that are _imported_, not for the top-level files of a program that are only run as scripts
+
+If you run **one Python file directly**, like:
+
+```
+python hello.py
+```
+
+then `hello.py` is the **topmost file**  and Python usually **does** **not** create:
+
+```
+hello.pyc
+```
+
+for that main file.
 
 For imported modules, CPython may also save cached bytecode as a `.pyc` file, usually inside a `__pycache__` directory. 
 
@@ -111,6 +132,8 @@ __pycache__/test.cpython-313.pyc
 
 The next time `test` is imported, CPython can reuse this cached bytecode when it is still valid instead of recompiling the source.
 
+ Both source code changes and differing Python versions will trigger a new bytecode file automatically.
+ 
 ---
 You can inspect the bytecode with standard module called `dis` (disassembler)
 
@@ -143,6 +166,78 @@ Output :
 ```
 
 ---
+The Python Virtual Machine (PVM)
+
+The PVM is just a big code loop that iterates through your bytecode instructions, one by one, to carry out their operations.
+
+The PVM is the runtime engine in Python. It’s always present as part of the Python system, is the component that truly runs your scripts, and is really just the last step of the “Python interpreter.”
+
+---
+
+There is usually no build or “make” step in Python work: code runs immediately after it is written. 
+There are exceptions to these rules (e.g., app builds for smartphones can take some time, and full compilers do exist
+
+With Python you usually do this:
+
+```
+python test.py
+```
+
+You do **not** manually run a separate build step like:
+
+```
+gcc test.c -o test
+```
+
+But Python **still compiles internally**. There **is a compiler stage**, but that compiler produces **Python bytecode**, not native CPU machine code.
+
+The flow is roughly:
+
+```
+Python source code (.py)
+        ↓
+parse source code
+        ↓
+compile to Python bytecode
+        ↓
+PVM executes bytecode
+```
+
+So when you run:
+
+```
+python test.py
+```
+
+Python is doing both:
+
+```
+compile + execute
+```
+
+for you automatically. 
+
+
+Example : 
+```python
+for i in range(1000000):
+    x = i + 1
+```
+
+Python does **not** re-read and re-parse the characters: 
+
+```
+"x = i + 1"
+```
+
+one million times. It first compiles that statement into bytecode, and then the PVM executes those bytecode instructions repeatedly.
+That is why Python often feels like a purely interpreted language.
+
+Some Python code may not run as fast as C or C++ code, the PVM loop, not the CPU chip, still must interpret the bytecode, and bytecode instructions require more work than CPU instructions. On the other hand, unlike in classic interpreters, there is still an internal compile step, Python does not need to reanalyze and reparse each source statement’s text repeatedly. 
+
+The net effect is that pure Python code runs at speeds somewhere between those of a traditional compiled language and a traditional interpreted language.
+
+---
 >High-level means the language gives you abstractions far above CPU instructions and memory management.
 
 Python is high-level because it hides many low-level machine details.
@@ -157,6 +252,91 @@ Python automatically manages:
 - object sizes
 - dynamic arrays 
 - type information
+
+Python does not have a separate, ahead-of-execution phase like C/C++. All we really have in Python is runtime—there is no initial compile-time phase at all, and everything happens as the program is running. This even includes operations such as the creation of functions and classes and the linkage of modules. Such events often occur before execution in more static languages, but happen during execution in Python
+
+---
+Why Does Python Use Bytecode?
+
+Every program must ultimately run as machine code on the host device’s CPU, but program code is just text written per a language’s rules. Traditional languages like C bridge this gap by constraining code to accommodate the CPU’s expectations and translating the code’s text to machine code ahead of time. This makes programs fast, but translation takes time, and the resulting languages are cumbersome to use.
+
+Python lets you write simple things like:
+
+```
+x = [1, 2, 3]
+x.append(4)
+```
+
+That single `append` operation may involve:
+
+- looking up the object referenced by `x`
+- checking its type
+- finding the `append` method
+- allocating or resizing memory
+- updating internal list metadata
+- handling reference counts
+- checking for errors
+
+So there is no simple:
+
+```
+one Python statement → one CPU instruction
+```
+
+mapping.
+
+Python is much farther from hardware than a language like C.
+
+Python instead defines an easy-to-use language that’s too far removed from machine code for a direct translation and uses the PVM intermediary to run your program’s bytecode on the CPU. This is a classic speed-versus-usability trade-off.
+
+For example, conceptually:
+
+```
+Python bytecode says:
+ADD two objects
+        ↓
+CPython interpreter receives that instruction
+        ↓
+figures out what kinds of objects they are
+        ↓
+performs the appropriate addition
+        ↓
+CPU executes all the low-level machine instructions needed
+```
+
+That extra machinery is one reason pure Python can be slower than C.
+
+It is not simply:
+
+```
+Python → interpreted → slow
+C      → compiled    → fast
+```
+
+Many of the alternative implementations do compile some Python code to machine code, and Python is quick enough for many roles even with its PVM model.
+
+Examples include:
+- **PyPy** — uses JIT compilation for portions of Python code
+- **Numba** — can JIT-compile suitable numerical Python functions
+- **Cython** — can translate Python-like code into C and then native machine code
+
+And many common Python libraries already perform their heavy work in compiled native code.
+
+For example:
+
+```
+import numpy as np
+
+a = np.array(...)
+b = np.array(...)
+
+c = a @ b
+```
+
+Your Python code starts the operation, but the large matrix multiplication may actually run inside highly optimized compiled C/C++/Fortran libraries.
+
+
+
 ---
 CPython itself is portable
 
@@ -325,5 +505,28 @@ print(type(greet))    # <class 'function'>
 
 
 ---
-### Python Data Model
+Command line
+
+`python3` is normally the Python 3 interpreter command on Linux/macOS.
+
+`python` is commonly used on Windows, and it runs whichever Python executable is resolved for that command.
+
+`py` is the Windows Python Launcher. Its job is to locate and launch an installed Python version.
+
+Examples:
+
+```bash
+python test.py
+python3 test.py
+py test.py
+py -3.12 test.py
+
+#This shows all `python.exe` files Windows can find through command resolution/PATH.
+where python
+
+# To see the exact interpreter that actually started
+python -c "import sys; print(sys.executable)"
+
+```
+
 
