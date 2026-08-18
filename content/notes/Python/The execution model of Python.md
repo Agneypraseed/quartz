@@ -316,7 +316,7 @@ C      → compiled    → fast
 Many of the alternative implementations do compile some Python code to machine code, and Python is quick enough for many roles even with its PVM model.
 
 Examples include:
-- **PyPy** — uses JIT compilation for portions of Python code
+- **PyPy** — uses JIT compilation for portions of Python code. PyPy speeds normal Python programs by using runtime type information and a JIT compiler to replace some Python bytecode with machine code as the program runs.
 - **Numba** — can JIT-compile suitable numerical Python functions
 - **Cython** — can translate Python-like code into C and then native machine code
 
@@ -334,8 +334,6 @@ c = a @ b
 ```
 
 Your Python code starts the operation, but the large matrix multiplication may actually run inside highly optimized compiled C/C++/Fortran libraries.
-
-
 
 ---
 CPython itself is portable
@@ -511,15 +509,28 @@ Command line
 
 `python` is commonly used on Windows, and it runs whichever Python executable is resolved for that command.
 
-`py` is the Windows Python Launcher. Its job is to locate and launch an installed Python version.
+`py` is the Windows Python Launcher. Its job is to locate and launch an installed Python version. In Windows any file whose name ends in `.py` is routed to the `py` launcher when named or clicked.
 
 Examples:
 
 ```bash
-python test.py
-python3 test.py
+
+#To start a Python interactive session (ie Python REPL (Read-Eval-Print Loop)). 
+py
+
+#Use Python’s `-q` flag to suppress messages on session startup
+py -q
+
 py test.py
 py -3.12 test.py
+
+#You can also start Python with command `python` if you added Python to your system `PATH`
+
+# To launch a script 
+python test.py
+
+# python3 works on Windows too but is reserved for Microsoft Store install
+python3 test.py 
 
 #This shows all `python.exe` files Windows can find through command resolution/PATH.
 where python
@@ -529,4 +540,6 @@ python -c "import sys; print(sys.executable)"
 
 ```
 
+
+`.pyw` is mainly for **GUI programs** where you do not want a terminal window, usually runs with `pythonw.exe`
 
