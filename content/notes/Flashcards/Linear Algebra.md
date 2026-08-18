@@ -1,20 +1,4 @@
 
-_Lists_ : A list of length 𝑛 is an ordered collection of 𝑛 elements. Two lists are equal if and only if they have the same length and the same elements in the same order. 
-
-A vector space $V$ over the field $\mathbb{R}$ is a set of vectors together with two operations:
-- **Vector addition** : $$+: V \times V \to V$$   Add two vectors to get another vector.
-- **Scalar multiplication** $$\cdot : \mathbb{R} \times V \to V$$    Multiply a vector by a real number (scalar).
-
-Elements of a vector space are called vectors or points.
-
-Depending on the vector space, a vector could be:
-
-- **A column of numbers:** $$\begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$$
-- **A matrix:** $$\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$$
-- **A polynomial:**
-    $$1 + 2x + 3x^2$$
-    
-- **A function:**$$f(x) = \sin x$$
 ---
 
 
