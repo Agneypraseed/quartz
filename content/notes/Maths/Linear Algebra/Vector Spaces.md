@@ -538,102 +538,109 @@ V_1+\cdots+V_m
 \text{smallest subspace containing }V_1,\dots,V_m  
 }  
 $$
+---
+Direct Sums
+
+Suppose $V_1,\dots,V_m$ are subspaces of $V$.
+
+Every vector in their sum can be written as
+
+$$  
+v=v_1+\cdots+v_m,  
+\qquad v_k\in V_k.  
+$$
+
+                    v = (3,5,7)
+                         ↓
+             ┌───────────┼───────────┐
+             ↓           ↓           ↓
+       v₁ = (3,0,0) v₂ = (0,5,0) v₃ = (0,0,7)
+             V₁          V₂          V₃
+          x-axis       y-axis       z-axis
+
+$$  
+\boxed{  
+V_1+\cdots+V_m  
+\text{ is a direct sum}  
+}  
+$$
+
+if every vector in $V_1+\cdots+V_m$ has **exactly one representation**
+
+$$  
+v=v_1+\cdots+v_m,  
+\qquad v_k\in V_k.  
+$$
+
+We write:
+
+$$  
+\boxed{V_1\oplus\cdots\oplus V_m}  
+$$
+
+The $\oplus$ means: **the sum is direct / representations are unique**.
 
 
 ---
+Example: direct sum in $\mathbb F^3$
 
-## Why "Smallest"?
+$$  
+U={(x,y,0):x,y\in\mathbb F}  
+$$
+$$  
+W={(0,0,z):z\in\mathbb F}.  
+$$
 
-Suppose $U$ and $W$ are subspaces.
+Every vector $(x,y,z)$ can be written as
 
-$U+W$:
+$$  
+(x,y,z)
+=
+(x,y,0)+(0,0,z).  
+$$
+$$  
+\mathbb F^3=U+W.  
+$$
 
-1. contains $U$
-    
-2. contains $W$
-    
-3. is itself a subspace
-    
-4. is contained in **every** subspace that contains both $U$ and $W$
-    
+This representation is **unique**.
 
-Therefore it is the **smallest subspace containing them**.
+Therefore:
+
+$$  
+\boxed{\mathbb F^3=U\oplus W}  
+$$
+---
+How to test a direct sum
+
+A sum is direct **iff the zero vector has only the trivial representation**.
+
+$$  
+\boxed{  
+V_1+\cdots+V_m  
+\text{ is direct}  
+\iff  
+v_1+\cdots+v_m=0  
+\Rightarrow  
+v_1=\cdots=v_m=0  
+}  
+$$
+
+where $v_k\in V_k$.
 
 ---
+Direct sum of two subspaces
 
-## Sum vs Union
-
-Do **not** confuse:
-
-$$  
-U\cup W  
-$$
-
-with:
+For **two** subspaces there is an especially useful test:
 
 $$  
-U+W  
+\boxed{  
+U+W\text{ is direct}  
+\iff  
+U\cap W={0}  
+}  
 $$
 
-### Union
-
-$$  
-U\cup W  
-$$
-
-means:
-
-> vectors that are in $U$ **or** $W$.
-
-### Sum
-
-$$  
-U+W  
-$$
-
-means:
-
-> vectors that can be written as $u+w$, where $u\in U$ and $w\in W$.
-
-For subspaces, the union is usually **not** a subspace, while:
-
-$$  
-\boxed{U+W\text{ is always a subspace}}  
-$$
+> [!Note]  
+> **Pairwise trivial intersections are sufficient for a direct sum of two subspaces, but NOT sufficient when there are three or more subspaces.**
 
 ---
-
-## Mental Model
-
-Think of the sum as **combining the directions available in the subspaces**.
-
-If:
-
-$$  
-U=\text{x-axis}  
-$$
-
-and:
-
-$$  
-W=\text{y-axis}  
-$$
-
-then:
-
-$$  
-U+W=\text{xy-plane}  
-$$
-
-You can move in a direction from $U$ and a direction from $W$, and adding them gives everything in the resulting subspace.
-
-> [!important]  
-> **Subspace sum = all vectors obtainable by adding vectors from the component subspaces.**
-> 
-> $$  
-> U+W={u+w:u\in U,w\in W}  
-> $$
-> 
-> It is the **smallest subspace containing both $U$ and $W$**.
-
-This idea will become directly connected to **span** and **linear combinations** later.
