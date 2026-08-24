@@ -1,6 +1,4 @@
 
----
-
 
 The projection of point $x$ onto direction $w$.
 									$w^T x$ 
