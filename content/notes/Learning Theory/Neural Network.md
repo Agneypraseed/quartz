@@ -109,7 +109,7 @@ A hidden layer maps inputs into a new feature space where each coordinate repres
 A neural network progressively partitions space into regions and learns increasingly useful coordinate systems (representations) in which the target problem becomes simpler. 
 > Neural networks act as adaptive coordinate systems that partition input space into polyhedral regions and assign each region a simple linear (or smooth) model.
 
-![[Pasted image 20260524165247.png]]
+![[notes/Learning Theory/images/Pasted image 20260524165247.png]]
 
 ---
 Most standard feedforward neural networks are **acyclic** directed graphs:

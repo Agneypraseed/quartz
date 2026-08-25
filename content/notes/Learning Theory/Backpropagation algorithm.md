@@ -19,7 +19,7 @@ The derivative of $\varphi(t)$ can be expressed in terms of $\varphi$ itself. $$
 
 The flow of error signals backward through a Feed-Forward Neural Network.
 
-![[Pasted image 20260619004732.png]]
+![[notes/Learning Theory/images/Pasted image 20260619004732.png]]
 - **$e(t)$:** The raw instantaneous error (Target $-$ Output) at timestep $t$.
     
 - **$y_k^{(L)}$:** The actual numerical output of neuron $k$ in layer $L$ during the forward pass.

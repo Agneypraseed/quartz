@@ -10,7 +10,7 @@
 
 The Cell Membrane and Ion Channels
 
-![cell membrane.png](cell%20membrane.png)
+![[notes/Intro to Neuroscience/images/cell membrane.png]]
 
 **The Cell Membrane (The Boundary)**
 
@@ -42,7 +42,7 @@ Example: The hair cells in the inner ear, which help us hear and keep our balanc
 
 ---
 Charged ions (like Sodium $Na^{+}$ and Chloride $Cl^{-}$) cannot pass through the solid phospholipid bilayer of the membrane on their own.
-![[Pasted image 20260227215517.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260227215517.png]]
 
 **Diffusive Flow:** The introduction of ion channels provides a physical pathway that causes a "diffusive flow". Because particles naturally want to spread out, ions will flow down their concentration gradient (from an area of high concentration to an area of low concentration).
 
@@ -90,7 +90,7 @@ Both of these pumps have one thing in common: they require energy (ATP) because 
 - **The Job:** Maintains the overall resting membrane potential of the neuron.
 - **The Action:** For every single cycle, it uses one molecule of ATP to push **3 Na+ ions OUT** of the cell and pull **2 K+ ions IN**.
 - **The Result:** It constantly works to ensure that Potassium (K+) stays highly concentrated inside the cell, and Sodium (Na+) stays highly concentrated outside the cell.
-		![[Pasted image 20260227183830.png]]The Na+/K+ pump first binding to Sodium to push it out, and then binding to Potassium to pull it in
+		![[notes/Intro to Neuroscience/images/Pasted image 20260227183830.png]]The Na+/K+ pump first binding to Sodium to push it out, and then binding to Potassium to pull it in
 
 **2. The Calcium Pump (Ca2+ Pump)**
 
@@ -111,7 +111,7 @@ Translates the biological components of the cell membrane into an electrical cir
     - **The Battery ($E_k$):** The concentration gradient provides a driving electrical force, which acts exactly like a battery in a circuit. The voltage of this "battery" is equal to the Nernst/equilibrium potential ($E_k$) of that specific ion.
     - **The Resistor ($\gamma_k$):** The physical channel itself still provides the resistance (or conductance, $\gamma_k$) to the flow of current.
 
-![[Pasted image 20260227185916.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260227185916.png]]
 
 To calculate the overall resting membrane potential when multiple ion channels are active simultaneously.
 
@@ -200,7 +200,7 @@ Instead of just writing "$I_k$" (current), we substitute it with **$g_{k}\cdot(u
 
 The Action Potential in the Giant Squid Axon
 The squid possesses a single, massive axon that is significantly larger than surrounding structures. This massive size allowed researchers to physically insert electrodes into the cell to measure and clamp voltages.
-![[Pasted image 20260228013916.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260228013916.png]]
 - **The Action Potential Curve:** This is the total voltage of the cell. It starts near the Potassium equilibrium potential ($E_K$), rapidly spikes toward the Sodium equilibrium potential ($E_{Na}$), and then repolarizes back down. 
 - Once the voltage crosses that threshold, the neuron takes over completely and fires an **action potential**. This is an _active_, automatic biological process (an "all-or-nothing" response).
 - **$Na^+$ Conductance (Fast-Acting):** The curve for open Sodium channels rises incredibly quickly at the start of the action potential. Crucially, notice how the $Na^+$ conductance peaks and immediately begins dropping _before_ the voltage spike even reaches its maximum height. The Sodium channels quickly plug themselves up (inactivate).
@@ -265,7 +265,7 @@ $$\Large C_m \frac{du}{dt} = -\Big[ \bar{g}_{Na} m^3 h (u - E_{Na}) + \bar{g}_K 
 	- **$n$** represents the fraction of gates that are currently **open** (and therefore available to be shut).
 	- You multiply the currently open gates by the closing speed ($\beta$). This tells you exactly how many gates are slamming shut right now.
 	
-	![[Pasted image 20260302003052.png]]
+	![[notes/Intro to Neuroscience/images/Pasted image 20260302003052.png]]
 	It shows how the opening and closing speeds depend entirely on the membrane voltage ($u$):
 	- **$\alpha_n(u)$ (Blue line - Opening Rate):** As the voltage depolarizes (becomes more positive, moving towards 0 mV), the rate of gates opening shoots up rapidly.
 	- **$\beta_n(u)$ (Green line - Closing Rate):** As the voltage depolarizes, the rate of gates closing drops.
@@ -274,7 +274,7 @@ $$\Large C_m \frac{du}{dt} = -\Big[ \bar{g}_{Na} m^3 h (u - E_{Na}) + \bar{g}_K 
 
 Unlike Potassium channels (which are "persistent" and stay open as long as the voltage is high), Sodium channels are **transient**. They have an automatic, built-in timer that physically plugs the channel, even if the voltage remains high.
 
-![[Pasted image 20260302011314.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260302011314.png]]
 
 The 4 physical states of the Sodium channel during a sudden jump in voltage (depolarization):
 
@@ -294,7 +294,7 @@ The 4 physical states of the Sodium channel during a sudden jump in voltage (dep
 - **Voltage:** Drops back down to the resting -65 mV.
 - **Channel Status:** You cannot fire another action potential while the channels are plugged. To get the ball to drop out of the pore (to "deinactivate" the channel), the membrane voltage _must_ return to its negative resting state. Once it resets, it is ready for step 1 again.
 
-![[Pasted image 20260302014101.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260302014101.png]]
 
 - **The $m$ gate (Activation):** The blue line ($\alpha_m$) shoots up incredibly fast as the voltage becomes more positive. This explains why Sodium channels rip open so quickly at the very beginning of an action potential.
 - **The $h$ gate (Inactivation):** The curves for $\alpha_h$ and $\beta_h$ are compared to $m$. They act in opposite directions to the activation gates.
@@ -341,12 +341,12 @@ $$m_\infty(u) = \frac{\alpha_m(u)}{\alpha_m(u) + \beta_m(u)}$$
 
 **The Time Constants ($\tau_m, \tau_h, \tau_n$)**
 
-![[Pasted image 20260302221530.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260302221530.png]]
 - **The Blue Line ($\tau_m$):** The time constant for Sodium activation ($m$) is incredibly small, it **never exceeds 1 ms**. This proves mathematically why Sodium channels rip open almost instantly when the voltage changes.
 - **The Green and Red Lines ($\tau_h, \tau_n$):** These variables show much slower (taller) time constants of roughly equal magnitude. This perfectly explains why Sodium plugging ($h$) and Potassium opening ($n$) are delayed, and why they happen at roughly the same time during the falling phase of the action potential.
 - Because the steady states and time constants for $n$ and $h$ are so similar in timing and opposite in direction, physicists often use an approximation to simplify the math: $n_0(u) \approx 1 - h_0(u)$.
 
-![[Pasted image 20260302231836.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260302231836.png]]
 
 The Top Row ($h_0$): INACTIVATED States
 - In this entire row, the inactivation plug has swung up and is physically blocking the pore.
@@ -368,10 +368,10 @@ In that final shaded circle on the bottom right ($m_3h_1$), two things are happe
 ---
 The gating variables ($m, h, n$) control the currents, which in turn control the voltage. 
 
-![[Pasted image 20260303014229.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260303014229.png]]
 **The Green Line:** This shows the **membrane potential ($u$)** of the neuron, which is firing a series of action potentials.
 **The Blue Line:** This represents the **external stimulus current ($I_{ext}$)**. It starts at zero and then steps up to a constant positive value. This continuous injection of current is what triggers and maintains the firing of the action potentials shown by the green line
-![[Pasted image 20260303014049.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260303014049.png]]
 - **The Rising Phase:** The $m$ gates open the sodium channel incredibly fast, creating a transient conductance. Because both $m$ (activation) and $h$ (inactivation) are non-zero at the same time, $Na^+$ rushes into the cell (influx), causing the membrane potential to rapidly rise. This influx directly causes the action potential spike.
 - **The Turning Point:** Shortly after, the $h$ plug slowly swings in to close the sodium channel.
 - **The Falling Phase:** At roughly the same time, the $n$ gates slowly open the potassium channel, creating a persistent conductance. This forces the membrane potential to decrease back down to rest.
@@ -381,22 +381,22 @@ The gating variables ($m, h, n$) control the currents, which in turn control the
 **The refractory period**
 If the interval between current pulses is too short, a new action potential cannot be generated. 
 The $h$ gate (the sodium plug) after a spike are all locked shut. The neuron physically _cannot_ fire another spike until it rests at a negative voltage long enough for the $h$ plugs to drop back out of the channels.
-	![[Pasted image 20260303142439.png]]
+	![[notes/Intro to Neuroscience/images/Pasted image 20260303142439.png]]
 
 **Rebound Firing**
 Pushing the cell into deep negative voltages perfectly resets every single $h$ plug and slams all the Potassium doors shut. When you suddenly release that negative hold, the Sodium activation doors ($m$) snap open so fast that they trigger a spike before the slower gates can catch up and stop it.
-	![[Pasted image 20260303143252.png]]
+	![[notes/Intro to Neuroscience/images/Pasted image 20260303143252.png]]
 **Rebound firing** is when a neuron fires an action potential **immediately after being strongly inhibited**.
 
 ---
 A neuron needs a strong enough "shock" ($\Delta I$) to wake up, but it needs a strong enough constant "push" ($I_2$) to keep firing repeatedly.
-		![[Pasted image 20260303225629.png]]
+		![[notes/Intro to Neuroscience/images/Pasted image 20260303225629.png]]
 
 ---
 Propagation of the action potential
 Saltatory Conduction : Because the membrane is completely insulated by myelin, the action potential doesn't have to slowly open and close doors every single millimeter. Instead, the electrical charge rapidly shoots through the insulated sections and successfully triggers the channels only at the bare **Nodes of Ranvier**.
 The only places where the cell membrane is bare and has those ion channels are the tiny gaps called the **"Node of Ranvier"**.
-![[Pasted image 20260304005702.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260304005702.png]]
 
 ---
 Assumptions of the Hodgkin-Huxley Model
@@ -429,7 +429,7 @@ Instead of tracking a bunch of individual ion gates ($m$, $h$, and $n$), this mo
 Phase Plane Analysis
 This allows us to literally _see_ if a neuron is resting or spiking without having to calculate massive matrices.
 Instead of graphing voltage over time, a phase plane graphs the two variables against each other. The x-axis is $u$ (voltage) and the y-axis is $w$ (the recovery variable).
-	![[Pasted image 20260305014654.png]]
+	![[notes/Intro to Neuroscience/images/Pasted image 20260305014654.png]]
 	A nullcline is a line where one specific variable completely stops changing.
 
 - **The Magenta S-Curve ($u$-nullcline):** Anywhere on this pink line, the voltage stops changing ($\dot{u} = 0$). It has an S-shape because of the cubic math ($u^3$) in its equation.
@@ -514,7 +514,7 @@ $$\dot{u} = \frac{E_L + R_M \cdot I(t) - u}{\tau}$$
 - **The Equation:** $\large \lim_{t \to t_f; t > t_f} u(t) = u_r$
 - This limit equation just says that the very millisecond _after_ the spike fires, the math forcefully resets the neuron's voltage all the way back down to its resting reset value ($u_r$).
 
-	![[Pasted image 20260309171133.png]]
+	![[notes/Intro to Neuroscience/images/Pasted image 20260309171133.png]]
 
 The Analytical Solution 
 - Because this model is built on a simple linear equation, we don't have to use messy phase planes to predict what it will do.
@@ -531,7 +531,7 @@ $$\Delta t = t_2 - t_1 = -\tau \cdot \ln\left(1 - \frac{\vartheta - u_r}{R \cdot
 							$f = 1 / \Delta t$
 
 - Pure LIF math allows for impossibly fast firing. As you pump in more and more current, the frequency just keeps rocketing upward. To fix this flaw, we program a delay into the LIF model called the **absolute refractory time ($t_{abs}$)**. Whenever the neuron spikes, the math forces it to sit completely frozen at its reset value ($u_r$) for a set amount of time (like 2ms) before it is allowed to start integrating current again.
-		![[Pasted image 20260309170323.png]]
+		![[notes/Intro to Neuroscience/images/Pasted image 20260309170323.png]]
 
 
 Spike rate adaptation 
@@ -582,7 +582,7 @@ The Mechanism : a three-step sequence of how an electrical signal is converted i
 	- Plugging in the transmitters forces these channels to open, allowing a rush of positively charged Sodium ($Na^+$) to enter the receiving cell.
 	- **The EPSP:** Because positive charge just entered the cell, the receiving neuron experiences a small, temporary upward bump in its voltage. This is called an **Excitatory Postsynaptic Potential (EPSP)**.
 
-	![[Pasted image 20260310150859.png]]
+	![[notes/Intro to Neuroscience/images/Pasted image 20260310150859.png]]
 
 Common neurotransmitters include:
 - Glutamate
@@ -609,27 +609,27 @@ When glutamate locks into the postsynaptic cell, it opens up channels that let b
 
 - **AMPA (The Sprinter):** These are incredibly fast. They have a very short time constant of just 2 ms. They open instantly, let ions in, and close almost immediately.
 	-  The purple glutamate (Glu) key binds to the top, the door pops open, Sodium ($Na^+$) rushes in, and Potassium ($K^+$) rushes out. Simple and instant
-	 ![[Pasted image 20260310160227.png]]
+	 ![[notes/Intro to Neuroscience/images/Pasted image 20260310160227.png]]
 
 - **NMDA (The Marathoner):** These are much slower and more complex.
     - _Timing:_ They open fast (rise: 2 ms) but stay open for a long time (decay: 100 ms).
     - _The Magnesium Block:_ They are **voltage-dependent**. At a normal resting voltage (-65 mV), a giant Magnesium ion ($Mg^{2+}$) literally gets stuck in the channel, blocking it completely. The cell has to be partially depolarized (made more positive by AMPA receptors first) to "spit out" the Magnesium so the door can actually open. 
 	-  _The Cofactor:_ It needs both Glutamate (Glu) _and_ the cofactor Glycine (Gly) just to activate.
-	 ![[Pasted image 20260310160518.png]]
+	 ![[notes/Intro to Neuroscience/images/Pasted image 20260310160518.png]]
 	- Until the cell gets a positive voltage jolt from the AMPA receptors to push that $Mg^{2+}$ cork out, nothing gets through. ***The Calcium Bonus:** Once the cork is gone, NMDA doesn't just let $Na^+$ in; it also lets Calcium ($Ca^{2+}$) rush in. (The Calcium influx is actually the biological basis for how your brain forms new memories)
 
 
 **Metabotropic Receptors (The "Indirect" Doors)**
 - Hidden at the very bottom is another class of glutamate receptors called **metabotropic** receptors.
 - Instead of being direct doors, these are more like doorbells. When glutamate rings them, they send "second messengers" deep inside the cell to do complex chemical tasks, which eventually open ion channels indirectly.
-	 ![[Pasted image 20260310161305.png]]
+	 ![[notes/Intro to Neuroscience/images/Pasted image 20260310161305.png]]
 - **There is no hole**. When glutamate binds to the top, ions cannot flow through this receptor.
 - Instead, the receptor is physically attached to a **G protein** on the _inside_ of the cell.
 - When the glutamate rings the doorbell on the outside, it activates that G protein on the inside, which breaks off and goes to talk to an **Effector**. This starts a complex chemical chain reaction (second messengers) that will eventually go open other ion channels somewhere else on the cell membrane.
 
 
 The neurotransmitters (like glutamate) float across the water-filled gap and bump into the next neuron. They act like physical keys and plug into specific locks (like the AMPA and NMDA receptors)
-![[Pasted image 20260310154804.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260310154804.png]]
 When the chemical key turns the lock, a physical door opens in the cell wall. This allows positively charged ions (like Sodium, $Na^+$) to rush inside the cell. Because those ions carry an electrical charge, the cell's voltage suddenly spikes upward.
 One single chemical key opening one single door usually only creates a tiny, tiny electrical bump. It is rarely enough to cause a full action potential on its own.    
 If enough chemical keys open enough doors, the electrical voltage will finally rise high enough to hit the magic threshold ($\vartheta$), and _then_ the neuron will explosively fire its own action potential down the line.
@@ -668,7 +668,7 @@ ACh has two different types of locks (receptors) it can fit into:
 **The Electrical Synapse (Gap Junction) ** 
 In a gap junction, there are no chemicals, no vesicles, and no waiting. The two neurons physically plug into each other like extension cords.
 The two cell walls get incredibly close together (only 3.5 nm apart). They build physical **pores** (tunnels) that punch straight through both cell walls. This connects the inside (cytoplasm) of Cell 1 directly to the inside of Cell 2.
-![[Pasted image 20260311163319.png]]
+![[notes/Intro to Neuroscience/images/Pasted image 20260311163319.png]]
 These tunnels are built out of specialized proteins. A single puzzle piece is called a **Connexin** .Six connexins group together in a circle to form a half-pipe called a **Connexon**.
 The two neurons are physically locked together by those Connexon tunnels, they essentially share the same internal fluid. The positively charged ions (like Sodium) that rush into the first cell during an action potential just keep flowing right through the tunnel into the second cell, instantly raising its voltage.
 When Cell 1 sticks a Connexon out, and Cell 2 sticks a Connexon out, they snap together perfectly in the middle to form a continuous tube. Because there is a direct physical tube, electrical ions ($Na^+$, $K^+$, etc.) just flow straight from one cell directly into the next.

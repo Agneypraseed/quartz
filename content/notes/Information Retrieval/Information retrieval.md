@@ -40,7 +40,7 @@ When designing or analyzing an Information Retrieval (IR) model, there are four 
 3. **Matching:** The specific mathematical or logical method used to compare the query representation against the document representations to find relevant results.
 4. **Implementation:** The underlying technical execution, data structures (like inverted lists), and algorithms used to make the search efficient and scalable
 
-![[Pasted image 20260510201807.png]]
+![[notes/Information Retrieval/images/Pasted image 20260510201807.png]]
 There is also a **possible feedback process** where the user evaluates the results and refines their query, starting the loop over again
 
 Models of Information Retrieval
@@ -55,7 +55,7 @@ Models of Information Retrieval
 
 	Inverted lists 
 		The system creates a vocabulary of all terms. For each individual word, it manages and saves a list of all the documents that contain that specific word
-		![[Pasted image 20260510234634.png]]
+		![[notes/Information Retrieval/images/Pasted image 20260510234634.png]]
 		
 - ### The Vector Space Model (VSM)
 	This model solves the rigid limitations of the Boolean model by treating language geometrically.
@@ -74,7 +74,7 @@ Models of Information Retrieval
 			 Document 1 (D1): ”Data Data Retrieval System” →  D1 = (2, 1, 1) 
 			 Document 2 (D2): ”Retrieval System System” → D2 = (0, 1, 2) 
 			 Query (Q): ”Data System” → Q = (1, 0, 1)
-			 ![[Pasted image 20260510220922.png]]
+			 ![[notes/Information Retrieval/images/Pasted image 20260510220922.png]]
 	- It allows for **partial matches**. Instead of a binary yes/no, it calculates the weight of each term using the **TF-IDF formula** (Term Frequency-Inverse Document Frequency). This ensures that words appearing frequently in a document ($tf$) but rarely across the whole collection ($idf$) are given the highest importance.
 	- **Term Frequency-Inverse Document Frequency (TF-IDF)** 
 		- **Term Frequency ($tf$):** This factor accounts for how often a specific term appears within a single document. A higher frequency means the term is highly relevant to that specific text.

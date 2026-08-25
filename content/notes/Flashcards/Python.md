@@ -86,7 +86,7 @@ ML Compilers & Execution Models
 	- Still used in optimized modes like:
 	    - TensorFlow graph mode
 	    - PyTorch `torch.compile()` / JIT (partial graph capture)
-- ![[Pasted image 20260508173656.png]]
+- ![[notes/Flashcards/images/Pasted image 20260508173656.png]]
 
 Modern frameworks (PyTorch 2.0+, JAX, TensorFlow 2.x) gives you _both_:
 - You write eager, Pythonic code

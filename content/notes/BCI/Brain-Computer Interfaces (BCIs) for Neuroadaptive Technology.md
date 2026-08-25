@@ -9,7 +9,7 @@ BCIs operate on a continuous, closed-loop feedback system:
 3. **Inference & Command**: Based on inferences made from changes in that mental state, a specific command is sent to the machine. 
 4. **Perception & Feedback**: The user perceives the system's response (e.g., a change on the screen). This perception potentially initiates a new mental state change, starting the loop over again.
 
-	![[Pasted image 20260731150814.png]]
+	![[notes/BCI/images/Pasted image 20260731150814.png]]
 
 Brain-Computer Interfaces can be divided into three categories based on how brain activity is modulated and utilized in Human-Machine Systems (HMS).
 
@@ -203,7 +203,7 @@ User Modelling : Even with a  **Non-Command** thought the machine derives a **
 
 How a neuroadaptive system actively obtains information about the user, updates its user model, adapts, and decides whether more information is needed.
 
-![[Pasted image 20260811105729.png]]
+![[notes/BCI/images/Pasted image 20260811105729.png]]
 
 A **probe stimulus** is selected based on the existing user model. This stimulus is chosen because it can reveal something useful about the user.
 The stimulus affects the user and provokes an **automatic response**. This is crucial: the system is not necessarily asking the user to explicitly report their state.
@@ -316,7 +316,7 @@ Possible benefits : **prevent burnout, increase productivity, increase joy at w
 
 Automated Adaptation : Earlier, the system mainly reacted to the **current** estimated state. Here it can use accumulated knowledge represented in the **user model** together with context to make more sophisticated adaptations.
 
-![[Pasted image 20260811151208.png]]
+![[notes/BCI/images/Pasted image 20260811151208.png]]
 
 **Active BCI**
 Motor Imagery is an example of an **Active BCI** as the user intentionally imagines a movement to generate a controllable brain pattern. The brain activity is therefore directly consciously produced for application control.
@@ -324,7 +324,7 @@ Motor Imagery is an example of an **Active BCI** as the user intentionally imag
 Motor Imagery BCI: Design Chain + EEG
 
 The **motor cortex** 
-![[Pasted image 20260811152120.png]]
+![[notes/BCI/images/Pasted image 20260811152120.png]]
 
 **The primary motor cortex (M1)**, located on the **precentral gyrus** of the frontal lobe. Its main job is to control **voluntary movement** of the opposite side of the body.
 - left M1 → mainly controls the right side
@@ -334,7 +334,7 @@ Movement and imagined movement create measurable changes in sensorimotor cortica
 EEG measurement
 EEG records **brain electrical activity** as spatially distributed **voltage differences relative to a reference electrode**. EEG has **high temporal resolution**. 
 
-![[Pasted image 20260811153103.png|606]]
+![[notes/BCI/images/Pasted image 20260811153103.png|606]]
 
 
 Systems with up to **256 electrodes**; the illustrated setup uses **128**. Electrodes are placed in a standardized cap and connected to the scalp with **gel**.
@@ -355,7 +355,7 @@ ERD refers to a **decrease in synchronized rhythmic activity / band power** re
 
 Imagine hand → contralateral sensorimotor ERD → α/β power changes → features from C3/C4 etc. → classifier distinguishes left vs right.
 
-![[Pasted image 20260811155341.png]]
+![[notes/BCI/images/Pasted image 20260811155341.png]]
 
 | Electrode | Approx. location                          | ERD here suggests                      |
 | --------- | ----------------------------------------- | -------------------------------------- |
@@ -375,7 +375,7 @@ Imagine hand → contralateral sensorimotor ERD → α/β power changes → feat
 
 Single-trial EEG
 
-![[Pasted image 20260811160007.png]]
+![[notes/BCI/images/Pasted image 20260811160007.png]]
 
 Two random trials from an experiment with **imagined left-hand and right-hand movements**.
 
@@ -387,7 +387,7 @@ Band-pass filtering
 
 After we apply a **7–13 Hz band-pass filter**.
 
-![[Pasted image 20260811160055.png]]
+![[notes/BCI/images/Pasted image 20260811160055.png]]
 
 This means frequencies outside 7–13 Hz are suppressed while activity in that band is retained.
 
@@ -401,7 +401,7 @@ Band power is estimated using the **logarithmic variance** of the filtered vol
 
 For a band-limited oscillatory signal, variance reflects how large the oscillations are, so it acts as an estimate of power in that frequency band.
 
-![[Pasted image 20260811160620.png]]
+![[notes/BCI/images/Pasted image 20260811160620.png]]
 
 For each trial, the pipeline can calculate one band-power feature from **C3** and another from **C4**.
 
@@ -420,7 +420,7 @@ During calibration, the system has labeled examples: it knows which trials belon
 Linear Discriminant Analysis (LDA)
 LDA creates a **separating hyperplane**. In a two-dimensional feature space. New trials are classified according to which side of that decision boundary they fall on.
 
-![[Pasted image 20260811170901.png]]
+![[notes/BCI/images/Pasted image 20260811170901.png]]
 
 **Motor imagery → EEG → band-pass filter → band-power features → LDA → left/right output → application control**.
 

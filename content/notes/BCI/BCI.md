@@ -1,6 +1,6 @@
 BCI research is framed as a set of design decisions used to build theory: **how data are acquired, generated, and processed.**
 
-![[Pasted image 20260811232403.png]]
+![[notes/BCI/images/Pasted image 20260811232403.png]]
 
 The hierarchy contains the **system for data acquisition + participant + researcher**, followed by decisions about:
 
@@ -179,7 +179,7 @@ Use **variable stimulus onset asynchrony (SOA)**: vary the interval between sti
 ---
 A feature is a deliberately selected/derived aspect of EEG motivated by the experimental question and prior knowledge.
 
-![[Pasted image 20260812085907.png]]
+![[notes/BCI/images/Pasted image 20260812085907.png]]
 
 ---
 Filters **select, combine and modify information in a given domain without changing its structure**.
@@ -192,9 +192,9 @@ Examples of filters
 | **Spatial**   | **Laplace filter**: subtract the average of surrounding channels from each channel |
 | **Temporal**  | **Smoothing filter**: replace each data point by the average of surrounding points |
 
-![[Pasted image 20260812090920.png|667]]
+![[notes/BCI/images/Pasted image 20260812090920.png|667]]
 
-![[Pasted image 20260812092544.png|668]]
+![[notes/BCI/images/Pasted image 20260812092544.png|668]]
 
 ---
 Domain transformations are **typically conservative**: they can be transformed back without inherent information loss. Algorithmic transformations are **not necessarily conservative**

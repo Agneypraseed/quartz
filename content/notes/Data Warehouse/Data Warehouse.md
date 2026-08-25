@@ -18,7 +18,7 @@ Use Cases :
 
 Architecture and Components of Data Warehouse system.
 
-![[Pasted image 20260516175625.png]]
+![[notes/Data Warehouse/images/Pasted image 20260516175625.png]]
 
 - **Data Flow (Solid lines):** The physical movement and transformation of business data.
 - **Control Flow (Dashed lines):** The coordination, scheduling, and management signals.

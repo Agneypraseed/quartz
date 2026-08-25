@@ -83,16 +83,16 @@ If $Dh(\bar{x})$ became zero, the boundary line would disappear into a flat plai
 The geometric intuition behind finding an optimum for functions in two variables ($f, h: \mathbb{R}^2 \to \mathbb{R}$).
 Contour lines (level curves) for the objective function $f$ at various values (e.g., $f=-5$, $f=1.5$, f=2$, $f=3$). Overlaid on this is a thicker curve representing the constraint set where $h(x, y) = 0$.
 
-![[Pasted image 20260603193507.png]]
+![[notes/Learning Theory/images/Pasted image 20260603193507.png]]
 
 
 - **Transverse Intersections (Not Optimal):** The notes point to a location where the constraint curve $h=0$ simply crosses through the level curves of $f$ (like $f=3$ and $f=2$). At these intersections, the text explains: _"This will not be a local optimum of $f$ under constraints $h(x,y)=0$, bcz we can move along $\{(x,y) \mid h(x,y)=0\}$ and decrease/increase $f$."_ If the curves cross transversally, you can simply slide along the $h=0$ path to reach a lower or higher contour line of $f$.
 
-![[Pasted image 20260603193530.png]]
+![[notes/Learning Theory/images/Pasted image 20260603193530.png]]
 
 - **Tangential Intersections (The Optimum):** The diagram highlights a specific point $(x^*, y^*)$ where the level curve $f=1.5$ merely touches the constraint curve $h=0$ without crossing it. At this point, the gradient vectors $\nabla h(x^*, y^*)$ and $\nabla f(x^*, y^*)$ are drawn pointing in parallel/anti-parallel directions.
 
-![[Pasted image 20260603193554.png]]
+![[notes/Learning Theory/images/Pasted image 20260603193554.png]]
 
 
 ---
@@ -226,7 +226,7 @@ Suppose for the sake of contradiction that $x$ is _not_ the global minimum. This
 $$f(z) < f(x)$$
 Because $M$ is a convex set, the line connecting $x$ and $z$ lies entirely within $M$. Let us pick a point $y$ on this line that is close enough to $x$ that it falls inside our local neighborhood $U$:
 
-![[Pasted image 20260609222247.png]]
+![[notes/Learning Theory/images/Pasted image 20260609222247.png]]
 
 $$y = \lambda x + (1-\lambda)z \in U \quad \text{for some } \lambda \in (0, 1) \text{ near } 1$$
 
@@ -246,7 +246,7 @@ its graph lies strictly on or above all of its tangent hyperplanes.
 
 `f(x) ≥ f(x₀) + f'(x₀)(x - x₀)`  
 
-![[Pasted image 20260610104155.png]]
+![[notes/Learning Theory/images/Pasted image 20260610104155.png]]
 
 For non-convex functions, $Df(x) = \mathbf{0}$ is merely a _necessary_ condition for a local minimum. For convex functions, it is both **necessary and sufficient** for a global minimum.
 
@@ -261,7 +261,7 @@ The **Fundamental Theorem of Linear Programming**.
 
 Because both your goal (the tilted floor) and your boundaries (the straight fences) are strictly linear, the absolute lowest or highest point is mathematically guaranteed to be at an extreme point (a corner)
 
-![[Pasted image 20260610193633.png]]
+![[notes/Learning Theory/images/Pasted image 20260610193633.png]]
 
 - The purple arrow represents the direction that "increases" the cost. Since we want to _minimize_ cost, we want to go in the exact opposite direction.
 - The dashed red line represents all the points in the universe that share the exact same cost right now. It sits perfectly perpendicular to the cost vector.
@@ -406,4 +406,4 @@ The LMS algorithm takes that tiny error, tweaks its weights $w$ just a fraction 
 The headphones do not have the complex aerodynamic physics equations of a Boeing 737 jet engine programmed into them. The probability distribution of the engine's roar is completely **unknown**. The headphones also don't know the exact physical shape of your unique ear canal.
 By processing the stream of data one discrete timestep at a time. The LMS algorithm adapts and within a few hundred milliseconds, it figures out the pattern, the error drops to zero, and the airplane goes silent.
 
-![[Pasted image 20260613005212.png]]
+![[notes/Learning Theory/images/Pasted image 20260613005212.png]]

@@ -19,7 +19,7 @@ tags:
 The paper introduces the **Transformer** architecture — a model based entirely on attention mechanisms, dispensing with recurrence and convolutions.
 
 ---
-![[Pasted image 20260201004557.png]]ENCODER
+![[notes/papers/images/Pasted image 20260201004557.png]]ENCODER
 
 An encoder receives a list of vectors as input. It processes this list by passing these vectors into a ‘self-attention’ layer, then into a feed-forward neural network, then sends out the output upwards to the next encoder.
 
@@ -32,7 +32,7 @@ As the model processes each word (each position in the input sequence), self att
 
 > **Note:** Wq, Wk, Wv are **learned parameters** — they start randomly initialized and are optimized during training. When using pretrained models like BERT or GPT, these matrices come pre-trained.
 
-![[Pasted image 20260202231651.png]]
+![[notes/papers/images/Pasted image 20260202231651.png]]
 These new vectors are smaller in dimension than the embedding vector. Their dimensionality is 64, while the embedding and encoder input/output vectors have dimensionality of 512.
 
 ***Step 2*** : To calculate a score. The score determines how much focus to place on other parts of the input sentence as we encode a word at a certain position. 
@@ -49,7 +49,7 @@ The score is calculated by taking the dot product of the query vector with the
 
 ***Step 6*** :  Sum up the weighted value vectors. This produces the output of the self-attention layer at this position
 
-![[Pasted image 20260202232937.png]]
+![[notes/papers/images/Pasted image 20260202232937.png]]
 
 > **Matrix Form:** The steps above show single-word calculation for clarity. In practice, we compute attention for **all words simultaneously** using matrix multiplication — the Q, K, V matrices contain all query/key/value vectors stacked together, making it highly parallelizable on GPUs.
 
@@ -62,8 +62,8 @@ The matrix multiplication by V performs the weighted sum
 ``
 
 <div style="display: flex; gap: 20px; align-items: center; justify-content: center;">
-  <img src="./qkv-matrices.png" alt="QKV Matrix Projections" style="max-width: 45%;">
-  <img src="./attention-equation.png" alt="Attention Equation" style="max-width: 45%;">
+  <img src="./images/qkv-matrices.png" alt="QKV Matrix Projections" style="max-width: 45%;">
+  <img src="./images/attention-equation.png" alt="Attention Equation" style="max-width: 45%;">
 </div>
 
 **Let:**

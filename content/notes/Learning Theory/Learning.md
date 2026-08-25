@@ -6,7 +6,7 @@ An example is the Netflix Prize recommendation model which is typically describe
 - **Movie Vector ($m$):** Represents the movie's attributes.
     - _Example Factors:_ Comedy content, Action content, Blockbuster status, Is Tom Cruise in it?
 
-	![[Pasted image 20260710113224.png]]
+	![[notes/Learning Theory/images/Pasted image 20260710113224.png]]
 
     $$\text{Predicted Rating} = \sum_{i=1}^{n} (v_i \cdot m_i)$$
 The power of learning from data is that this entire process can be automated, without any need for analyzing movie content or viewer taste. To do so, the learning algorithm 'reverse-engineers' these factors based solely on previous ratings. It starts with random factors, then tunes these factors to make them more and more aligned with how viewers have rated movies before, until they are ultimately able to predict how viewers rate movies in general. 
@@ -222,7 +222,7 @@ That means:
 - $w$ determines which side is classified as positive
 - the hyperplane is defined relative to $w$
 
-![[Pasted image 20260514200045.png]]
+![[notes/Learning Theory/images/Pasted image 20260514200045.png]]
 
 For any two points $x_a, x_b$ lying on the hyperplane:
 
@@ -811,7 +811,7 @@ In feature space:
 
 The boundaries are inferred directly from data.
 
-![[Pasted image 20260710234736.png]]
+![[notes/Learning Theory/images/Pasted image 20260710234736.png]]
 
 In the design approach:
 - we use prior knowledge instead of training data
@@ -992,7 +992,7 @@ $$101,\;110,\;111$$
 
 Since these three inputs are never observed, a target function can assign **either 0 or 1 independently** to each of them.
 
-![[Pasted image 20260711183244.png]]
+![[notes/Learning Theory/images/Pasted image 20260711183244.png]]
 
 
 For each learning algorithm, let the learned hypothesis be $g$.

@@ -136,13 +136,13 @@ Let $f: M \to \mathbb{R}$ where the domain $M$ is a convex set, For any $x, y \i
 
 $$f(\lambda x + (1-\lambda)y) \le \lambda f(x) + (1-\lambda)f(y)$$
 
-![[Pasted image 20260607195546.png]]
+![[notes/Flashcards/images/Pasted image 20260607195546.png]]
 
 Non convex : 
-![[Pasted image 20260607184341.png]]
+![[notes/Flashcards/images/Pasted image 20260607184341.png]]
 
 
-![[Pasted image 20260514223256.png]]
+![[notes/Flashcards/images/Pasted image 20260514223256.png]]
 
 
 
@@ -270,7 +270,7 @@ A ball: $\|x\|_2 \le r$  intersection of all tangent half-spaces.
 ---
 Convex Hull
 The convex hull is the smallest convex shape that encloses all points.
-		![[Pasted image 20260523180103.png]]
+		![[notes/Flashcards/images/Pasted image 20260523180103.png]]
 
 ---
 
@@ -341,7 +341,7 @@ Because the norm $\Vert{}\cdot\Vert{}$ is how we measure "distance," changing th
 - Under the **$\ell_2$ norm**, a unit circle is a perfect **standard circle**.
 - Under the **$\ell_1$ norm**, a unit circle looks like a tilted **diamond**.
 - Under the **$\ell_\infty$ norm**, a unit circle is a **square**.
-	![[Pasted image 20260717002519.png]]
+	![[notes/Flashcards/images/Pasted image 20260717002519.png]]
 
 
 ### Matrix Norms

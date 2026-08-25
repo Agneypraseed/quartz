@@ -14,14 +14,14 @@ Stratum III: General Intelligence (_g_)
 Stratum II : Broad Abilities
 
 Core domains of cognition
-![[Pasted image 20260405203011.png]]
+![[notes/papers/images/Pasted image 20260405203011.png]]
 
 Stratum I: Narrow Abilities
 	Highly specific skills under each broad ability. There are over 70 recognized narrow abilities.
 	Under the broad ability of **Visual Processing (Gv)**, abilities like _Spatial Relations_, _Visual Memory_, and _Closure Speed_.	
 	Example under Gf include Inductive reasoning and Sequential reasoning
 
-![[Pasted image 20260406010754.png]]
+![[notes/papers/images/Pasted image 20260406010754.png]]
 
 While proficient in knowledge-intensive domains, current AI systems have critical deficits in foundational cognitive machinery, particularly long-term memory storage.
 
@@ -85,7 +85,7 @@ Culture :  This evaluates cultural literacy and awareness. It is divided into Cu
 
 Capturing all of the declarative knowledge and procedural skills a person uses to consume and produce written language. This is highly related to the broad CHC ability “Reading and Writing (Grw).”
 
-![[Pasted image 20260407010017.png]]
+![[notes/papers/images/Pasted image 20260407010017.png]]
 
 Into four distinct areas: 
 1. Letter-Word Ability (1%): The ability to recognize letters and decode words. 
@@ -132,7 +132,7 @@ Into four distinct areas:
 
 #### Mathematical Ability (M)
 
-![[Pasted image 20260407011711.png]]
+![[notes/papers/images/Pasted image 20260407011711.png]]
 
 We decompose mathematical ability into five distinct areas, each contributing 2% to the AGI score: Arithmetic,  Algebra,  Geometry, Probability, Calculus. 
 This is highly related to the broad CHC ability “Quantitative Knowledge (Gq)” and the narrow abilities Mathematical Knowledge (KM), Mathematical Achievement (A3), and General Sequential Reasoning (RG)
@@ -173,7 +173,7 @@ Calculus :
 
 
 #### On-the-Spot Reasoning (R)
-![[Pasted image 20260407173933.png]]
+![[notes/papers/images/Pasted image 20260407173933.png]]
 Problems that cannot be performed by relying exclusively on previously learned habits, schemas, and scripts.
 This is highly related to the CHC broad ability “Fluid Reasoning (Gf).”
 **Fluid intelligence (Gf)** is the capacity to **reason, identify patterns, and solve novel problems independent of prior knowledge**.
@@ -187,7 +187,7 @@ Deduction (2%): Reasoning from general statements or premises to reach a logical
 
 Induction (4%): Discovering the underlying principles or rules that determine a phenomenon’s behavior. 
 For induction tests, we use Raven’s Progressive Matrices (RPMs), where you identify the missing piece in visual patterns. We have two private RPM sets. Each test has a visual representation as well as a verbal representation. We average the percentile of the two tests to determine the AI’s percentile (p) in comparison to a human population.
-		![[Pasted image 20260407172517.png]]
+		![[notes/papers/images/Pasted image 20260407172517.png]]
 	The mapping from percentile to score is as follows: 
 	 0 ≤ p < 50 → 0%
 	 50 ≤ p < 90 → 1%
@@ -207,7 +207,7 @@ Planning (1%): Devise a sequence of actions to achieve a specific goal by mental
 
 Adaptation (1%): The ability to infer an unstated classification rule from performance feedback and to flexibly abandon that rule and search for a new one when the sorting criteria change without warning. 
 	Example : Wisconsin Card Sorting Test
-			![[Pasted image 20260407173823.png]]
+			![[notes/papers/images/Pasted image 20260407173823.png]]
 			
 - **Tests**: Wisconsin Card Sorting Test (WCST), [ARC-AGI v3 challenge](https://arcprize.org)
 
@@ -217,7 +217,7 @@ Working Memory (Short-term memory) is the ability to maintain, manipulate, and u
 
 This is highly related to the broad CHC ability “Working Memory Capacity (Gwm).”
 
-![[Pasted image 20260410224638.png]]
+![[notes/papers/images/Pasted image 20260410224638.png]]
 
 We decompose working memory across different modalities: 
 
@@ -252,10 +252,10 @@ We decompose working memory across different modalities:
 		
 	  Transformation Sequence : The ability to transform a visual input following a sequence of operations (e.g. object addition, object deletion, object rotation, denoise, deblur, colorization, etc.).
 	  This is highly related to the narrow CHC ability “Visualization (Vz).” Testing note: Image and text input, image output
-			![[Pasted image 20260410215711.png]]
+			![[notes/papers/images/Pasted image 20260410215711.png]]
 
 	  Spatial Navigation Memory : The ability to represent a sense of location in an environment. 
-		  ![[Pasted image 20260410220426.png]]
+		  ![[notes/papers/images/Pasted image 20260410220426.png]]
 
 	  Long Video Q&A : The ability to watch a long video or a movie (up to three hours) and answer basic questions about it (including anomaly detection and indicating when a question is not determined by the context).
 			
@@ -266,7 +266,7 @@ We decompose working memory across different modalities:
 	back (1%).
 
 	Cross-Modal Binding :  The ability to remember a small number of correspondences of elements across modalities (textual, auditory, visual).
-			![[Pasted image 20260410221728.png]]
+			![[notes/papers/images/Pasted image 20260410221728.png]]
 	
 	Dual N-Back : The ability to simultaneously monitor and update visual and audio streams of recent information and to recognize and report when the current item in each stream matches the one presented a fixed number of steps earlier. 
 	This is highly related to the narrow CHC ability “Working Memory Capacity (Wc).”

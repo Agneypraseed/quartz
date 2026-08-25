@@ -4,6 +4,9 @@ import {
   RelativeURL,
   SimpleSlug,
   TransformOptions,
+  resolveRelative,
+  slugifyFilePath,
+  FilePath,
   stripSlashes,
   simplifySlug,
   splitAnchor,
@@ -30,6 +33,28 @@ const defaultOptions: Options = {
   openLinksInNewTab: false,
   lazyLoad: false,
   externalLinkIcon: true,
+}
+
+/**
+ * Obsidian stores newly pasted attachments as paths relative to the note by
+ * default (for example, `images/diagram.png`). Keep those resource paths
+ * relative to the note while preserving explicit vault-root paths such as
+ * `notes/Statistics/images/diagram.png`.
+ */
+function isLocalResourcePath(resource: string): boolean {
+  const path = resource.split("#", 1)[0].split("?", 1)[0]
+  if (path.startsWith("/")) return false
+  if (path.startsWith("./") || path.startsWith("../")) return true
+
+  const firstSegment = path.split("/", 1)[0]
+  return !path.includes("/") || ["images", "assets", "attachments", "media"].includes(firstSegment)
+}
+
+function resolveLocalResource(src: FullSlug, resource: string): RelativeURL {
+  const [resourcePath, anchor] = splitAnchor(resource)
+  const absolutePath = new URL(resourcePath, `https://quartz.local/${src}`).pathname.slice(1)
+  const target = slugifyFilePath(decodeURI(absolutePath) as FilePath)
+  return (resolveRelative(src, target) + anchor) as RelativeURL
 }
 
 export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
@@ -149,11 +174,9 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
 
                 if (!isAbsoluteUrl(node.properties.src, { httpOnly: false })) {
                   let dest = node.properties.src as RelativeURL
-                  dest = node.properties.src = transformLink(
-                    file.data.slug!,
-                    dest,
-                    transformOptions,
-                  )
+                  dest = node.properties.src = isLocalResourcePath(dest)
+                    ? resolveLocalResource(file.data.slug!, dest)
+                    : transformLink(file.data.slug!, dest, transformOptions)
                   node.properties.src = dest
                 }
               }
