@@ -7,11 +7,13 @@ The central challenge in learning theory is that we can **measure only the train
 
 For a fixed hypothesis $h$, define the error on a single example as:
 
-$$e(h(x),f(x)) =
+$$
+e(h(x),f(x)) =
 \begin{cases}
-1, & h(x)\neq f(x) \\
-0, & h(x)=f(x)
-\end{cases}$$
+ 1, & h(x)\neq f(x) \\
+ 0, & h(x)=f(x)
+\end{cases}
+$$
 
 where:
 - $f(x)$ is the true target function.
@@ -62,11 +64,13 @@ $\boxed{\hat{E}(h)=\frac{1}{N}\sum_{i=1}^{N}X_i}$
  
 Hoeffding's inequality states:
 
-$$\boxed{
+$$
+\boxed{
 P\left(\left|\hat{E}(h)-E(h)\right|>\epsilon\right)
 \le
 2e^{-2N\epsilon^2}
-}$$
+}
+$$
 
 where:
 - $N$ = number of training examples
@@ -76,11 +80,13 @@ Hoeffding bounds the probability that the empirical error differs from the true 
 
 Equivalently,
 
-$$\boxed{
+$$
+\boxed{
 P\left(\left|\hat{E}(h)-E(h)\right|<\epsilon\right)
 \ge
 1-2e^{-2N\epsilon^2}
-}$$
+}
+$$
 Thus, with high probability,
 
 $E(h)\in[\hat{E}(h)-\epsilon,\;\hat{E}(h)+\epsilon]$
@@ -207,19 +213,23 @@ $y|x\sim\mathcal{N}(h(x),\sigma^2)$
 
 The likelihood is:
 
-$$P(y|x)=
+$$
+P(y|x)=
 \frac{1}{\sqrt{2\pi\sigma^2}}
 \exp
 \left(
 -\frac{(y-h(x))^2}{2\sigma^2}
-\right)$$
+\right)
+$$
 
 Taking the negative logarithm:
 
-$$-\log P(y|x)
+$$
+-\log P(y|x)
 =
 \frac{(y-h(x))^2}{2\sigma^2}
-+\text{constant}$$
++\text{constant}
+$$
 
 The constant and variance term do not affect the optimum, so minimizing NLL is equivalent to minimizing:
 
@@ -249,20 +259,24 @@ $P(y|x)=p^y(1-p)^{1-y}$
 
 Taking the negative log:
 
-$$-\log P(y|x)
+$$
+-\log P(y|x)
 =
 -\left[
 y\log p+(1-y)\log(1-p)
-\right]$$
+\right]
+$$
 
 This is exactly the binary cross-entropy loss:
 
-$$\boxed{
+$$
+\boxed{
 L=
 -\left[
 y\log p+(1-y)\log(1-p)
 \right]
-}$$
+}
+$$
 
 Therefore:
 
@@ -303,11 +317,13 @@ PAC learning focuses on generalization rather than directly optimizing probabili
 
 The loss is:
 
-$$e(h(x),f(x))=
+$$
+e(h(x),f(x))=
 \begin{cases}
 1,&h(x)\neq f(x)\\
 0,&h(x)=f(x)
-\end{cases}$$
+\end{cases}
+$$
 
 The true error is:
 
