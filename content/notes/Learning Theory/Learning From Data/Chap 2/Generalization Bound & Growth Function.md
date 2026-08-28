@@ -7,9 +7,7 @@ tags:
   - growth-function
 ---
 
-# Generalization Bound & Growth Function
-
-> **Reference:** *Learning From Data* (Abu-Mostafa) — Chapter 2: Training versus Testing (Section 2.1)
+> **Reference:** *Chapter 2: Training versus Testing, Learning From Data 
 
 ## Table of Contents
 1. [Generalization Bound & Hoeffding's Inequality](#1-generalization-bound--hoeffdings-inequality)
