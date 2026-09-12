@@ -105,6 +105,7 @@ _Multidimensional Data Models:_ Instead of storing data in highly normalized, fr
 Data Mart
 A Data Mart is a focused subset of a Data Warehouse designed to serve a specific department, team, or business line (e.g., a Sales Data Mart, a Finance Data Mart, or an HR Data Mart).
 
+---
 Multidimensional Data Model
 
 A way of structuring data that mirrors how business managers think about their data, as a set of metrics (facts) analyzed across different perspectives (dimensions).

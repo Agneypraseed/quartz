@@ -6,6 +6,8 @@ The projection of point $x$ onto direction $w$.
 - **$w$** = The direction or weight vector (column vector)
 - **$w^T$** = A row vector acting on $x$
 
+Transpose changes only the **row/column representation**, not the geometric vector.
+
 Even though the dot product is numerically symmetric: $w^T x = x^T w$
 Writing it as $w^T x$ keeps semantic roles consistent across fields :
 In Machine Learning & Statistics
@@ -14,6 +16,119 @@ In Machine Learning & Statistics
 In Geometry
 - **$x$** = The vector being decomposed
 - **$w$** = The reference direction
+
+
+![[Pasted image 20260912154502.png]]
+
+
+
+Let $x_p$ is defined as the point on the plane that minimizes the Euclidean distance to $x_n$:
+
+$$
+\boxed{
+x_p
+=
+\underset{x \in H}{\arg\min}\;
+\|x_n-x\|
+}
+$$
+
+Then
+
+$$
+x_n - x_p
+$$
+
+is a vector going from the plane to the point.
+
+A vector has a **direction and length**. We specifically want: **how much of that vector points perpendicular to the plane**. $w$ is perpendicular to the plane, we project onto $w$ (the dot product):
+
+$$
+\boxed{
+\text{perpendicular component}
+=
+\frac{w^T(x_n-x_p)}{\|w\|}
+}
+$$
+
+Anything parallel to the plane contributes **zero** because it is perpendicular to $w$.
+
+And because $x_p$ is on the plane,
+
+$$
+w^T x_p + b = 0.
+$$
+$$
+w^T(x_n-x_p)
+=
+w^T x_n - w^T x_p
+=
+w^T x_n + b.
+$$
+
+So the signed distance is
+
+$$
+\boxed{
+\text{signed distance}
+=
+\frac{w^T x_n+b}{\|w\|}
+}
+$$
+
+and the ordinary positive distance is
+
+$$
+\boxed{
+d=
+\frac{|w^T x_n+b|}{\|w\|}
+}
+$$
+
+$x_n - x_p$ is parallel to the normal vector $w$.
+
+So
+$$
+x_n - x_p = \lambda w
+$$
+
+for some scalar $\lambda$.
+
+And because $x_p$ lies on the plane,
+
+$$
+w^T x_p + b = 0.
+$$
+$$
+x_p = x_n - \lambda w,
+$$
+$$
+w^T(x_n-\lambda w)+b=0.
+$$
+$$
+w^T x_n-\lambda\|w\|^2+b=0.
+$$
+
+Therefore,
+
+$$
+\lambda
+=
+\frac{w^T x_n+b}{\|w\|^2}.
+$$
+
+So the projection point is
+
+$$
+\boxed{
+x_p
+=
+x_n
+-
+\frac{w^T x_n+b}{\|w\|^2}w
+}.
+$$
+
 
 ---
 ### Subspace
@@ -113,6 +228,133 @@ The primary goal of a linear classifier like a perceptron is to look at a new da
 - **Using $H_1$ (Normal Form):** You only have to calculate a single dot product: $w^T x$. If the result is positive, it belongs to one class; if negative, the other. This is incredibly fast for a computer to process.
 - **Using $H_2$ (Point-Directional Form):** To figure out which side of the boundary a point is on, you would have to solve a complex system of linear equations to find all the $\lambda_i$ scaling factors for every single data point. That would be computational.
 
+### Hesse normal form
+
+The hyperplane is
+
+$H = \{x \in \mathbb{R}^n \mid w^T x = d\}, \qquad \|w\| = 1.$
+
+For any point $x \in H$,
+$$
+w^T x = d.
+$$
+$w^T x$ is the scalar projection of $x$ onto $w$
+
+$$
+\text{projection length onto } w
+=
+\frac{w^T x}{\|w\|}.
+$$
+
+because $w$ has unit length.
+$$
+\|w\| = 1,
+$$
+
+$$
+\text{projection length} = w^T x = d.
+$$
+
+So, geometrically, $d$ is the signed distance from the origin to the hyperplane $H$ along the direction $w$.
+
+![[Pasted image 20260912131929.png]]
+
+
+The shortest path from the origin to a hyperplane must go **perpendicularly** to it. Since $w$ is the perpendicular direction, the closest point must lie somewhere along $w$.
+
+So write the closest point as
+
+$$
+x_0 = \lambda w
+$$
+
+for some scalar $\lambda$.
+
+As $x_0$ lies on the hyperplane, it must satisfy
+
+$$
+w^T x_0 = d.
+$$
+$$
+w^T(\lambda w) = d.
+$$
+
+$$
+\lambda w^T w = d.
+$$
+$$
+w^T w = \|w\|^2 = 1,
+$$
+$$
+\lambda = d.
+$$
+
+$$
+\boxed{x_0 = dw}.
+$$
+$$
+\boxed{\text{closest point lies in the normal direction } w}
+$$
+
+and it has to go exactly distance $d$ in that direction, so
+
+$$
+x_0 = dw.
+$$
+
+x0 lies on $H$:
+
+$$
+w^T x_0
+=
+w^T(dw)
+=
+d\,w^T w.
+$$
+$$
+w^T w = \|w\|^2 = 1,
+$$
+$$
+w^T x_0 = d.
+$$
+
+$$
+x_0 \in H.
+$$
+
+Its distance from the origin is
+
+$$
+\|x_0\|
+=
+\|dw\|
+=
+|d|\|w\|.
+$$
+
+$\|w\| = 1$
+$$
+\boxed{\|x_0\| = |d|}.
+$$
+
+Therefore,
+
+$$
+\boxed{\operatorname{dist}(0,H) = |d|}.
+$$
+
+$$
+\boxed{d = \text{signed distance from the origin to } H}
+$$
+
+and the ordinary geometric distance is
+
+$$
+\boxed{\operatorname{dist}(0,H) = |d|}.
+$$
+
+
+![[Pasted image 20260912131906.png]]
 
 ---
 ### Convex Set
