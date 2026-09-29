@@ -90,7 +90,7 @@ Numbers
 - Python is **strongly typed**: operations must be valid for the object type.
 - Operators are **polymorphic**: `+` means addition for numbers, concatenation for strings/lists.
 
-Every object in Python is classified as either immutable (unchangeable) or not
+Every object in Python is classified as either immutable (unchangeable) or Mutable
 
 | Immutable | Mutable              |
 | --------- | -------------------- |
@@ -100,9 +100,40 @@ Every object in Python is classified as either immutable (unchangeable) or not
 | `str`     | `bytearray`          |
 | `tuple`   | most class instances |
 
+Collections : Each can be used for storing a collection of things
+- strings, lists, tuples, dictionaries, and sets
+```python 
+a = "a string"
+b = ["a", "list"]
+c = (1, "tuple")
+d = {'a': 'b', 'b': 2, 'c': False}
+e = {1, 2, 3, 4, 4, 4, 4, 2, 2, 2, 1}
+```
 
 Strings 
 - Are immutable in Python
-- 
+
+Dictionary 
+- A dictionary doesn’t have a fixed order.
+- If you assign to a key that’s not in the dictionary, it simply creates a new item
+
+Set
+- No fixed ordering
+
+- Empty braces indicates an empty dictionary and not an empty set
+```python
+a = {}
+s = {2,1,}
+
+print(type(a))
+print(type(s))
+
+<class 'dict'>
+<class 'set'>
+```
+
+
+Modules 
+Modules are only executed the first time they are imported. If we import the same module twice, it will only be executed once.
 
 

@@ -89,7 +89,7 @@ Extract, Transform, Load :
 		Standardizing data types, dates, measurement units, and text encodings across all integrated data.
 		Actively fixing or deleting incorrect values, missing values (NULLs), exact redundancies, and obsolete information.
 		**Data Scrubbing:**  Uses _domain-specific knowledge_ (business rules) to intelligently detect impurities. (e.g., "Age must be > 0").
-		- **Data Auditing:** Uses _data mining methods_ on the dataset as a whole to uncover hidden patterns. Focuses on the detection of statistical deviations and anomalies (flagging outliers that might indicate bad data).
+		**Data Auditing:** Uses _data mining methods_ on the dataset as a whole to uncover hidden patterns. Focuses on the detection of statistical deviations and anomalies (flagging outliers that might indicate bad data).
 	Loading:  
 		Transfer the newly cleaned and processed data out of the temporary staging area and into the Data Warehouse.
 		Bulk Loading : The loading component uses specialized, high-speed tools (like Oracle's `SQL*Loader`) to inject massive blocks of data into the warehouse simultaneously.
@@ -98,55 +98,367 @@ Extract, Transform, Load :
 Moving massive amounts of data can lock up databases so users can't query them. The ETL process must be incredibly efficient to keep these "down times" as short as possible.
 Main problem with ETL is semantics ("fuzzy" or unknown meaning)
 
-The Base Database acts as a purely **integrated database**. It holds all the freshly cleaned data from the staging area in its most detailed, granular form. It feeds the smaller, downstream Data Warehouses/Marts with this clean data, often summarizing (aggregating) it specifically for whatever that downstream system needs during the transfer. Building a massive ODS _and_ separate Data Warehouses is incredibly expensive and time-consuming. Many modern companies skip the dedicated Base Database entirely.
+The Base Database acts as a purely **integrated database**. It holds all the freshly cleaned data from the staging area in its most detailed, granular form. It feeds the smaller, downstream Data Warehouses/Marts with this clean data, often summarizing (aggregating) it specifically for whatever that downstream system needs during the transfer.
+The **Base Database** is basically an **ODS (Operational Data Store)** in Inmon’s terminology.
+An **ODS** is a database that takes data from several operational/source systems, **cleans and integrates it**, and stores a consistent, usually fairly detailed/current version of the data before it is shaped for warehouse analysis.
+ Building a massive ODS _and_ separate Data Warehouses is incredibly expensive and time-consuming. Many modern companies skip the dedicated Base Database entirely.
 
-_Multidimensional Data Models:_ Instead of storing data in highly normalized, fragmented tables (which requires slow "joins" to read), it stores data in "multidimensional" structures (often visualized as OLAP cubes)
 
-Data Mart
-A Data Mart is a focused subset of a Data Warehouse designed to serve a specific department, team, or business line (e.g., a Sales Data Mart, a Finance Data Mart, or an HR Data Mart).
+The **Data Warehouse**, on the other hand, is specifically structured for **analysis**. Its structure is specifically designed for analysis rather than day-to-day transactional processing.
+
+A company's DW might contain:
+
+```
+Sales
+Customers
+Products
+Locations
+Marketing
+Time
+Inventory
+```
+
+and allow all of these to be analysed together.
 
 ---
-Multidimensional Data Model
+### Analysis Tools
 
-A way of structuring data that mirrors how business managers think about their data, as a set of metrics (facts) analyzed across different perspectives (dimensions).
+Analysis tools are the **user-facing software layer** of a Data Warehouse system. They allow users to **access, explore, analyze, and present data stored in the Data Warehouse**.
+Typical tools include **Business Intelligence (BI) tools, OLAP front ends, dashboards, reporting tools, and data-mining tools**.
+Presentation of collected data with interactive navigation and analysis options, users should not just see a static table they should be able to interact with the data.
 
-- **Qualifying Information:** Provides the **descriptive context** or the "perspectives" of the business. It answers qualitative questions such as _who, what, where, when, and why_. Forms the **edges and axes** of the data cube. It defines the coordinates of the multi-dimensional space. Example : `Product_Category = 'Electronics'`, `Region = 'Hesse'`. 
-- **Quantifying Information:** Provides the **numeric metrics** or the subjects of evaluation. It answers quantitative questions such as _how much, how many, or how long_. Populates the individual **cells** inside the data cube. Example : `Revenue = 45000.00`, `Units_Sold = 150`
+- Support for OLAP operations such as:
+	- **Drill-down** – move to more detailed data.
+	- **Roll-up** – move to more aggregated data.
+	- **Slice** – select one specific value of a dimension.
+	- **Dice** – select a subset across several dimensions.
+	- **Filtering and sorting**.
 
-One way to tell the difference is to ask: **"Does it make sense to add these numbers together?"**
-- **Quantifying Data (Unit Sales):** If you sold 50 policies in Region A and 100 policies in Region B, you can add them together ($50 + 100 = 150$). That math makes total sense. Therefore, Unit Sales is **quantifying**.
-- **Qualifying Data (Year):** If you take the year 2018 and add it to the year 2019 ($2018 + 2019 = 4037$), that number is completely meaningless nonsense. Because you cannot mathematically aggregate years, the year is a **qualifying category attribute**.
+- **Analysis of data**, ranging from simple operations such as:
+    - SUM
+    - COUNT
+    - AVG
+    - aggregation  
+        to more complex statistical analysis and **data mining**.
 
-Basic concepts of the multidimensional data model:
-- Dimensions : The structural **edges or coordinate axes** of the multidimensional data space. To ensure clean "slicing and dicing," dimensions must be strictly **orthogonal** (completely independent of one another).
-
-**Orthogonality** is defined as the absolute functional and logical independence of all dimensions. A schema satisfies the rule of orthogonality if there are **no functional dependencies between attributes of different dimensions**
-
-Once the data cube is built, we need operations to navigate through the data space. These are standard **OLAP (Online Analytical Processing) operations**. They allow a user to dynamically change their view of the data without rewriting complex backend SQL queries.
-- Pivot (Rotate) : **Rotates the data axes** to view the data from a different geometric perspective. 
-- **Roll-Up (Aggregation):** This moves **up** the hierarchy to a coarser, less detailed level. It combines (aggregates) data cells together.
-    - _Example:_ Changing your report view from tracking sales by individual `Cities` to tracking total sales by `Countries`.
-- **Drill-Down (De-aggregation):** This moves **down** the hierarchy to a finer, more granular level. It breaks a big summary number apart into its individual sub-components.
-    - _Example:_ Clicking on the year `2026` to expand it and reveal individual sales metrics for `Q1`, `Q2`, `Q3`, and `Q4`.
-- **Slice:** This takes a **single coordinate** on one dimension and cuts out a flat, 2-dimensional sub-table. The result is always a flat 2D plane.
-    - _Example:_ Filtering the entire cube to look _only_ at data where $\text{Time} = \text{'2026'}$. You are left with a flat "slice" of all products across all regions for just that year.
-- **Dice:** This selects a **sub-cube** by filtering multiple dimensions simultaneously using specific ranges or sets. The result maintains its multi-dimensional coordinate depth, carving out a mini-cube.
-    - _Example:_ Filtering the cube to look at $(\text{Time} \in \{\text{'2025'}, \text{'2026'}\}) \text{ AND } (\text{Location} = \text{'Germany'}) \text{ AND } (\text{Product} = \text{'Smartphones'})$. You have extracted a smaller mini-cube out of the giant main cube.
-- Drill-Across (Cross-Cube Navigation) : This operation allows you to **link multiple independent data cubes** together, provided they share at least one common dimension at the exact same granularity.
-	- _Example_ : If you have a `Sales Cube` and a separate `Inventory Cube`, and both share an identical `Product` dimension, you can drill-across from your sales report to immediately check current warehouse stock levels for those exact same items.
+- **Preparation of analysis results** for:
+    - reports
+    - dashboards
+    - exports
+    - further processing
+    - distribution to users or other systems.
 
 
+Data Warehouse
+   ↓
+Analysis Tools
+   ↓
+OLAP / Dashboards / Reports / Data Mining
+
+The **Data Warehouse stores and organizes the analytical data**, while **analysis tools allow users to work with that data and obtain useful information from it**.
+
+Analysis tools can be divided into **three levels of increasing complexity**
+
+| Level           | Main purpose                          | Typical operations                            |
+| --------------- | ------------------------------------- | --------------------------------------------- |
+| **Data Access** | Retrieve and present data             | SQL, reports, simple calculations             |
+| **OLAP**        | Interactive multidimensional analysis | drill-down, roll-up, aggregation, slice/dice  |
+| **Data Mining** | Discover unknown patterns             | classification, association rules, clustering |
+
+#### Data Access
+Data access : is the simplest analytical level. It is the reporting tools that read data, perform simple arithmetic enrichment (SUM,AVG,COUNT), present it as reports, possibly use rule-based formatting and are fundamentally based on SQL.
+```
+SELECT SUM(revenue)
+FROM Sales
+WHERE year = 2025;
+```
+The user already knows **what information they want**
+
+#### OLAP
+OLAP is more interactive. OLAP provides **interactive multidimensional analysis** of Data Warehouse data, allows users to **analyze data interactively from different dimensions and levels of detail.** 
+
+Instead of looking at only a fixed report, users can navigate through dimensions such as:
+
+```
+Time
+Product
+Region
+Customer
+```
+
+and analyze measures such as:
+
+```
+Revenue
+Profit
+Quantity
+Cost
+```
+
+- Interactive data analysis
+	The user can dynamically change the perspective.
+
+For example:
+
+```text
+Revenue by Year
+       ↓
+Revenue by Quarter
+       ↓
+Revenue by Month
+```
+
+or:
+
+```text
+Revenue by Country
+       ↓
+Revenue by City
+       ↓
+Revenue by Branch
+```
+
+
+OLAP commonly works with **aggregated characteristic numbers / measures**.
+
+```text
+Individual sales transactions
+        ↓ SUM
+Monthly revenue
+        ↓ SUM
+Quarterly revenue
+        ↓ SUM
+Yearly revenue
+```
+
+OLAP navigation operations
+
+Important operations include:
+- **Drill-down**
+	Move from general data to more detailed data.
+
+```text
+Year
+ ↓
+Quarter
+ ↓
+Month
+ ↓
+Day
+```
+
+- **Roll-up**
+	The opposite of drill-down.
+	Move from detailed data to more aggregated data.
+
+```text
+Day
+ ↓
+Month
+ ↓
+Quarter
+ ↓
+Year
+```
+
+- **Drill-across**
+	Compare or navigate across related facts or analysis areas that share common dimensions.
+
+```text
+Sales revenue
+vs.
+Shipping cost
+```
+
+```text
+Product × Month × Region
+```
+
+So you can compare different measures using compatible dimensions.
+
+OLAP can also support:
+- Slice
+- Dice
+- Pivot
+- Grouping
+- Statistical calculations
+- Business calculations
+
+OLAP is often used when the analyst already has an idea they want to check.
+
+For example:
+> “Sales in the southern region were lower in Q2.”
+
+The analyst can navigate through the cube and verify whether this is true. So OLAP is often **hypothesis-driven**.
+
+A plausibility check asks:
+> “Does this result make sense?”
+
+For example:
+```text
+Average monthly revenue = €20 million
+```
+but the company normally earns:
+```text
+€500,000 per month
+```
+
+That result may indicate:
+- duplicated records
+- incorrect aggregation
+- wrong filter
+- ETL error
+
+So plausibility checking helps detect suspicious results.
+
+> **OLAP = interactively explore, aggregate, compare, and navigate through multidimensional data.**
+
+#### Data Mining
+Data mining is the **most advanced level**.
+
+Its purpose is to discover:
+> **previously unknown patterns, relationships, rules, or structures in data.**
+
+Unlike OLAP, the analyst does not necessarily know beforehand what they are looking for.
+
+Typical methods include:
+- classification
+- association rules
+- clustering
+
+Association Rules
+Association-rule mining discovers relationships of the form:
+
+```text
+If X happens,
+Y often happens as well.
+```
+
+Conceptually:
+
+```text
+X → Y
+```
+
+It looks for items or events that frequently occur together.
+
+The goal is to discover **relationships that were not explicitly specified beforehand**.
+
+Clustering means:
+
+> Grouping similar data objects according to their characteristics.
+
+The algorithm discovers the groups itself.
+
+```text
+Customers
+   ↓
+Clustering
+   ↓
+Cluster A
+Cluster B
+Cluster C
+```
+
+The groups may be based on characteristics such as:
+
+```text
+spending
+purchase frequency
+product preferences
+location
+```
 
 
 
+![[Pasted image 20260919170022.png]]
+
+Realization
+Realization describes the type of software used to provide these functions, such as reporting tools, analysis clients, spreadsheet add-ins, or development environments. One realization can support more than one functionality level.
+
+| Type                         | Main purpose                                 |
+| ---------------------------- | -------------------------------------------- |
+| **Standard reporting**       | Predefined recurring reports                 |
+| **Report tools**             | Design and present reports                   |
+| **Ad-hoc query/reporting**   | Create flexible reports on demand            |
+| **Analysis clients**         | Interactive OLAP / multidimensional analysis |
+| **Spreadsheet add-ins**      | Analyze DW data inside spreadsheets          |
+| **Development environments** | Build custom analytical applications         |
+
+---
+### Repository
+
+The **repository** is a storage area for **Data Warehouse metadata**.
+
+>Metadata means **data about the DW system and its data**.
+
+```
+Database schemas
+Table definitions
+Column definitions
+Access rights
+ETL rules
+Source-to-target mappings
+Processing steps
+Process parameters
+```
+
+For example, the actual DW may contain:
+
+```
+Revenue = €12,500
+```
+
+while the repository could contain:
+
+```
+Attribute: Revenue
+Type: DECIMAL
+Currency: EUR
+Source: Orders.total_amount
+Loaded by: Sales_ETL
+Access: Finance, Management
+```
 
 
+---
+### Metadata Manager
+The **Metadata Manager** is the component that controls and works with the metadata stored in the repository.
 
+Metadata management control : It manages the creation, modification, deletion, and consistency of metadata.
 
+Access, query, navigation : Users or other DW components need to be able to search and inspect metadata.
 
+Metadata can change over time.
 
+```
+Version 1:
+	Customer table
+		- ID
+		- Name
+		- Country
 
+Version 2:
+	Customer table
+		- ID
+		- Name
+		- Country
+		- Customer_Segment
+```
 
+The Metadata Manager keeps track of such versions.
 
+It can also manage configurations such as:
+```
+ETL job frequency
+Connection information
+Transformation rules
+Schema versions
+```
 
+|Component|Main purpose|Example|
+|---|---|---|
+|**Metadata Repository**|Stores DW metadata|schemas, access rights, ETL/process steps, parameters|
+|**Metadata Manager**|Controls and works with the stored metadata|query metadata, navigate it, update versions, manage configurations|
 
+---

@@ -52,9 +52,10 @@ Charged ions (like Sodium $Na^{+}$ and Chloride $Cl^{-}$) cannot pass through th
 
 $$\Large E_{ion}=\frac{R\cdot T}{z\cdot F}\cdot ln\frac{[ion]_{o}}{[ion]_{i}}$$
 
-The Equilibrium Potential for Potassium ($K^{+}$)
+The Nernst equation gives the equilibrium potential for one ion.
 
-This slide explains how the **Nernst Potential** (Equilibrium Potential) is established for potassium ions, bringing together the concepts of diffusion and electrical forces.
+---
+The Equilibrium Potential for Potassium ($K^{+}$)
 
 * Initially, there is a high concentration of $K^{+}$ *inside* the cell and a low concentration *outside* the cell.
 * **Opening the Channels:** When potassium channels open, $K^{+}$ ions begin to diffuse *out* of the cell, driven by the concentration gradient (moving from high to low concentration).
@@ -71,7 +72,30 @@ Plugging in the standard values for a neuron (5mM outside, 100mM inside), the Ne
 
 - Without ion channels, there is a high concentration of sodium outside the cell and a low concentration inside.
 
-**Sodium ($Na^{+}$) Calculation:**  $E_{Na}=61.54~mV\cdot log\frac{150mM}{15mM}=62mV$
+**Sodium ($Na^{+}$):**  $E_{Na}=61.54~mV\cdot log\frac{150mM}{15mM}=62mV$
+
+---
+![[Pasted image 20260915184240.png]]![[Pasted image 20260915184309.png]]
+
+---
+**Permeability P** tells you **how easily a particular ion can cross the membrane**.
+
+$P_K \gg P_{Na}$
+The resting membrane lets **K⁺ cross much more easily than Na⁺**.
+
+The **Goldman equation**:
+
+$$
+V_m = 61.54\,\text{mV}\,\log\left(
+\frac{
+P_K[K^+]_o + P_{Na}[Na^+]_o
+}{
+P_K[K^+]_i + P_{Na}[Na^+]_i
+}
+\right)
+$$
+
+Permeability depends mainly on things like how many suitable ion channels are open and how easily that ion can pass through them.
 
 ---
 **Ion Pumps (The Escalators)**
@@ -129,6 +153,129 @@ $$\Large E_l = \frac{g_{K}E_{K} + g_{Cl}E_{Cl} + g_{Na}E_{Na}}{g_{Cl} + g_{Na} +
 * $g_{K} = 10 \times 10^{-6}S$, $E_{K} = -75 \text{ mV}$
 * $g_{Cl} = 2.5 \times 10^{-6}S$, $E_{Cl} = -69 \text{ mV}$
 * Plugging these values into the equation yields a resting membrane potential of **-69 mV**.
+
+---
+Action Potential
+
+At the resting membrane potential:
+
+$V_m \approx -65\,\text{mV}$
+
+the **voltage-gated Na⁺ and K⁺ channels are mostly closed**.
+
+The important ion gradients are:
+
+$[Na^+]_{\text{outside}} \gg [Na^+]_{\text{inside}}$
+
+$[K^+]_{\text{inside}} \gg [K^+]_{\text{outside}}$
+
+Na⁺ tends to move **into** the neuron, whereas K⁺ tends to move **out**.
+
+>**Depolarization** : A stimulus causes the membrane to become less negative.
+
+At first, a small number of Na⁺ channels open.
+If the membrane reaches the **threshold potential**, often around-55 mV many voltage-gated Na⁺ channels rapidly open.
+
+Threshold:
+> The membrane voltage at which enough voltage-gated Na⁺ channels open to initiate the regenerative action potential.
+
+Once threshold is reached:
+
+$\boxed{\text{voltage-gated Na}^+\text{ channels open}}$
+
+Na⁺ moves rapidly into the cell:
+
+$Na^+_{\text{outside}} \rightarrow Na^+_{\text{inside}}$
+
+This produces rapid depolarization:
+
+$-55 \rightarrow 0 \rightarrow +30\,\text{mV}$
+
+As more Na⁺ enters:
+
+$V_m \uparrow$
+
+which opens even more voltage-gated Na⁺ channels.
+
+The membrane potential becomes positive:
+
+$V_m > 0$
+
+This part of the action potential is called the overshoot
+
+At this point, Na⁺ permeability/conductance is much greater than K⁺ permeability:
+
+$g_{Na} \gg g_K$
+
+Therefore, the membrane potential moves toward the Na⁺ equilibrium potential:
+
+$E_{Na} \approx +60\,\text{mV}$
+
+But it normally reaches only approximately:
+
+${+30 \text{ to }+40\,\text{mV}}$
+
+Because the Na⁺ channels rapidly **inactivate**, while K⁺ channels begin opening.
+
+```
+Sodium channel has two important gating mechanisms.
+
+Activation gate : Opens very rapidly after depolarization.
+Na⁺ can enter.
+
+Inactivation gate : Closes shortly afterward, roughly within about: 1ms
+```
+
+>Falling phase / Repolarization
+
+Approximately when Na⁺ channels begin to inactivate voltage-gated K+ channels open
+
+$K^+_{\text{inside}} \rightarrow K^+_{\text{outside}}$
+
+Positive charge leaves the cell, making the inside negative again.
+
+$+30 \rightarrow 0 \rightarrow -65\,\text{mV}$
+
+During the falling phase:
+
+$g_K \gg g_{Na}$
+
+Therefore, $V_m$ moves toward:
+
+$E_K$ ~ $-80\text{ to }-90\,\text{mV}$
+
+>Hyperpolarization
+
+The K⁺ channels are relatively slow to close. So even after the membrane reaches the resting potential, K⁺ continues leaving.
+
+Therefore:
+$V_m < -65\,\text{mV}$
+
+For example:
+$V_m \approx -80\,\text{mV}$
+
+Eventually, the voltage-gated K⁺ channels close, and the membrane returns to the resting potential.
+
+---
+Absolute refractory period
+
+During part of the action potential, the Na⁺ channels are **inactivated**. An inactivated Na⁺ channel cannot immediately reopen. 
+
+Another action potential cannot be produced no matter how strong the stimulus is.
+It occurs mainly during the rising phase and early falling phase.
+
+The membrane must repolarize sufficiently before the Na⁺ channels recover from inactivation.
+
+Relative refractory period
+
+During the undershoot:
+$V_m < -V_{\text{rest}}$
+because K⁺ channels are still open.
+
+An action potential **can** occur, but a stronger-than-normal stimulus is required.
+
+Once threshold is reached, action potentials obey the **all-or-none principle**.
+A stronger stimulus does **not** produce a taller action potential. Stronger stimuli are mainly represented by a higher **frequency of action potentials**.
 
 ---
 Modeling a neuron as a single, simple electrical compartment, focusing on how the membrane's physical size affects its electrical properties
@@ -394,9 +541,29 @@ A neuron needs a strong enough "shock" ($\Delta I$) to wake up, but it needs a s
 
 ---
 Propagation of the action potential
+
+**Saltatory conduction** is the rapid propagation of an action potential along a **myelinated axon**.
+(_Saltatory_ means **jumping**)
+
+Myelinated axons are wrapped by an insulating layer called Mylein. Myelin reduces current leakage through the membrane and allows electrical current to spread farther and faster inside the axon.
+Current spreads continuously beneath the myelin, while the **action potential itself is regenerated only at the nodes**. Without myelin, every adjacent section of membrane must be depolarized.
+
+Myelin-producing cells : There are two important glial cells.
+
+| Nervous system | Cell            | What it does    |
+| -------------- | --------------- | --------------- |
+| **CNS**        | Oligodendrocyte | Produces myelin |
+| **PNS**        | Schwann cell    | Produces myelin |
+
+
 Saltatory Conduction : Because the membrane is completely insulated by myelin, the action potential doesn't have to slowly open and close doors every single millimeter. Instead, the electrical charge rapidly shoots through the insulated sections and successfully triggers the channels only at the bare **Nodes of Ranvier**.
 The only places where the cell membrane is bare and has those ion channels are the tiny gaps called the **"Node of Ranvier"**.
 ![[notes/Intro to Neuroscience/images/Pasted image 20260304005702.png]]
+
+
+Once one node fires, local current spreads toward the next node.
+
+The previously activated node is in its **refractory period**, which helps prevent the action potential from immediately travelling backward.
 
 ---
 Assumptions of the Hodgkin-Huxley Model
