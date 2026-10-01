@@ -34,6 +34,42 @@ u = Vector(3, 4) # calls Vector.__init__(u, 3, 4), self is u
         
 ```
 
+Common Magic Methods
+
+- `__init__` → initialize an object
+   `x = MyClass()`
+
+- `__str__` → controls `str(obj)` / `print(obj)`
+   `print(x)`
+
+- `__len__` → controls `len(obj)`
+   `len(x)`
+
+- `__getitem__` → controls indexing
+   `x[2]`
+
+- `__setitem__` → controls assignment by index/key
+   `x[2] = 10`
+
+- `__contains__` → controls `in`
+   `5 in x`
+
+- `__iter__` → makes an object iterable
+   `for item in x:`
+
+- `__add__` → controls `+`
+   `a + b`
+
+- `__iadd__` → controls `+=`
+   `a += b`
+
+- `__bool__` → controls truth testing
+   `if x:`
+
+- `__call__` → lets an object be called like a function
+   `x()`
+
+
 Encapsulation
 keep related data and methods together, and expose only the parts users of the class are supposed to interact with.
 
@@ -159,6 +195,29 @@ Implementation
 - Using a Python list:
     - operations at the end (`append`, `pop`) are efficient.
     - `insert(0, item)` and `pop(0)` are **O(n)** because all other elements have to shift.
+
+	```python
+	class ListDeque:
+    def __init__(self):
+        self._L = []
+
+    def addfirst(self, item):
+        self._L.insert(0, item)
+
+    def addlast(self, item):
+        self._L.append(item)
+
+    def removefirst(self):
+        return self._L.pop(0)
+
+    def removelast(self):
+        return self._L.pop()
+
+    def __len__(self):
+        return len(self._L)
+	```
+
+
 - Using a Linked List:
     - items are stored in **nodes**, where each node links to the next node.
     - `addfirst()` and `removefirst()` are **O(1)** because no elements need to shift.    - 
@@ -169,9 +228,7 @@ LinkedList
 - A **Linked List** stores items in separate objects called **nodes** instead of storing them sequentially in memory.
 - Each node stores:
     - `data` → the actual item
-    - `link` → reference to the next node
-- `_head` points to the first node.
-- The last node has `link = None`.
+    - `link` → reference to the next node 
 
 ```python
 class ListNode:
@@ -246,8 +303,336 @@ class LinkedQueue:
 
     def isempty(self):
         return len(self) == 0
+
+# All of the basic operations ran in constant time except removelast
+
 ```
 
-   
+
+Doubly-Linked Lists
+- A **doubly linked list** stores two links in each node:
+    - `prev` → previous node
+    - `link` → next node
+- This allows traversal in **both directions**.
+- All basic Deque operations can be **O(1)**.
+
+```python
+class ListNode:
+    def __init__(self, data, prev=None, link=None):
+        self.data = data
+        self.prev = prev
+        self.link = link
+
+        if prev is not None:
+            self.prev.link = self
+
+        if link is not None:
+            self.link.prev = self
+
+class DoubleLinkedList:
+
+    def __init__(self):
+        self._head = None
+        self._tail = None
+        self._length = 0
+
+
+    def addfirst2(self, item):
+        if len(self) == 0:
+            self._head = self._tail = ListNode(item, None, None)
+        else:
+            newnode = ListNode2(item, None, self._head)
+            self._head.prev = newnode
+            self._head = newnode
+        self._length += 1
+
+
+    def addlast2(self, item):
+        if len(self) == 0:
+            self._head = self._tail = ListNode(item, None, None)
+        else:
+            newnode = ListNode2(item, self._tail, None)
+            self._tail.link = newnode
+            self._tail = newnode
+        self._length += 1
+
+    def __len__(self):
+        return self._length
+
+    #Refactor the common logic into one 
+    def _addbetween(self, item, before, after):
+        node = ListNode2(item, before, after)
+        if after is self._head:
+            self._head = node
+        if before is self._tail:
+            self._tail = node
+        self._length += 1
+
+    def addfirst(self, item):
+        self._addbetween(item, None, self._head)
+
+    def addlast(self, item):
+        self._addbetween(item, self._tail, None)
+
+    def _remove(self, node):
+        before, after = node.prev, node.link
+        if node is self._head:
+            self._head = after
+        else:
+            before.link = after
+        if node is self._tail:
+            self._tail = before
+        else:
+            after.prev = before
+        self._length -= 1
+        return node.data
+
+    def removefirst(self):
+        return self._remove(self._head)
+
+    def removelast(self):
+        return self._remove(self._tail)
+
+    # The magic method for +=
+    def __iadd__(self, other):
+        if other._head is not None:
+            if self._head is None:
+                self._head = other._head
+            else:
+                self._tail.link = other._head
+                other._head.prev = self._tail
+            self._tail = other._tail
+            self._length = self._length + other._length
+        other.__init__()
+        return self   
+
+```
+
+---
+Python has a limit on the recursion depth. This limit is usually around 1000.
+
+```python
+A = [2]
+B = [2]
+
+A.append(A)
+B.append(B)
+
+# A == B
+#  ├─ 2 == 2      
+#  └─ A == B
+#       ├─ 2 == 2  
+#       └─ A == B
+#            ├─ 2 == 2
+#            └─ A == B
+#                 ...
+
+
+# print(A == B)
+# Traceback (most recent call last):  in A == B RecursionError: maximum recursion depth exceeded in comparison
+
+# To change the limit
+import sys
+sys.setrecursionlimit(5000)
+
+```
+
+The Fibonacci Sequence : 
+
+Iterative Fibonacci : 
+```python
+def fib(k):
+    a,b = 0,1
+    for i in range(k):
+        a,b = b, a+b
+    return a
+```
+The running time is: ${O(k)}$ and the extra space is: ${O(1)}$
+
+Recurrence Fibonacci :
+The Fibonacci recurrence is:
+$$  
+F_k = F_{k-1} + F_{k-2}  
+$$
+```python
+def fib(k):
+    if k in [0,1]:
+        return k
+    else:
+        return fib(k-1) + fib(k-2)
+```
+
+For one call to `fib(k)` :
+
+```
+1 call for fib(k) itself
++
+all calls needed for fib(k-1)
++
+all calls needed for fib(k-2)
+```
+
+The same Fibonacci values has to be recomputed many times.
+Example:
+$$  
+T(6) = T(5) + T(4) + 1  
+$$
+$$  
+12 + 7 + 1 = 20  
+$$
+
+$$  
+T(k) = \text{number of calls made when computing } \operatorname{fib}(k)  
+$$
+$$  
+T(k) = T(k-1) + T(k-2) + 1  
+$$
+Let
+$$  
+S(k) = T(k) + 1  
+$$
+$$  
+T(k) = T(k-1) + T(k-2) + 1  
+$$
+
+We get $$  
+S(k) = S(k-1) + S(k-2)  
+$$
+This is same as the **Fibonacci recurrence**. $T(k)$ grows like the Fibonacci numbers.
+
+The Fibonacci numbers grow approximately as:
+
+$$  
+F_k \approx \frac{\varphi^k}{\sqrt{5}}  
+$$
+
+where:
+
+$$  
+\varphi \approx 1.618  
+$$
+$$  
+{T(k) = O(\varphi^k)}  
+$$
+
+So the running time has **exponential growth**.
+
+GCD (EUCLID’S ALGORITHM)
+
+The input is a pair of integers a, b and the output is the greatest common divisor.
+
+We know
+$$
+\boxed{
+\text{common divisors of }(a,b)
+=
+\text{common divisors of }(a,b-a)
+}
+$$
+
+and therefore their **greatest** common divisor is also the same.
+
+example:
+$$
+\gcd(12,18)=\gcd(12,6) = 6
+$$
+
+So instead of solving the original problem, we solve a smaller version of the same problem:
+
+Also Repeated subtraction is doing division slowly. `%` lets us do all those subtractions at once.
+$$
+\boxed{\gcd(a,b)=\gcd(a,b \bmod a)}
+$$
+because the remainder is exactly what is left after subtracting `a` from `b` as many times as possible.
+
+Example:
+$$
+\gcd(3,20)
+=
+\gcd(3,2)
+=
+\gcd(2,1)
+=
+\gcd(1,0)
+=
+1
+$$
+
+```python
+def gcd2(a, b):
+    if a > b:
+        a,b = b,a
+    if a == 0:
+        return b
+    return gcd(a, b%a)
+```
+
+For ordinary integers, this process eventually reaches the base case:
+
+$$
+\gcd(a,0)=a
+$$
+
+If $a$ and $b$ are rational numbers, the algorithm is still guaranteed to terminate.
+
+For **irrational numbers** 
+$$
+(a,b)\rightarrow(b-a,a)
+$$
+
+the new pair can have the **same ratio** as the old pair.
+
+Then the same pattern repeats forever, so the algorithm never reaches the base case.
+
+$$
+\frac{b}{a}=\frac{a}{b-a}
+$$
+
+Let:
+
+$$
+a=1,\qquad b=\phi
+$$
+
+where $\phi$ is the **golden ratio**:
+
+$$
+\phi=\frac{1+\sqrt{5}}{2}
+$$
+
+The golden ratio satisfies:
+
+$$
+\phi-1=\frac{1}{\phi}
+$$
+
+$$
+(1,\phi)
+\rightarrow
+(\phi-1,1)
+=
+\left(\frac{1}{\phi},1\right)
+$$
+
+Now the ratio is still:
+
+$$
+\frac{1}{1/\phi}=\phi
+$$
+
+$$
+(1,\phi)
+\rightarrow
+\left(\frac{1}{\phi},1\right)
+\rightarrow
+\left(\frac{1}{\phi^2},\frac{1}{\phi}\right)
+\rightarrow
+\cdots
+$$
+
+The numbers keep getting smaller, but the ratio stays the same. So the algorithm never reaches the base case.
+
+---
+
 
 
