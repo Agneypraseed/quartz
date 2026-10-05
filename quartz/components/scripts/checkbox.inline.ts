@@ -3,6 +3,8 @@ import { getFullSlug } from "../../util/path"
 const checkboxId = (index: number) => `${getFullSlug(window)}-checkbox-${index}`
 
 document.addEventListener("nav", () => {
+  // Curriculum completion is keyed by resource, so it survives reordering.
+  if (document.body.dataset.slug === "curriculum/Curriculum") return
   const checkboxes = document.querySelectorAll(
     "input.checkbox-toggle",
   ) as NodeListOf<HTMLInputElement>

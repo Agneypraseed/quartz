@@ -2,30 +2,10 @@
 title: Bookmarks
 ---
 
-# Curated AI Learning Bookmarks
-
-This page turns the WhatsApp bookmark export into a learning queue. The export contained **249 URLs and 245 exact-unique URLs**. The useful links are organized here by when they become relevant; duplicates, advertisements, unrelated pages, opaque short links, and private documents are not part of the public curriculum.
-
-Return to the [main curriculum](/curriculum) for the ordered syllabus and the current 30-day book-and-paper sprint.
-
-> [!important] Collection rule
-> A bookmark is not an assignment. Keep at most **one primary course, one reference book, and one build project** active. Everything else waits on its shelf until the current curriculum phase calls for it.
-
-## Status key
-
-- **Now** — directly supports the current 30-day sprint
-- **Next** — use after the sprint, during Foundations or Core ML
-- **Branch** — open only after choosing the matching specialization
-- **Reference** — consult for a specific question; do not read linearly
-- **Recheck** — time-sensitive opportunity whose current status must be verified
-
+# Bookmarks
 ---
 
-## Planned sequence
-
-### Now — support the 30-day sprint
-
-Use these only when the corresponding book chapter needs another explanation.
+Sprint
 
 - [ ] [Caltech Learning From Data lectures](https://home.work.caltech.edu/lectures.html#lectures) — companion lectures for the primary book
 - [ ] [Sebastian Raschka's machine-learning overview notes](https://sebastianraschka.com/pdf/lecture-notes/stat479fs18/01_ml-overview_notes.pdf) — compact orientation before deeper theory
@@ -36,11 +16,8 @@ Use these only when the corresponding book chapter needs another explanation.
 - [ ] [Mathematics for Machine Learning — Fleuret notes](https://fleuret.org/public/math.pdf) — concise reference for notation and core methods
 - [ ] [Representation Learning: A Review and New Perspectives](https://arxiv.org/abs/1206.5538) — read after the sprint's linear-model chapter
 
-**Exit condition:** finish the sprint outputs. Do not add a second full course during this month.
+### Algorithms, software, and data foundations
 
-### Next — algorithms, software, and data foundations
-
-Pick one algorithms course and one programming/data resource.
 
 **Algorithms and data structures**
 
@@ -68,13 +45,9 @@ Pick one algorithms course and one programming/data resource.
 - [ ] [Stanford CS 205A numerical methods notes](https://graphics.stanford.edu/courses/cs205a-13-fall/assets/notes/cs205a_notes.pdf)
 - [ ] [Stanford CS 205L lectures](https://web.stanford.edu/class/cs205l/lectures.html) — numerical linear algebra and scientific computing
 
-**Exit condition:** implement representative data structures, analyze their complexity, and complete a reproducible data-analysis project.
+### Core machine learning and deep learning
 
-### Next — core machine learning and deep learning
-
-Choose **one** primary course. Treat the rest as alternative explanations.
-
-**Primary-course candidates**
+**Primary**
 
 - [ ] [Andrew Ng's Machine Learning course](https://www.coursera.org/learn/machine-learning) — accessible first pass
 - [ ] [NYU Deep Learning](https://atcold.github.io/NYU-DLFL25U/) — modern lecture sequence
@@ -93,17 +66,10 @@ Choose **one** primary course. Treat the rest as alternative explanations.
 - [ ] [Machine-learning teaching tricks](https://blog.shakirm.com/ml-series/trick-of-the-day/) — practical intuition and habits
 - [ ] [PaperCode](https://papercode.in/) — paper-to-implementation practice
 
-**Exit condition:** compare several models on one dataset, include a baseline and ablation, and explain the dominant source of error.
-
 ---
-
-## Branch shelves
-
-Open one shelf only after completing the common foundations.
-
 ### Language models, transformers, and agents
 
-**Conceptual path**
+**Conceptual**
 
 - [ ] [Foundations of Large Language Models](https://arxiv.org/abs/2501.09223)
 - [ ] [Stanford CS 324: Large Language Models](https://stanford-cs324.github.io/winter2022/lectures/introduction/)
@@ -140,7 +106,7 @@ Open one shelf only after completing the common foundations.
 
 ### Computer vision, representation, and generative models
 
-- [ ] [HPI Computer Vision](https://open.hpi.de/learn/computervision2025) — primary course candidate
+- [ ] [HPI Computer Vision](https://open.hpi.de/learn/computervision2025)
 - [ ] [3D Geometric Vision](https://github.com/anaumghori/3D-geometric-vision)
 - [ ] [CLIP paper](https://arxiv.org/abs/2103.00020)
 - [ ] [Contrastive representation learning](https://lilianweng.github.io/posts/2021-05-31-contrastive/)
@@ -183,8 +149,6 @@ Open one shelf only after completing the common foundations.
 
 ### Mechanistic interpretability and alignment
 
-Begin with the course hub, then reproduce one small result before reading the entire shelf.
-
 - [ ] [Mechanistic Interpretability](https://mechinterp.com/) — starting hub
 - [ ] [AI Alignment course](https://alignment-w2024.notion.site/)
 - [ ] [A Mathematical Framework for Transformer Circuits](https://transformer-circuits.pub/2021/framework/index.html)
@@ -223,10 +187,7 @@ Begin with the course hub, then reproduce one small result before reading the en
 - [ ] [Meta's WebRTC modernization](https://engineering.fb.com/2026/04/09/developer-tools/escaping-the-fork-how-meta-modernized-webrtc-across-50-use-cases/) — software-systems case study
 
 ---
-
-## Research paper queue
-
-Read these through the paper-card method on the main curriculum page. The order moves from broad foundations toward narrower or newer work.
+## Research paper 
 
 ### Foundations and model behavior
 
@@ -262,7 +223,6 @@ Read these through the paper-card method on the main curriculum page. The order 
 - [ ] [Large-scale online deanonymization with LLMs](https://arxiv.org/abs/2602.16800) — privacy and misuse case study
 
 ---
-
 ## Project and evaluation tools
 
 - [ ] [Haystack hallucination score calculator](https://haystack.deepset.ai/cookbook/hallucination_score_calculator)
@@ -278,7 +238,6 @@ Read these through the paper-card method on the main curriculum page. The order 
 - [ ] [NeurIPS competition hub](https://www.kaggle.com/page/neurips-2026) — **Recheck** dates and eligibility
 
 ---
-
 ## Career, community, and building habits
 
 ### Build and communicate
@@ -307,10 +266,7 @@ Read these through the paper-card method on the main curriculum page. The order 
 - [ ] [ALPI Lab open positions](https://sites.google.com/view/alpi-lab/open-positions) — **Recheck** availability
 
 ---
-
-## Portfolio and bookshelf inspiration
-
-These are references for presentation, research taste, and further reading—not curriculum requirements.
+## Portfolio 
 
 - [Georgi Gerganov](https://ggrigorev.me/)
 - [Laura Chen](https://www.laurachen.me/)
@@ -327,15 +283,3 @@ These are references for presentation, research taste, and further reading—not
 
 ---
 
-## Import decisions
-
-The following remain only in the source export:
-
-- Private or access-token-bearing Google Docs, Drive folders, Forms, NotebookLM notebooks, Claude artifacts, and personal Notion pages
-- Unlabeled YouTube videos, X posts, `t.co` short links, and redirect wrappers whose destination or purpose is unclear
-- Expired sales, past hackathons, dated event registrations, and promotional messages
-- Duplicate URLs and duplicate versions of the same HPI course
-- Copyright mirrors and unofficial book-file repositories when an official source is preferable
-- Unrelated bookmarks such as restaurants and general-interest pages
-
-When importing new bookmarks, record **title, purpose, curriculum phase, and the next concrete action**. A URL without those fields stays in the inbox rather than entering the curriculum.

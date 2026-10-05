@@ -1,31 +1,3 @@
----
-title: Curriculum
----
-
-# Machine Learning Curriculum
-
-**Curriculum pages:** [Curated Bookmarks](/curriculum/bookmarks) · [Personal](/curriculum/personal)
-
-> [!important] The rule for prerequisites
-> Use mathematics **just in time**. When a concept blocks the current module, revise only that concept, apply it, and continue. Repeated contact is part of learning—not evidence that you are behind.
-
-## How to use this curriculum
-
-Each phase has three layers:
-
-1. **Learn** — understand the central ideas and vocabulary.
-2. **Implement** — reproduce a small method without hiding everything behind a library.
-3. **Explain** — write a short note about what worked, what failed, and why.
-
-Work through Phases 0–2 in order. After that, choose one research branch and one engineering branch. Treat the remaining subjects as a reference map rather than a single enormous checklist.
-
----
-
-## 30-Day Book and Paper Sprint
-
-**Goal:** build a coherent first picture of learning theory, linear algebra, and the architectural lineage of modern AI in one intensive month.
-
-This is a **selected-reading plan**, not a promise to finish three textbooks and thirty papers cover to cover. Budget roughly **12–15 focused hours per week**. If time is limited, complete the items marked **Core** and move the rest to the long-term curriculum.
 
 ### The book stack
 
@@ -412,27 +384,4 @@ These subjects deepen specific research directions. They are **not universal pre
 - [ ] Tensor decomposition — latent-factor, multimodal, and scientific models
 - [ ] Dynamical systems and control — optimization dynamics, robotics, and continuous-time models
 
----
 
-## Progress checkpoints
-
-Use these checkpoints to decide whether to advance. Time spent is not the test; retained capability is.
-
-| Checkpoint     | You are ready when you can…                                                                   |
-| -------------- | --------------------------------------------------------------------------------------------- |
-| Foundations    | derive a gradient, reason about matrix shapes, and quantify uncertainty in a small experiment |
-| Core ML        | choose a baseline, prevent leakage, evaluate correctly, and explain the dominant error source |
-| Deep learning  | trace backpropagation, diagnose training behavior, and reproduce a small published result     |
-| Specialization | read current papers in one branch and build a credible extension or critical replication      |
-| Engineering    | deploy, measure, monitor, and improve a model under an explicit system constraint             |
-
-## Learning log template
-
-For every substantial module or project, capture:
-
-- **Question:** What am I trying to understand or build?
-- **Prediction:** What do I expect, and why?
-- **Evidence:** What did the experiment, derivation, or source show?
-- **Failure:** What did not work?
-- **Just-in-time revision:** Which prerequisite did I revisit?
-- **Next step:** What is the smallest useful follow-up?
