@@ -69,7 +69,6 @@ Common Magic Methods
 - `__call__` → lets an object be called like a function
    `x()`
 
-
 Encapsulation
 keep related data and methods together, and expose only the parts users of the class are supposed to interact with.
 
@@ -633,6 +632,184 @@ $$
 The numbers keep getting smaller, but the ratio stays the same. So the algorithm never reaches the base case.
 
 ---
+An Iterable provides an Iterator. An Iterator returns successive elements until exhaustion. 
+- `__iter__()` and `__next__()` are Python magic methods
+- `iter()` and `next()` are Python built-in functions that call those magic methods
+- In a standard Python iterator, you simply try to get the next item and it will raise StopIteration if there isn’t one.
+
+**Iterable**
+- An object that can be iterated over, e.g., `list`, `tuple`, `str`.
+- Defines `__iter__()`, which returns an **Iterator**.
+- Called externally using `iter(obj)`.
+
+**Iterator**
+- An object that produces elements **one at a time**.- 
+- Defines two methods:
+  - `__iter__()` : returns the iterator itself.
+  - `__next__()` : returns the next element.
+- Called externally using `next(iterator)`.
+- Raises `StopIteration` when no elements remain.
 
 
+```python
+L = [10, 20, 30]    # Iterable
+
+it = iter(L)        # Obtain Iterator # Calls L.__iter__()
+
+print(next(it))     # Calls it.__next__() → 10 
+print(next(it))     # 20
+print(next(it))     # 30
+print(next(it))     # StopIteration
+```
+
+How a `for` Loop Works
+
+```python
+for x in L:
+    print(x)
+```
+
+Python internally:
+1. Calls `iter(L)` to obtain an iterator.
+2. Repeatedly calls `next(iterator)`.
+3. Stops when `StopIteration` is raised.
+
+Iterators are also used automatically in **comprehensions** and **generator expressions**.
+
+---
+### **Generator**
+A **generator** is a special type of iterator that produces values **one at a time, on demand**, rather than creating and storing all the values in a list.
+
+A generator follows Python's iterator protocol:
+- `__iter__()` — returns the iterator itself.
+- `__next__()` — produces the next element.
+- Raises `StopIteration` when exhausted.
+
+A function becomes a **generator function** when it contains `yield`.
+
+```python
+def numbers():
+    yield 10
+    yield 20
+    yield 30
+
+g = numbers() #creates a generator object
+
+print(next(g))  # 10
+print(next(g))  # 20
+print(next(g))  # 30
+print(next(g))  # StopIteration
+```
+
+`yield` produces a value and suspends execution. `next()` resumes it.
+
+```python
+def numbers():
+    for i in range(3):
+        yield i
+
+print(list(numbers()))
+# [0, 1, 2]
+```
+
+
+```python
+g = (x for x in [10, 20, 30])
+
+print(next(g))  # 10
+print(next(g))  # 20
+```
+
+A `for` loop calls `next()` automatically:
+
+```python
+for x in g:
+    print(x) #30
+```
+
+A `for` loop effectively performs:
+
+```python
+iterator = iter(g)
+
+while True:
+    try:
+        value = next(iterator)
+        print(value)
+    except StopIteration:
+        break
+```
+
+The loop automatically stops when the generator is exhausted.
+
+
+List Comprehensions vs. Generator Expressions
+
+```python
+L = [1, 2, 3, 4]
+
+result = [x * 2 for x in L]
+
+print(result)
+# [2, 4, 6, 8]
+```
+
+A new list is constructed immediately.
+
+Generator expression: `()`
+
+```python
+L = [1, 2, 3, 4]
+
+g = (x * 2 for x in L)
+
+print(next(g))  # 2
+print(next(g))  # 4
+print(next(g))  # 6
+print(next(g))  # 8
+```
+
+```python
+[expression for item in iterable]  # List comprehension
+
+(expression for item in iterable)  # Generator expression
+```
+
+
+```python
+groups = [
+    [1, 2],
+    [3, 4],
+    [5]
+]
+
+g = (
+    x
+    for group in groups
+    for x in group
+)
+
+print(list(g))
+# [1, 2, 3, 4, 5]
+```
+
+This is equivalent to:
+
+```python
+def generate(groups):
+    for group in groups:
+        for x in group:
+            yield x
+```
+
+Generators are generally **single-use**.
+
+```python
+g = (x for x in [1, 2, 3])
+
+print(list(g))  # [1, 2, 3]
+print(list(g))  # []
+```
+
+---
 

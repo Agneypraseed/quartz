@@ -6,8 +6,6 @@
 
 ![[Pasted image 20261006000613.png]]
 
-> Tick resources as you complete them. Drag the handle beside a resource to reorder it within its section. Your order and checkmarks are saved in this browser.
-
 ## Data engineering
 
 ### Core systems and architecture
