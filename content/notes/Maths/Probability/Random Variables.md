@@ -123,6 +123,8 @@ Examples
 Poisson Distribution
 The **Poisson distribution** models the number of events occurring within a fixed interval of **time** or **space**.
 
+A random count of arrivals within a fixed interval (e.g., arrivals per minute), where events occur at an average rate, and there is no predefined maximum number of arrivals.
+
 The PMF is:
 
 $$

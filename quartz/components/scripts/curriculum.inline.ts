@@ -1,5 +1,5 @@
 document.addEventListener("nav", () => {
-  if (document.body.dataset.slug !== "curriculum/Curriculum") return
+  if (document.body.dataset.slug !== "curriculum/Resources") return
   const article = document.querySelector<HTMLElement>(".center > article")
   if (!article || article.dataset.reorderReady) return
   article.dataset.reorderReady = "true"

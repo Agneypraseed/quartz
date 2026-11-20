@@ -9,5 +9,6 @@ tsconfig.tsbuildinfo
 .codex-remote-attachments/
 .quartz-cache
 private/
+worklog.md
 .replit
 replit.nix

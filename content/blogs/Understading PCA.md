@@ -1,13 +1,18 @@
 
 Introduction
 
-**Principal Component Analysis (PCA)**. 
+The Manifold Hypothesis
+Even though a dataset may contain thousands of features, the underlying data-generating process may have only a small number of intrinsic degrees of freedom.
+Consequently, the high-dimensional observations may lie on or near a low-dimensional manifold embedded in the high-dimensional ambient space.
+The objective of dimensionality reduction is to discover a lower-dimensional representation that preserves the important underlying structure of the data.
 
+**Principal Component Analysis (PCA)**
 PCA is a linear dimensionality reduction technique that finds new directions in the data along which the variation is greatest. By projecting the data onto a smaller number of these directions, we can obtain a more compact representation.
 
 For example, a dataset containing 100 tissue samples and 10,000 genes would have **100 rows and 10,000 columns**. Working with 10,000 features is difficult to visualize, and some genes may exhibit similar expression patterns. PCA helps by transforming the original features into a smaller set of new features called **principal components**.
 
 Principal components tries to re-express the data as a sum of uncorrelated components.
+
 
 Geometric Intuition Behind PCA : 
 
@@ -15,11 +20,11 @@ Geometric Intuition Behind PCA :
 
 Given
 - Input dataset with $N \in \mathbb{N}$ points:
-    $$  
+$$  
     x^{(1)}, \ldots, x^{(N)} \in \mathbb{R}^M  
     $$
-- **No a-priori knowledge** about data needed (e.g., cluster labels)
-- Statistically interpretable as **$N$ observations of $M$ random variables**.
+- **No prior knowledge** about data needed (e.g., cluster labels)
+- **$N$ observations of $M$ random variables**.
 
 Objectives of PCA
 - **Structure identification** in the data.
@@ -281,6 +286,10 @@ $$
 $$  
 T^T y^{(i)} = z^{(i)} \in \mathbb{R}^k  
 $$
+
+
+- PCA finds an orthonormal basis to maximize the variance of the projected data
+- The basis vectors and eigenvalues can provide insight about principal axes of variation in your data
 
 ---
 # Data Reconstruction
