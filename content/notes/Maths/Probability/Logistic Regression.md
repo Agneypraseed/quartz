@@ -2,7 +2,7 @@
 > "All models are wrong, but some are useful." — George E. P. Box
 - **Prediction ≠ Explanation**. A model can predict an outcome without explaining the true mechanism that produces it.
 
-Logistic regression is a probabilistic model that predicts the probability of a binary outcome.
+Logistic regression is a [[notes/Maths/Probability/Probabilistic model|probabilistic model]] that predicts the probability of a binary outcome.
 
 $$  
 P(y=1\mid x)=\sigma(w^Tx+b)  
@@ -42,7 +42,7 @@ $$
 
 ![[Pasted image 20261120182958.png]]
 
-Maximum Log-Likelihood Estimation (MLE)
+[[notes/Maths/Probability/Maximum Likelihood Estimation|Maximum Log-Likelihood Estimation (MLE)]]
 
 We want to find the parameters $\theta$ (weights and bias) that give the **highest log-likelihood** of our observed data
 
@@ -108,7 +108,7 @@ $$
 \log L(\theta)=\sum_{i=1}^{n}\left[y_i\log(p_i)+(1-y_i)\log(1-p_i)\right]  
 $$
 
-Gradient ascent moves the weights and bias in the direction that increases the log-likelihood, helping logistic regression find parameters that best fit the observed training data.
+[[notes/Maths/Probability/Gradient Ascent|Gradient ascent]] moves the weights and bias in the direction that increases the log-likelihood, helping logistic regression find parameters that best fit the observed training data.
 
 $$  
 \theta_j^{\text{new}}=\theta_j+\alpha\frac{\partial \text{score}}{\partial\theta_j}  

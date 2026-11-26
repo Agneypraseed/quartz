@@ -9,7 +9,7 @@ The tokenizer is case sensitive: "hello", "Hello", and "HELLO" are distinct toke
 Naive Implementation 
 1. **Pretokenization**: 
 -  Firstly, we pretokenize the text into word chunks to get a frequency count of all the unique words. This is done by reading the input file and splitting it using a regex. To prepare for BPE, each word is immediately broken down into a tuple of its individual single bytes (encoding the text into bytes using a standard like UTF-8) 
-- The BPE algorithm is designed to merge frequent subword units, but it should not merge characters across word boundaries. 
+- The BPE algorithm is designed to merge frequent [[notes/LLMs/Tokenization/Tokenization Levels|subword units]], but it should not merge characters across word boundaries.
 - GPT-2 does **not** feed the entire sentence directly into BPE. It first uses a regex to split the text into chunks, and then BPE operates **inside each chunk**. 
 - ```python
 	  r"""'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""

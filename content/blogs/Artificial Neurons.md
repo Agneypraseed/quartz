@@ -108,7 +108,7 @@ The McCulloch-Pitts (MCP) neuron is a unit of computation, and you can use combi
 ---
 ### Perceptron
 
-Frank Rosenblatt invented the perceptron in late 1950's as a brain inspired algorithm that could learn about patterns in data by looking at them.
+Frank Rosenblatt invented the [[notes/Learning Theory/Learning|perceptron]] in late 1950's as a brain inspired algorithm that could learn about patterns in data by looking at them.
 
 Rosenblatt’s perceptron could learn its weights from data. The weights encoded some knowledge about patterns in the data
 

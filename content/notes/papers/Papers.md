@@ -15,6 +15,11 @@ Notes and summaries from research papers I'm reading.
 
 - [[attention-is-all-you-need|Attention Is All You Need]] - The Transformer paper
 
+## More paper notes
+
+- [[notes/papers/A Definition of AGI|A Definition of AGI]]
+- [[notes/papers/CLIP|CLIP]]
+
 ## To Read
 
 - **Attention Is All You Need** (NIPS 2017) – Vaswani et al.

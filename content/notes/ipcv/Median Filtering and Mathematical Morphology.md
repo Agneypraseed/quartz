@@ -1,5 +1,6 @@
 ---
-title: "Lecture 06 - Morphological Operations"
+title: "Median Filtering and Mathematical Morphology"
+permalink: notes/ipcv/lecture-06
 tags:
   - ipcv
   - image-processing

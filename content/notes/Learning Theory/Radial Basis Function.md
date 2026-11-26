@@ -39,7 +39,7 @@ _(Where $t$ represents the distance $\|x - c\|$)_
     We define the standard Sum of Squared Errors objective function
     $$E(w) = \frac{1}{2} \sum_{t=1}^T \left[ \underbrace{\sum_{i=1}^m w_i \exp \left( - \frac{\|x(t) - c_i\|_2^2}{\sigma^2} \right)}_{\text{RBF Network Output}} - \underbrace{y(t)}_{\text{Target}} \right]^2$$
 
-- The hidden layer of an RBF network is non-linear, but the output layer is purely a linear sum, finding these weights is actually much, much easier than Backpropagation
+- The hidden layer of an RBF network is non-linear, but the output layer is purely a linear sum, finding these weights is actually much, much easier than [[notes/Learning Theory/Backpropagation algorithm|Backpropagation]]
 
 ---
 Before we even touch the weights or the objective function, we just look at the raw input data. We use a grouping algorithm (like **K-Means Clustering**) to find natural "clusters" or hotspots in the data, and we drop a center ($c$) in the middle of each cluster.
@@ -121,7 +121,7 @@ Choose the Centers ($c_i$)
 	- **Orthogonal Least Squares (OLS) Reduction:** (Chen, Billings, Cowan 1989/1991). 
 	 A forward-selection algorithm that builds the RBF hidden layer iteratively. It selects data points to serve as centers one by one, choosing the point that provides the maximum reduction in the residual error at each step.
 	    **Gram-Schmidt Orthogonalization:** The OLS algorithm orthogonalizes the chosen feature vectors at each step. This guarantees that each newly added center captures unique variance in the data that previous centers failed to explain.
-	    Like **Principal Component Analysis** OLS acts as a dimensionality reduction technique, identifying the most critical "components" (centers) that represent the underlying structure of the data.
+	    Like **[[blogs/Understading PCA|Principal Component Analysis]]** OLS acts as a dimensionality reduction technique, identifying the most critical "components" (centers) that represent the underlying structure of the data.
 
 Choose the Spread/Width ($\sigma_i$)
 - Once the centers are placed, you must define the variance for each Gaussian receptive field.

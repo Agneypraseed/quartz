@@ -651,7 +651,7 @@ Levels of Abstraction in Modeling
 These top three levels all share the same foundation: they physically represent the neuron using **Hodgkin-Huxley style membrane equations** to calculate actual ion channel dynamics and synaptic transmission.
 
 - **Level IV: Cascade models:** Stop trying to simulate the physical ion channels. Instead, use a "Linear-nonlinear cascade". They take an incoming stimulus $S(t)$, pass it through a linear filter, and then apply a math formula (nonlinearity) to output a response $R(t)$.
-- **Level V: Black-box models:** This is the ultimate mathematical abstraction. The neuron is treated as a literal "black box" marked with a question mark. We don't care about biology, circuits, or filters. We strictly look at statistics: what is the **conditional probability** of getting a specific response ($R$) depending on a specific stimulus ($S$). 
+- **Level V: Black-box models:** This is the ultimate mathematical abstraction. The neuron is treated as a literal "black box" marked with a question mark. We don't care about biology, circuits, or filters. We strictly look at statistics: what is the **[[notes/Maths/Probability/Probability|conditional probability]]** of getting a specific response ($R$) depending on a specific stimulus ($S$).
 ---
 ## The Leaky Integrate-and-Fire (LIF) Model
 

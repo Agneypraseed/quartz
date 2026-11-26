@@ -1,5 +1,6 @@
 ---
-title: "Lecture 07 - Image Compression & Frequency Domain"
+title: "Advanced Edge Detection and Region Segmentation"
+permalink: notes/ipcv/lecture-07
 tags:
   - ipcv
   - image-processing

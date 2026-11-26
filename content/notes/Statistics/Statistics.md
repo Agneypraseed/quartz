@@ -1068,7 +1068,7 @@ Pairwise independence does **not** guarantee mutual independence. Mutual indepen
 
 ### **Random Variables**
 
-A **random variable (***X***)** is a function that assigns exactly one real number to every possible outcome (*ω*) in the sample space (Ω). Formally, *X* : Ω→R
+A **[[notes/Maths/Probability/Random Variables|random variable]] (***X***)** is a function that assigns exactly one real number to every possible outcome (*ω*) in the sample space (Ω). Formally, *X* : Ω→R
 
 **(X): Random Variable**
 

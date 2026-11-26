@@ -1,5 +1,6 @@
 ---
-title: "Lecture 04 - Spatial Filtering & Convolution"
+title: "Image Smoothing and Sharpening"
+permalink: notes/ipcv/lecture-04
 tags:
   - ipcv
   - image-processing

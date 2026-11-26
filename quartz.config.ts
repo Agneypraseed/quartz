@@ -68,7 +68,16 @@ const config: QuartzConfig = {
       Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
       Plugin.GitHubFlavoredMarkdown(),
       Plugin.TableOfContents(),
-      Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
+      Plugin.CrawlLinks({
+        markdownLinkResolution: "shortest",
+        folderNotes: [
+          "Home.md",
+          "blogs/Blogs.md",
+          "notes/Notes.md",
+          "notes/ipcv/IPCV.md",
+          "notes/papers/Papers.md",
+        ],
+      }),
       Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),
     ],

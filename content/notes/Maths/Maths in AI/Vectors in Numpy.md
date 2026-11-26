@@ -13,7 +13,7 @@ print(b*s) # element-wise multiplication
 >> [ 6 8 10 ]
 ```
 
-Orientation in NumPy is given by brackets: the outermost brackets group all of the numbers together into one object. Then, each additional set of brackets indicates a row
+Orientation in [[notes/Python/Numpy|NumPy]] is given by brackets: the outermost brackets group all of the numbers together into one object. Then, each additional set of brackets indicates a row
 
 ```python
 asList  = [1,2,3]

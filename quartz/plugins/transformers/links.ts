@@ -20,6 +20,8 @@ import { Root } from "hast"
 interface Options {
   /** How to resolve Markdown paths */
   markdownLinkResolution: TransformOptions["strategy"]
+  /** Vault-relative Markdown files to publish at their parent folder's index URL. */
+  folderNotes: string[]
   /** Strips folders from a link so that it looks nice */
   prettyLinks: boolean
   openLinksInNewTab: boolean
@@ -29,6 +31,7 @@ interface Options {
 
 const defaultOptions: Options = {
   markdownLinkResolution: "absolute",
+  folderNotes: [],
   prettyLinks: true,
   openLinksInNewTab: false,
   lazyLoad: false,
@@ -59,13 +62,20 @@ function resolveLocalResource(src: FullSlug, resource: string): RelativeURL {
 
 export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
   const opts = { ...defaultOptions, ...userOpts }
+  const folderIndexes = new Map<FullSlug, FullSlug>()
+  for (const note of opts.folderNotes) {
+    const slug = slugifyFilePath(note as FilePath)
+    folderIndexes.set(slug, path.posix.join(path.posix.dirname(slug), "index") as FullSlug)
+  }
   return {
     name: "LinkProcessing",
     htmlPlugins(ctx) {
       return [
         () => {
           return (tree: Root, file) => {
-            const curSlug = simplifySlug(file.data.slug!)
+            const sourceSlug = file.data.slug!
+            file.data.slug = folderIndexes.get(sourceSlug) ?? sourceSlug
+            const curSlug = simplifySlug(file.data.slug)
             const outgoing: Set<SimpleSlug> = new Set()
 
             const transformOptions: TransformOptions = {
@@ -145,9 +155,14 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
 
                   // need to decodeURIComponent here as WHATWG URL percent-encodes everything
                   const full = decodeURIComponent(stripSlashes(destCanonical, true)) as FullSlug
-                  const simple = simplifySlug(full)
-                  outgoing.add(simple)
-                  node.properties["data-slug"] = full
+                  const index = folderIndexes.get(full)
+                  if (index) {
+                    node.properties.href =
+                      resolveRelative(file.data.slug!, index) + url.search + url.hash
+                  }
+                  const published = index ?? full
+                  outgoing.add(simplifySlug(published))
+                  node.properties["data-slug"] = published
                 }
 
                 // rewrite link internals if prettylinks is on

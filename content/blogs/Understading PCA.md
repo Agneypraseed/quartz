@@ -22,7 +22,7 @@ Given
 - Input dataset with $N \in \mathbb{N}$ points:
 $$  
     x^{(1)}, \ldots, x^{(N)} \in \mathbb{R}^M  
-    $$
+$$
 - **No prior knowledge** about data needed (e.g., cluster labels)
 - **$N$ observations of $M$ random variables**.
 
@@ -140,7 +140,7 @@ $$
 v^TCv \geq 0 \quad \forall v \in \mathbb{R}^M  
 $$
 
-- All eigenvalues are non-negative.
+- All [[notes/Maths/Maths in AI/EigenValues|eigenvalues]] are non-negative.
 
 3. Diagonalisation of C
 

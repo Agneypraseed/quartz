@@ -470,7 +470,7 @@ $$\boxed{\text{dist}(L_1, L_2) = |\mathbf{v} \cdot \hat{\mathbf{n}}| = \frac{|(\
 ---
 ## Basis of a Vector Space
 
-A **basis** of a vector space (say $\mathbb{R}^n$) is a set of vectors that satisfies **two conditions**:
+A **basis** of a [[notes/Maths/Linear Algebra/Vector Spaces|vector space]] (say $\mathbb{R}^n$) is a set of vectors that satisfies **two conditions**:
 
 1. **Linearly independent** — no vector in the set can be written as a linear combination of the others
 2. **Spanning** — every vector in the space can be written as a linear combination of those basis vectors

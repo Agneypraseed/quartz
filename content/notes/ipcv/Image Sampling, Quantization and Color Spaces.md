@@ -1,5 +1,6 @@
 ---
-title: "Lecture 01 - Discretization, Sampling & Color Spaces"
+title: "Image Sampling, Quantization and Color Spaces"
+permalink: notes/ipcv/lecture-01
 tags:
   - ipcv
   - image-processing

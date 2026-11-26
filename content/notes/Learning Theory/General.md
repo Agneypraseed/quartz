@@ -23,7 +23,7 @@ Since $x$ is drawn randomly from the unknown distribution $\mathcal{D}$,
 
 $e(h(x),f(x))$
 
-is a **Bernoulli random variable**, taking only two values:
+is a **[[notes/Maths/Probability/Random Variables|Bernoulli random variable]]**, taking only two values:
 - $1$ → misclassification
 - $0$ → correct classification
 

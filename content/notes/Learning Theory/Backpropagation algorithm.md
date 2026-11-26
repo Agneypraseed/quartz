@@ -81,7 +81,7 @@ The objective function is a:
 Remark :
 - New test points can be added without changing the structure of the model, since the objective is defined as a sum over samples.
 - The structure of the network $N_w$ determines the structure of the objective function $E(w)$ and therefore has a fundamental impact on how well different target functions $f$ can be approximated. This is a central topic in approximation theory.
-- In general, we cannot expect numerical optimization methods such as steepest (gradient) descent to converge to a global minimum of the objective. Gradient descent is a local method: it follows the negative gradient toward stationary points, but in non-convex landscapes there is no general guarantee of reaching the global minimum.
+- In general, we cannot expect numerical optimization methods such as [[notes/Learning Theory/Optimization Theory|steepest (gradient) descent]] to converge to a global minimum of the objective. Gradient descent is a local method: it follows the negative gradient toward stationary points, but in non-convex landscapes there is no general guarantee of reaching the global minimum.
 - For the application of steepest descent methods, the activation function $\varphi$ must be differentiable, since gradient-based optimization requires the existence of $\nabla E(w)$, which is computed via the chain rule through $\varphi$. If the math has a sharp corner (like a step function), the derivative is undefined, the chain rule breaks, and Backpropagation completely fails.
 
 ----

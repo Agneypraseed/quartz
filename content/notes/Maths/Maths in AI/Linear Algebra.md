@@ -68,7 +68,7 @@ First, we find the transpose of $v$, which turns the column vector into a row ve
 
 $$v^T = \begin{bmatrix} v_1 & v_2 & v_3 \end{bmatrix}$$
 
-Now, we perform standard matrix multiplication of $v^T$ (a $1 \times 3$ matrix) and $w$ (a $3 \times 1$ matrix):
+Now, we perform standard [[notes/Maths/Maths in AI/Foundations|matrix multiplication]] of $v^T$ (a $1 \times 3$ matrix) and $w$ (a $3 \times 1$ matrix):
 
 $$v^T w = \begin{bmatrix} v_1 & v_2 & v_3 \end{bmatrix} \begin{bmatrix} w_1 \\ w_2 \\ w_3 \end{bmatrix}$$
 

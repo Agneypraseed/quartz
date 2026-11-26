@@ -19,7 +19,7 @@ Why acquisition matters : The human brain state is only **implicitly derivable*
 ---
 Why controlled data generation is necessary : A BCI classifier needs examples of the signals it should recognize. Therefore data must be generated in a **controlled, standardized, repeatable** way.
 
-EEG signals must be generated **in a controlled manner and as free of interference as possible**.
+[[notes/BCI/EEG, ERP|EEG signals]] must be generated **in a controlled manner and as free of interference as possible**.
 This provides the technical system with **prototypes of the signals it is supposed to recognize**.
 A participant connected to EEG is asked to perform or imagine activities according to a standardized specification, and a **large number of runs** is collected to create a solid database.
 
@@ -82,7 +82,7 @@ These do not explain the relationship of interest, but they may still influence 
 |**Confounding Variable (CfV)**|A relevant extraneous variable that we cannot—or forgot to—control.|
 
 ---
-EEG = brain-related scalp voltage.  
+EEG = [[notes/BCI/Brain Signals|brain-related scalp voltage]].\
 EOG = eyes.  
 EMG = muscles.  
 EOG/EMG are crucial because eye and muscle activity can contaminate EEG.
@@ -229,7 +229,7 @@ ICA estimates an **unmixing matrix**.
 Multiplying this matrix by electrode-space activations transforms the mixture recorded on scalp electrodes into activations of the identified independent components.
 
 ---
-Neuroadaptivity
+[[notes/BCI/Brain-Computer Interfaces (BCIs) for Neuroadaptive Technology|Neuroadaptivity]]
 
 **The machine assesses changes in the user state and adapts its own state to support the ongoing interaction.**
 

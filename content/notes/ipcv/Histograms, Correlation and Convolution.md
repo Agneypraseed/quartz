@@ -1,5 +1,6 @@
 ---
-title: "Lecture 03 - Histograms & Histogram Equalization"
+title: "Histograms, Correlation and Convolution"
+permalink: notes/ipcv/lecture-03
 tags:
   - ipcv
   - image-processing

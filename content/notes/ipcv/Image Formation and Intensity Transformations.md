@@ -1,5 +1,6 @@
 ---
-title: "Lecture 02 - Image Formation & Spatial Domain Processing"
+title: "Image Formation and Intensity Transformations"
+permalink: notes/ipcv/lecture-02
 tags:
   - ipcv
   - image-processing

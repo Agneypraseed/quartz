@@ -1,5 +1,6 @@
 ---
-title: "Lecture 05 - Edge Detection & Image Segmentation"
+title: "Image Noise and Gradient Edge Detection"
+permalink: notes/ipcv/lecture-05
 tags:
   - ipcv
   - image-processing

@@ -8,7 +8,7 @@ A Data Warehouse (DW) is a centralized, massive repository designed specifically
 
 Use Cases :
 - **Reporting and Dashboards:** Generating standardized, automated reports (daily, weekly, monthly) and visual dashboards to track Key Performance Indicators (KPIs) like revenue, expenses, and inventory levels.
-- **OLAP :** Allowing analysts to perform multidimensional analysis. 
+- **OLAP :** Allowing analysts to perform [[notes/Data Warehouse/Multidimensional Data Model|multidimensional analysis]].
 - **Data Mining & Predictive Analytics:** Using advanced algorithms to dig through the massive historical dataset to find hidden patterns, correlations, or anomalies that humans can't see, and using those to predict future trends.
 
 **Distributed Database** A Distributed Database is a single logical database that is physically spread across multiple computers, servers, or geographic locations (nodes) connected by a network. Unlike a data warehouse, which focuses on analysis, a distributed database is typically operational (OLTP - Online Transaction Processing) and is highly Volatile. 
@@ -23,7 +23,7 @@ Architecture and Components of Data Warehouse system.
 - **Data Flow (Solid lines):** The physical movement and transformation of business data.
 - **Control Flow (Dashed lines):** The coordination, scheduling, and management signals.
 
-**Data Procurement Area (ETL Process):**
+**Data Procurement Area ([[notes/Data Warehouse/ETL|ETL]] Process):**
 - **Extraction:** Pulling from source systems.
 - **Staging Area:** Temporary storage workspace.
 - **Transformation:** Cleaning and integrating data.
@@ -155,7 +155,7 @@ Analysis Tools
    ↓
 OLAP / Dashboards / Reports / Data Mining
 
-The **Data Warehouse stores and organizes the analytical data**, while **analysis tools allow users to work with that data and obtain useful information from it**.
+The **Data Warehouse [[notes/Data Warehouse/Storage|stores and organizes the analytical data]]**, while **analysis tools allow users to work with that data and obtain useful information from it**.
 
 Analysis tools can be divided into **three levels of increasing complexity**
 

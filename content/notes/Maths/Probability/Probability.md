@@ -24,3 +24,10 @@ $$
 P(E \mid F) \approx \frac{\operatorname{count}(E \text{ and } F)}{\operatorname{count}(F)}  
 $$
 
+## Probability notes
+
+- [[notes/Maths/Probability/Random Variables|Random Variables]]
+- [[notes/Maths/Probability/Probabilistic model|Probabilistic model]]
+- [[notes/Maths/Probability/Maximum Likelihood Estimation|Maximum Likelihood Estimation]]
+- [[notes/Maths/Probability/Logistic Regression|Logistic Regression]]
+- [[notes/Maths/Probability/Gradient Ascent|Gradient Ascent]]
